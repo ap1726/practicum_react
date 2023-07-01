@@ -1,0 +1,9 @@
+.container {
+  width: 100%;
+  text-align: center;
+}
+.main {
+  width:70%;
+  text-align: center;
+  margin: 0 auto;
+}

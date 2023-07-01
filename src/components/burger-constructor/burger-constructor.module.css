@@ -1,0 +1,33 @@
+.main {
+  float:right;
+  width:50%;
+  text-align: left;
+}
+.with_scroll {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+.items {
+  list-style-type: none;
+/*  max-height: calc(100vh - 246px);*/
+  box-sizing: border-box;
+
+}
+.price_sum {
+  font-size: 2em;
+  display: inline-block;
+  width: 50%;
+  text-align: right;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+.inline {
+  display: inline-block;
+  width: 50%;
+}
