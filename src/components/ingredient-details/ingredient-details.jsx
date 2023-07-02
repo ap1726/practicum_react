@@ -1,10 +1,27 @@
 import styles from "./ingredient-details.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-
+import Modal from '../modal/modal.jsx';
+import { useState } from 'react';
 const IngredientDetails = (props) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function handleOpenModal(info) {
+    console.log('open modal')
+    setIsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+  }
+
+  const modal = (
+            <Modal body={<>Внимание!</>} title="тест" />
+        );
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={()=>handleOpenModal(props.data)} >
         <Counter count={1} size="default" extraClass={styles.counter_my} />
         <img className={styles.img} src={props.data.image} alt={props.data.name} />
         <div className={`mt-2 mb-2`}>
@@ -14,6 +31,7 @@ const IngredientDetails = (props) => {
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text text_type_main-default">{props.data.name}</p>
+        {isModalOpen && modal}
     </div>
   );
 };
