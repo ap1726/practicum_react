@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./app.module.css";
 import AppHeader from '../app-header/app-header.jsx'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx'
 import BurgerConstructor from '../burger-constructor/burger-constructor.jsx'
 
-import {mainData} from "../../utils/data"
-
 function App() {
-  const data = mainData;
-  const bun = mainData[0];
-  const ingredients = mainData.slice(1,7);
+
+  const url = "https://norma.nomoreparties.space/api/ingredients";
+
+  const [data, setData] = useState([]);
+  const [isLoad, setIsLoad] = useState(false);
+
+  useEffect(()=>{
+    fetch(url)
+          .then(res => res.json())
+          .then(
+            (result) => {      
+              setData(result.data);
+              setIsLoad(true);
+            },
+            (error) => {
+              setIsLoad(false);
+              alert("Произошла ошибка при получении данный! Попробуйте обновить страницу");
+            }
+          )
+  },[])
 
   return (
     <div>
     <AppHeader />
-    <div className={styles.container}>
+    {isLoad && <div className={styles.container}>
         <main className={styles.main}>
           <BurgerIngredients data={data}/>
-          <BurgerConstructor bun={bun} ingredients={ingredients}/>
+          <BurgerConstructor bun={data[0]} ingredients={data.slice(1,7)}/>
         </main>
-    </div>
+      </div>}
     </div>
   );
 }
