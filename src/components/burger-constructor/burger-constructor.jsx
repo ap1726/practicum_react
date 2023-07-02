@@ -1,8 +1,28 @@
 import styles from "./burger-constructor.module.css";
-import { ConstructorElement, DragIcon,CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useEffect, useState } from 'react';
+import { ConstructorElement, DragIcon,CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import Modal from '../modal/modal.jsx';
+import OrderDetails from '../order-details/order-details.jsx';
+import {getRandomInt} from '../../utils/function_tools.js';
 
 const BurgerConstructor = (props) => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [orderData, setOrderData] = useState(111111);
+
+  useEffect(()=>{
+    setOrderData(isModalOpen?getRandomInt(100000,999999):0);
+  }, [isModalOpen])
+
+  function handleOpenModal(info) {
+    console.log('open modal')
+    setIsModalOpen(true);
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false);
+  }
 
   return (
     <section className={styles.main+' mt-10'}>
@@ -32,10 +52,11 @@ const BurgerConstructor = (props) => {
             thumbnail={props.bun.image_mobile} extraClass={styles.items+' mb-3 ml-4'} /></div>
       <div className={styles.footer_order}>
         <div className={styles.price_sum}>{610}<CurrencyIcon type="primary" /></div>
-          <Button htmlType="button" type="primary" size="medium" extraClass={styles.inline}>
+          <Button htmlType="button" type="primary" size="medium" extraClass={styles.inline} onClick={()=>handleOpenModal(orderData)}>
             Оформить заказ
           </Button>
       </div>
+      {isModalOpen && <Modal body={<OrderDetails number={orderData} />} title="" handleClose={handleCloseModal} />}
     </section>
   );
 };

@@ -32,7 +32,7 @@ const Modal = ({ body, title = "", handleClose }) => {
 
   return createPortal(
     <>
-      {isVisible && <><div className={`${modalStyles.container} pt-15 pr-10 pl-10 pb-15`}>
+      {isVisible && <><div className={`${modalStyles.main} pt-15 pr-10 pl-10 pb-15`}>
         <div className={modalStyles.header}>
           {title && (
             <h2 className={`${modalStyles.title} text text_type_main-large`}>
