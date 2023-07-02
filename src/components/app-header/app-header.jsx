@@ -10,21 +10,21 @@ import styles from './app-header.module.css';
 function AppHeader() {
   return (
     <header className={`${styles.header} pt-2 pb-2`}>
-      <nav className={styles.header__navigation}>
-        <ul className={styles.header__list}>
+      <nav className={styles.header_navigation}>
+        <ul className={styles.header_list}>
           <li className={styles.menuItem}>
               <BurgerIcon type="primary" />
-              Конструктор
+              <a href="#">Конструктор</a>
           </li>
           <li className={styles.menuItem}>
               <ListIcon type="primary" />
-              Лента заказов
+              <a href="#">Лента заказов</a>
           </li>
         </ul>
           <Logo />
         <div className={styles.menuItem}>
             <ProfileIcon type="primary" />
-            Личный кабинет
+            <a href="#">Личный кабинет</a>
         </div>
       </nav>
     </header>

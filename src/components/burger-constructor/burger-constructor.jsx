@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Modal from '../modal/modal.jsx';
 import OrderDetails from '../order-details/order-details.jsx';
 import {getRandomInt} from '../../utils/function_tools.js';
+import { TypeIngredient } from '../../utils/prop-types.js';
 
 const BurgerConstructor = (props) => {
 
@@ -16,7 +17,6 @@ const BurgerConstructor = (props) => {
   }, [isModalOpen])
 
   function handleOpenModal(info) {
-    console.log('open modal')
     setIsModalOpen(true);
   }
 
@@ -62,33 +62,9 @@ const BurgerConstructor = (props) => {
 };
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape
-  ({_id:PropTypes.string,
-   name:PropTypes.string,
-   type:PropTypes.string,
-   proteins:PropTypes.number,
-   fat:PropTypes.number,
-   carbohydrates:PropTypes.number,
-   calories:PropTypes.number,
-   price:PropTypes.number,
-   image:PropTypes.string,
-   image_mobile:PropTypes.string,
-   image_large:PropTypes.string,
-   __v:PropTypes.number,})),
+  ingredients: PropTypes.arrayOf(TypeIngredient),
 
-  bun: PropTypes.shape
-  ({_id:PropTypes.string,
-   name:PropTypes.string,
-   type:PropTypes.string,
-   proteins:PropTypes.number,
-   fat:PropTypes.number,
-   carbohydrates:PropTypes.number,
-   calories:PropTypes.number,
-   price:PropTypes.number,
-   image:PropTypes.string,
-   image_mobile:PropTypes.string,
-   image_large:PropTypes.string,
-   __v:PropTypes.number,})
+  bun: TypeIngredient
 }; 
 
 export default BurgerConstructor;

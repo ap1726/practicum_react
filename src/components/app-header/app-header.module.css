@@ -7,13 +7,13 @@
   width: 100%;
 }
 
-.header__navigation {
+.header_navigation {
   display: grid;
   grid-template-columns: repeat(3,1fr);
   min-width: 1280px;
 }
 
-.header__list {
+.header_list {
   display: flex;
   justify-self: flex-start;
   line-height: 0;
@@ -29,6 +29,10 @@
   align-items: center;
   gap: 8px;
   justify-self: flex-end;
+}
+.menuItem a {
+  text-decoration: none;
+  color: white;
 }
 
 .header__link {

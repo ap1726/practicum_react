@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./app.module.css";
-import AppHeader from '../app-header/app-header.jsx'
-import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx'
-import BurgerConstructor from '../burger-constructor/burger-constructor.jsx'
+import AppHeader from '../app-header/app-header.jsx';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx';
+import BurgerConstructor from '../burger-constructor/burger-constructor.jsx';
+import { checkReponse } from '../../utils/burger-api.js';
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
 
   useEffect(()=>{
     fetch(url)
-          .then(res => res.json())
+          .then(checkReponse)
           .then(
             (result) => {      
               setData(result.data);
