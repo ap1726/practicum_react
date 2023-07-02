@@ -11,6 +11,7 @@
   overflow-y: scroll;
   scroll-behavior: smooth;
   box-sizing: border-box;
+  max-height: 464px;
 }
 
 .items {
@@ -18,6 +19,16 @@
 /*  max-height: calc(100vh - 246px);*/
   box-sizing: border-box;
 
+}
+.footer_order{
+  padding: 16px 24px;
+  display: inline-block;
+  max-width: 536px;
+  width: 100%;
+  min-height: 80px;
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  line-height: 24px;
 }
 .price_sum {
   font-size: 2em;

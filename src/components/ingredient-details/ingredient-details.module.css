@@ -6,3 +6,9 @@
 .img {
 	max-width: 150px;
 }
+
+.counter_my {
+	float:right;
+	position:relative;
+	right:10px;
+}
