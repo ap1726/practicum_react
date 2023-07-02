@@ -5,7 +5,7 @@ import Modal from '../modal/modal.jsx';
 import { TypeIngredient } from '../../utils/prop-types.js';
 import { useState } from 'react';
 
-const Ingedient = (props) => {
+const Ingedient = ({data}) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -18,18 +18,18 @@ const Ingedient = (props) => {
   }
 
   return (
-    <><div className={styles.card} onClick={()=>handleOpenModal(props.data)} >
+    <><div className={styles.card} onClick={()=>handleOpenModal(data)} >
         <Counter count={1} size="default" extraClass={styles.counter_my} />
-        <img className={styles.img} src={props.data.image} alt={props.data.name} />
+        <img className={styles.img} src={data.image} alt={data.name} />
         <div className={`mt-2 mb-2`}>
           <span className="text text_type_digits-default pr-2">
-            {props.data.price}
+            {data.price}
           </span>
           <CurrencyIcon type="primary" />
         </div>
-        <p className="text text text_type_main-default">{props.data.name}</p>
+        <p className="text text text_type_main-default">{data.name}</p>
     </div>
-    {isModalOpen && <Modal body={<IngredientDetails data={props.data} />} title="Детали ингредиента" handleClose={handleCloseModal} />}</>
+    {isModalOpen && <Modal body={<IngredientDetails data={data} />} title="Детали ингредиента" handleClose={handleCloseModal} />}</>
   );
 };
 

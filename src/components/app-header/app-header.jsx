@@ -14,17 +14,17 @@ function AppHeader() {
         <ul className={styles.header_list}>
           <li className={styles.menuItem}>
               <BurgerIcon type="primary" />
-              <a href="#">Конструктор</a>
+              <a href="/">Конструктор</a>
           </li>
           <li className={styles.menuItem}>
               <ListIcon type="primary" />
-              <a href="#">Лента заказов</a>
+              <a href="/">Лента заказов</a>
           </li>
         </ul>
-          <Logo />
+          <a href="/"><Logo /></a>
         <div className={styles.menuItem}>
             <ProfileIcon type="primary" />
-            <a href="#">Личный кабинет</a>
+            <a href="/">Личный кабинет</a>
         </div>
       </nav>
     </header>

@@ -1,27 +1,26 @@
 import styles from "./ingredient-details.module.css";
-import PropTypes from 'prop-types';
 import DetailsMutted from './details-mutted/details-mutted.jsx'
 import { TypeIngredient } from '../../utils/prop-types.js';
 
-const IngredientDetails = (props) => {
+const IngredientDetails = ({data}) => {
 
   return (
-    <>{props.data && 
+    <>{data && 
         <div className={styles.content}>
             <div className={styles.detailsContainer}>
-                <img className='mb-4' src={props.data.image_large} alt={props.data.name} ></img>
+                <img className='mb-4' src={data.image_large} alt={data.name} ></img>
             </div>
             <div className={`${styles.caption} text text_type_main-medium mb-8`}>
-                {props.data.name}
+                {data.name}
             </div>
             <div className={styles.detailsContainer}>
-                <DetailsMutted title="Калории, ккал" value={props.data.calories} extraClass={" mr-5"}/>
-                <DetailsMutted title="Белки, г" value={props.data.proteins} extraClass={" mr-5"}/>
-                <DetailsMutted title="Жиры, г" value={props.data.fat} extraClass={" mr-5"}/>
-                <DetailsMutted title="Углеводы, г" value={props.data.carbohydrates} extraClass={""}/>
+                <DetailsMutted title="Калории, ккал" value={data.calories} extraClass={" mr-5"}/>
+                <DetailsMutted title="Белки, г" value={data.proteins} extraClass={" mr-5"}/>
+                <DetailsMutted title="Жиры, г" value={data.fat} extraClass={" mr-5"}/>
+                <DetailsMutted title="Углеводы, г" value={data.carbohydrates} extraClass={""}/>
             </div>
         </div>}
-      {!props.data && <div>Информация отсутствует</div>}
+      {!data && <div>Информация отсутствует</div>}
     </>
   );
 };

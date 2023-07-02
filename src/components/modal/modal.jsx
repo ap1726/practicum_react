@@ -1,22 +1,16 @@
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyles from "./modal.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 
 const Modal = ({ body, title = "", handleClose }) => {
   const modalRoot = document.getElementById("modals");
 
-  const [isVisible, setIsVisible] = useState(false);
-
   const handleCloseModal = useCallback(() => {
-      setIsVisible(false);
       handleClose();
   }, [handleClose])
-
-  useEffect(()=>{setIsVisible(true)}, [])
-
 
 
   useEffect(() => {
@@ -32,7 +26,7 @@ const Modal = ({ body, title = "", handleClose }) => {
 
   return createPortal(
     <>
-      {isVisible && <><div className={`${modalStyles.main} pt-15 pr-10 pl-10 pb-15`}>
+      {<><div className={`${modalStyles.main} pt-15 pr-10 pl-10 pb-15`}>
         <div className={modalStyles.header}>
           {title && (
             <h2 className={`${modalStyles.title} text text_type_main-large`}>

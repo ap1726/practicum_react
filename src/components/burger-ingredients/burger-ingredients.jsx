@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient.jsx";
 import PropTypes from 'prop-types';
 import { TypeIngredient } from '../../utils/prop-types.js';
+import { getIngredientsByType } from '../../utils/function_tools.js';
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = ({data}) => {
+
+
+
+  const buns = useMemo( () => getIngredientsByType(data, 'bun'), [data]);
+  const mains = useMemo( () => getIngredientsByType(data, 'main'), [data]);
+  const sauces = useMemo( () => getIngredientsByType(data, 'sauce'), [data]);
 
   return (
     <section className={`${styles.components}`}>
@@ -28,19 +35,19 @@ const BurgerIngredients = (props) => {
         <div id="bun" className={styles.category}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Булки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {props.data.map((item)=>item.type==="bun"&&<Ingredient key={"key_"+item._id} data={item} />)}
+              {buns.map((item)=><Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
         <div id="sauce" className={styles.categoty}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Соусы</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {props.data.map((item)=>item.type==="sauce"&&<Ingredient key={"key_"+item._id} data={item} />)}
+              {sauces.map((item)=><Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
         <div id="main" className={styles.categoty}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Начинки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {props.data.map((item)=>item.type==="main"&&<Ingredient key={"key_"+item._id} data={item} />)}
+              {mains.map((item)=><Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
       </div>

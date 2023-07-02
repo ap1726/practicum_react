@@ -1,8 +1,8 @@
 import styles from "./modal-overlay.module.css";
 
-const ModalOverlay = (props) => {
+const ModalOverlay = ({ handleClose }) => {
   function handleCloseOverlay(){
-    props.handleClose();
+    handleClose();
   }
   return (
     <div className={styles.modalOverlay} onClick={handleCloseOverlay}></div>

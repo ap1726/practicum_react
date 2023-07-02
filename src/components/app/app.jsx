@@ -3,19 +3,14 @@ import styles from "./app.module.css";
 import AppHeader from '../app-header/app-header.jsx';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx';
 import BurgerConstructor from '../burger-constructor/burger-constructor.jsx';
-import { checkReponse } from '../../utils/burger-api.js';
+import { getIngredients } from '../../utils/burger-api.js';
 
 function App() {
 
-  const url = "https://norma.nomoreparties.space/api/ingredients";
-
   const [data, setData] = useState([]);
   const [isLoad, setIsLoad] = useState(false);
-
   useEffect(()=>{
-    fetch(url)
-          .then(checkReponse)
-          .then(
+    getIngredients().then(
             (result) => {      
               setData(result.data);
               setIsLoad(true);
