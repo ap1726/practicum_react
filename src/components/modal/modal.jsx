@@ -5,14 +5,15 @@ import { useCallback, useEffect, useState } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 
-const Modal = ({ body, title = "" }) => {
+const Modal = ({ body, title = "", handleClose }) => {
   const modalRoot = document.getElementById("modals");
 
   const [isVisible, setIsVisible] = useState(false);
 
   const handleCloseModal = useCallback(() => {
       setIsVisible(false);
-  }, [])
+      handleClose();
+  }, [handleClose])
 
   useEffect(()=>{setIsVisible(true)}, [])
 

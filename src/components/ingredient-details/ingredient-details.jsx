@@ -16,12 +16,8 @@ const IngredientDetails = (props) => {
     setIsModalOpen(false);
   }
 
-  const modal = (
-            <Modal body={<>Внимание!</>} title="тест" />
-        );
-
   return (
-    <div className={styles.card} onClick={()=>handleOpenModal(props.data)} >
+    <><div className={styles.card} onClick={()=>handleOpenModal(props.data)} >
         <Counter count={1} size="default" extraClass={styles.counter_my} />
         <img className={styles.img} src={props.data.image} alt={props.data.name} />
         <div className={`mt-2 mb-2`}>
@@ -31,8 +27,8 @@ const IngredientDetails = (props) => {
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text text_type_main-default">{props.data.name}</p>
-        {isModalOpen && modal}
     </div>
+    {isModalOpen && <Modal body={<>Внимание!</>} title="тест" handleClose={handleCloseModal} />}</>
   );
 };
 
