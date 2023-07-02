@@ -62,7 +62,7 @@ const BurgerConstructor = ({ bun, ingredients }) => {
 };
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(TypeIngredient),
+  ingredients: PropTypes.arrayOf(TypeIngredient).isRequired,
 
   bun: TypeIngredient
 }; 
