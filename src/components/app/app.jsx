@@ -18,12 +18,11 @@ function App() {
             (result) => {      
               setData(result.data);
               setIsLoad(true);
-            },
-            (error) => {
-              setIsLoad(false);
+            })
+          .catch( error =>
+              {setIsLoad(false);
               alert("Произошла ошибка при получении данный! Попробуйте обновить страницу");
-            }
-          )
+            })
   },[])
 
   return (
