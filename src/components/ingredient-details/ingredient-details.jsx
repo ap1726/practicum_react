@@ -1,34 +1,27 @@
 import styles from "./ingredient-details.module.css";
-import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-import Modal from '../modal/modal.jsx';
-import { useState } from 'react';
+import DetailsMutted from './details-mutted/details-mutted.jsx'
+
 const IngredientDetails = (props) => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  function handleOpenModal(info) {
-    console.log('open modal')
-    setIsModalOpen(true);
-  }
-
-  function handleCloseModal() {
-    setIsModalOpen(false);
-  }
-
   return (
-    <><div className={styles.card} onClick={()=>handleOpenModal(props.data)} >
-        <Counter count={1} size="default" extraClass={styles.counter_my} />
-        <img className={styles.img} src={props.data.image} alt={props.data.name} />
-        <div className={`mt-2 mb-2`}>
-          <span className="text text_type_digits-default pr-2">
-            {props.data.price}
-          </span>
-          <CurrencyIcon type="primary" />
-        </div>
-        <p className="text text text_type_main-default">{props.data.name}</p>
-    </div>
-    {isModalOpen && <Modal body={<>Внимание!</>} title="тест" handleClose={handleCloseModal} />}</>
+    <>{props.data && 
+        <div className={styles.content}>
+            <div className={styles.detailsContainer}>
+                <img className='mb-4' src={props.data.image_large} alt={props.data.name} ></img>
+            </div>
+            <div className={`${styles.caption} text text_type_main-medium mb-8`}>
+                {props.data.name}
+            </div>
+            <div className={styles.detailsContainer}>
+                <DetailsMutted title="Калории, ккал" value={props.data.calories} extraClass={" mr-5"}/>
+                <DetailsMutted title="Белки, г" value={props.data.proteins} extraClass={" mr-5"}/>
+                <DetailsMutted title="Жиры, г" value={props.data.fat} extraClass={" mr-5"}/>
+                <DetailsMutted title="Углеводы, г" value={props.data.carbohydrates} extraClass={""}/>
+            </div>
+        </div>}
+      {!props.data && <div>Информация отсутствует</div>}
+    </>
   );
 };
 

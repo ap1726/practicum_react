@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import Ingredient from "../ingredient/ingredient.jsx";
 import PropTypes from 'prop-types';
 
 const BurgerIngredients = (props) => {
@@ -27,19 +27,19 @@ const BurgerIngredients = (props) => {
         <div id="bun" className={styles.category}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Булки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {props.data.map((item)=>item.type==="bun"&&<IngredientDetails key={"key_"+item._id} data={item} />)}
+              {props.data.map((item)=>item.type==="bun"&&<Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
         <div id="sauce" className={styles.categoty}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Соусы</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {props.data.map((item)=>item.type==="sauce"&&<IngredientDetails key={"key_"+item._id} data={item} />)}
+              {props.data.map((item)=>item.type==="sauce"&&<Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
         <div id="main" className={styles.categoty}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Начинки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {props.data.map((item)=>item.type==="main"&&<IngredientDetails key={"key_"+item._id} data={item} />)}
+              {props.data.map((item)=>item.type==="main"&&<Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
       </div>
