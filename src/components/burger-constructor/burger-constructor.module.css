@@ -1,0 +1,44 @@
+.main {
+  float:right;
+  width:50%;
+  text-align: left;
+}
+.with_scroll {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  max-height: 464px;
+}
+
+.items {
+  list-style-type: none;
+/*  max-height: calc(100vh - 246px);*/
+  box-sizing: border-box;
+
+}
+.footer_order{
+  padding: 16px 24px;
+  display: inline-block;
+  max-width: 536px;
+  width: 100%;
+  min-height: 80px;
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  line-height: 24px;
+}
+.price_sum {
+  font-size: 2em;
+  display: inline-block;
+  width: 50%;
+  text-align: right;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+.inline {
+  display: inline-block;
+  width: 50%;
+}

@@ -1,0 +1,10 @@
+.detailsItem{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.titleCenter {
+    align-self: center
+}

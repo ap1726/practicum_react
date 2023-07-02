@@ -1,0 +1,15 @@
+.card {
+	max-width: calc((100vh - 24px)/2);;
+	text-align: center;
+	overflow: hidden;
+}
+
+.img {
+	max-width: 150px;
+}
+
+.counter_my {
+	float:right;
+	position:relative;
+	right:10px;
+}
