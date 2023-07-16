@@ -1,18 +1,21 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useContext } from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient.jsx";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { TypeIngredient } from '../../utils/prop-types.js';
 import { getIngredientsByType } from '../../utils/function_tools.js';
+import { IngredientsContext } from '../contexts/ingredientsContext.js';
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = () => {
 
 
+  const data = useContext(IngredientsContext);
 
   const buns = useMemo( () => getIngredientsByType(data, 'bun'), [data]);
   const mains = useMemo( () => getIngredientsByType(data, 'main'), [data]);
   const sauces = useMemo( () => getIngredientsByType(data, 'sauce'), [data]);
+
 
   return (
     <section className={`${styles.components}`}>
@@ -55,6 +58,6 @@ const BurgerIngredients = ({data}) => {
   );
 };
 
-BurgerIngredients.propTypes = { data: PropTypes.arrayOf(TypeIngredient).isRequired };
+// BurgerIngredients.propTypes = { data: PropTypes.arrayOf(TypeIngredient).isRequired };
 
 export default BurgerIngredients;
