@@ -1,16 +1,18 @@
 import styles from "./order-details.module.css";
-import { useContext } from 'react';
 // import PropTypes from 'prop-types';
 import done from '../../images/done.svg';
-import { OrderContext } from '../contexts/orderContext.js';
+import { useSelector } from "react-redux";
+import { getOrder, getOrderFailed } from "../../utils/function_tools";
+
 
 const OrderDetails = () => {
-  const data = useContext(OrderContext);
-
+  const order = useSelector(getOrder);
+  const orderFailed = useSelector(getOrderFailed);
   return (
+    !orderFailed &&
     <div className={`${styles.main} pt-9`}>
       <h2 className={`${styles.title} text text_type_digits-large`}>
-        {data.order.number}
+        {order}
       </h2>
       <p className={`text mt-10 text_type_main-medium`}>идентификатор заказа</p>
       <img className={`${styles.image} mt-15`} src={done} alt="done" />

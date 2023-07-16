@@ -1,37 +1,33 @@
-import React, { useEffect, useState, createContext } from 'react';
+import { useEffect } from 'react';
 import styles from "./app.module.css";
 import AppHeader from '../app-header/app-header.jsx';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients.jsx';
 import BurgerConstructor from '../burger-constructor/burger-constructor.jsx';
-import { getIngredients } from '../../utils/burger-api.js';
-import { IngredientsContext } from '../contexts/ingredientsContext.js';
+import { getIngredientsStore } from "../../services/actions/get-data";
+import { getIsLoad } from "../../utils/function_tools";
+import { useDispatch, useSelector } from "react-redux";
+
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
 
-  const [ingredients, setIngredients] = useState([]);
-  const [isLoad, setIsLoad] = useState(false);
+  const dispatch = useDispatch();
+  const isLoad = useSelector(getIsLoad);
 
-  useEffect(()=>{
-    getIngredients().then(
-            (result) => {      
-              setIngredients(result.data);
-              setIsLoad(true);
-            })
-          .catch( error =>
-              {setIsLoad(false);
-              alert("Произошла ошибка при получении данный! Попробуйте обновить страницу");
-            })
-  },[])
+  useEffect(() => {
+    dispatch(getIngredientsStore());
+  }, [dispatch]);
 
   return (
     <div>
     <AppHeader />
-    {isLoad && <div className={styles.container}>
+    {!isLoad && <div className={styles.container}>
         <main className={styles.main}>
-          <IngredientsContext.Provider value={ingredients}>
+          <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
-            <BurgerConstructor bun={ingredients[0]} ingredients={ingredients.slice(1,7)}/>
-          </IngredientsContext.Provider>
+            <BurgerConstructor />
+          </DndProvider>
         </main>
       </div>}
     </div>

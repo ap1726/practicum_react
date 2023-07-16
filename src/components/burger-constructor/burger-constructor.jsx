@@ -1,117 +1,156 @@
 import styles from "./burger-constructor.module.css";
-import { useEffect, useState, useContext, useReducer } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { ConstructorElement, DragIcon,CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Modal from '../modal/modal.jsx';
 import OrderDetails from '../order-details/order-details.jsx';
-import {getRandomInt} from '../../utils/function_tools.js';
-import { TypeIngredient } from '../../utils/prop-types.js';
-import { setNewOrder } from '../../utils/burger-api.js';
-import { OrderContext } from '../contexts/orderContext.js';
+// import { TypeIngredient } from '../../utils/prop-types.js';
+import { useSelector, useDispatch } from "react-redux";
+import { addOrder } from "../../services/actions/order";
+import { useDrop } from "react-dnd";
+import {
+          OPEN_ORDER_MODAL,
+          CLOSE_ORDER_MODAL,
+          ADD_INGREDIENT_ORDER,
+          ADD_INGREDIENT_BUN_ORDER,
+          SORT_INGREDIENTS
+        } from "../../services/actions/actions";
+import { 
+          getOrderModal,
+          getSelectedIngredients, 
+          getSelectedBun } from "../../utils/function_tools";
 
 
-// начальное значение стейта
-const initialState = { price: 0 };
-
-// функция-редьюсер
-// изменяет состояния в зависимости от типа переданного action
-function reducer(state, action) {
-  switch (action.type) {
-    case "init":
-      return initialState;
-    case "bun":
-      return { price: Number(state.price) + Number(action.price*2)};
-    case "ingredients":
-      return { price: Number(state.price) + Number(action.price*2)};
-    default:
-      return { price: Number(state.price) + Number(action.price)};
-  }
-}
 
 
-const BurgerConstructor = ({bun, ingredients}) => {
+const BurgerConstructor = () => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [orderData, setOrderData] = useState(0);
-  const [isOrderLoaded, setOrderLoaded] = useState(false);
-  const [price, dispatch] = useReducer(reducer, initialState);
+  const dispatch = useDispatch();
+  const ingredients = useSelector(getSelectedIngredients);
+  const bun = useSelector(getSelectedBun);
 
-  function getOrderNumber(){
-    let items = [bun._id, ...ingredients.map( (item)=>item._id), bun._id];
-    setNewOrder(items).then(
-            (result) => {
-              setOrderLoaded(true);
-              setOrderData(result);
-            })
-          .catch( error =>
-              {setOrderLoaded(false);
-              alert("Произошла ошибка при получении данный! Попробуйте обновить страницу");}
-              )
-  }
+  const isModalOpen = useSelector(getOrderModal)
+
+
+  const moveListItem = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragItem = ingredients[dragIndex];
+      const hoverItem = ingredients[hoverIndex];
+
+      const updatedIngredients = [...ingredients];
+      updatedIngredients[dragIndex] = hoverItem;
+      updatedIngredients[hoverIndex] = dragItem;
+
+      dispatch({
+        type: SORT_INGREDIENTS,
+        payload: updatedIngredients,
+      });
+    },
+    [ingredients, dispatch]
+  );
+
+  const totalSum = useMemo(
+    () =>
+      ingredients.reduce(
+        (sum, ingredient) => sum + ingredient.price,
+        bun.price ? bun.price * 2 : 0
+      ),
+    [ingredients, bun]
+  );
+
+  const handleSubmitOrderClick = () => {
+    if (ingredients.length != 0 && bun._id.length>0) {
+      dispatch(addOrder(orderIngredients));
+      dispatch({ type: OPEN_ORDER_MODAL });
+    }
+  };
+  
+  const orderIngredients = useMemo(
+    () => ingredients.map((element) => element._id),
+    [ingredients]
+  );
+
+  const addNewOrder = useCallback(() => {
+    if (bun) {
+      orderIngredients.push(bun._id);
+    }
+  }, [orderIngredients, bun]);
+
+  const [ , dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch({
+        type:
+          item.data.type === "bun"
+            ? ADD_INGREDIENT_BUN_ORDER
+            : ADD_INGREDIENT_ORDER,
+        payload: item,
+      });
+    },
+  });
+
+
   useEffect(() => {
-    handleSumPrice({type: 'init'});
-    handleSumPrice(bun);
-    ingredients.forEach( (item) => handleSumPrice(item) );
-    }, [bun, ingredients])
-
-  function handleSumPrice(item){
-    dispatch({ type: item.type, price: item.price});
-  }
-
-  function handleOpenModal(info) {
-    getOrderNumber();
-    if (isOrderLoaded) setIsModalOpen(true);
-  }
-
-  function handleCloseModal() {
-    setIsModalOpen(false);
-  }
+    addNewOrder();
+  }, [addNewOrder]);
 
   return (
-    <section className={styles.main+' mt-10'}>
-      <ConstructorElement 
+    <section ref={dropTarget} className={styles.main+' mt-10'}>
+      {bun._id ? <ConstructorElement 
             type="top"
             isLocked={true}
             text={bun.name}
             price={bun.price}
             thumbnail={bun.image_mobile} extraClass={styles.items+' mb-3 ml-10'} />
+          :
+          <div className={styles.items+' mb-3 ml-10'} >
+              Добавьте булку
+          </div>
+          }
       <div className={styles.with_scroll}>
-        {
-          ingredients.map((item)=> item.type != 'bun' && 
-            <div key={'div'+item._id} className={styles.items+' mb-3'}>
+        {ingredients.length>0 ?
+          ingredients.map((item, index)=> item.type !== 'bun' && 
+            <div key={'div'+item._id+index} className={styles.items+' mb-3'}>
               <DragIcon key={'DragIcon'+item._id} type="primary" />
-              <ConstructorElement key={'ConstructorElement'+item._id} 
+              <ConstructorElement 
+                  key={'ConstructorElement'+item._id+index} 
                   text={item.name}
                   price={item.price}
+                  moveListItem={moveListItem}
                   thumbnail={item.image_mobile} extraClass={'ml-4'} />
             </div>)
+          : <div className={styles.items+' mb-3 ml-10'}>
+              Добавьте соусы и начинку
+            </div>
+
         }
       </div>
-      <div className={styles.items+' mb-3 ml-6'}><ConstructorElement 
+      { bun._id ?  <div className={styles.items+' mb-3 ml-6'}><ConstructorElement 
             type="bottom"
             isLocked={true}
             text={bun.name}
             price={bun.price}
             thumbnail={bun.image_mobile} extraClass={styles.items+' mb-3 ml-4'} /></div>
+            :
+            <div className={styles.items+' mb-3 ml-10'}>
+              Добавьте булку
+            </div>
+            }
       <div className={styles.footer_order}>
-        <div className={styles.price_sum}>{price.price}<CurrencyIcon type="primary" /></div>
-          <Button htmlType="button" type="primary" size="medium" extraClass={styles.inline} onClick={()=>handleOpenModal(orderData)}>
+        <div className={styles.price_sum}>{totalSum}<CurrencyIcon type="primary" /></div>
+          <Button htmlType="button" type="primary" size="medium" extraClass={styles.inline} onClick={handleSubmitOrderClick}>
             Оформить заказ
           </Button>
       </div>
-      {isModalOpen && 
-        <OrderContext.Provider value={orderData}>
-          <Modal body={<OrderDetails />} title="" handleClose={handleCloseModal} />
-        </OrderContext.Provider>
-        }
+      {isModalOpen && <Modal body={<OrderDetails />} title="" />}
     </section>
   );
 };
 
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(TypeIngredient).isRequired,
+// BurgerConstructor.propTypes = {
+//   ingredients: PropTypes.arrayOf(TypeIngredient).isRequired,
 
-  bun: TypeIngredient
-}; 
+//   bun: TypeIngredient
+// }; 
 
 export default BurgerConstructor;
