@@ -1,16 +1,19 @@
 import styles from "./burger-constructor.module.css";
 import { useEffect, useCallback, useMemo } from 'react';
-import { ConstructorElement, DragIcon,CurrencyIcon, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement,CurrencyIcon, Button, DragIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 // import PropTypes from 'prop-types';
 import Modal from '../modal/modal.jsx';
 import OrderDetails from '../order-details/order-details.jsx';
 // import { TypeIngredient } from '../../utils/prop-types.js';
 import { useSelector, useDispatch } from "react-redux";
 import { addOrder } from "../../services/actions/order";
-import { useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
+import { useRef } from "react";
+import { deleteIngredientFromOrder } from "../../services/actions/order";
+
 import {
           OPEN_ORDER_MODAL,
-          CLOSE_ORDER_MODAL,
           ADD_INGREDIENT_ORDER,
           ADD_INGREDIENT_BUN_ORDER,
           SORT_INGREDIENTS
@@ -20,7 +23,59 @@ import {
           getSelectedIngredients, 
           getSelectedBun } from "../../utils/function_tools";
 
+const ConstructorItem = ({ item, index, moveListItem }) => {
+  const dispatch = useDispatch();
+  const ingredients = useSelector(getSelectedIngredients);
 
+  const handleDeleteIngredient = (index) => {
+    dispatch(deleteIngredientFromOrder(ingredients, index));
+  };
+
+  const [, dragRef] = useDrag({
+    type: "item",
+    item: { index },
+  });
+
+  const [, dropRef] = useDrop({
+    accept: "item",
+    hover: (item, monitor) => {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
+
+      if (dragIndex === hoverIndex) return;
+      if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
+      if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
+
+      moveListItem(dragIndex, hoverIndex);
+      item.index = hoverIndex;
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  });
+
+  const ref = useRef(null);
+  const dragDropRef = dragRef(dropRef(ref));
+
+
+return (
+  <div ref={dragDropRef} key={index}>
+      <DragIcon key={'DragIcon'+item._id} type="primary" />
+      <ConstructorElement 
+          text={item.name}
+          price={item.price}
+          thumbnail={item.image_mobile}
+          extraClass={'ml-4'}
+          handleClose={() => handleDeleteIngredient(index)}
+      />
+  </div>
+);
+};
 
 
 const BurgerConstructor = () => {
@@ -59,7 +114,7 @@ const BurgerConstructor = () => {
   );
 
   const handleSubmitOrderClick = () => {
-    if (ingredients.length != 0 && bun._id.length>0) {
+    if (ingredients.length !== 0 && bun._id.length>0) {
       dispatch(addOrder(orderIngredients));
       dispatch({ type: OPEN_ORDER_MODAL });
     }
@@ -111,13 +166,13 @@ const BurgerConstructor = () => {
         {ingredients.length>0 ?
           ingredients.map((item, index)=> item.type !== 'bun' && 
             <div key={'div'+item._id+index} className={styles.items+' mb-3'}>
-              <DragIcon key={'DragIcon'+item._id} type="primary" />
-              <ConstructorElement 
-                  key={'ConstructorElement'+item._id+index} 
-                  text={item.name}
-                  price={item.price}
+              <ConstructorItem
+                  key={'ConstructorItem'+item._id + index}
+                  item={item}
+                  index={index}
                   moveListItem={moveListItem}
-                  thumbnail={item.image_mobile} extraClass={'ml-4'} />
+                  extraClass={'ml-4'}
+              />
             </div>)
           : <div className={styles.items+' mb-3 ml-10'}>
               Добавьте соусы и начинку
