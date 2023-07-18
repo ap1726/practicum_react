@@ -13,6 +13,8 @@ import {
 
 import { useDrag } from "react-dnd";
 
+import { BUN } from '../../utils/variables'
+
 const Ingedient = ({data}) => {
 
   const ingredients = useSelector(getIngredients);
@@ -28,7 +30,7 @@ const Ingedient = ({data}) => {
 
   const count = useMemo(() => {
     let result = null;
-    if (data.type === "bun" && ingredients.bun._id === data._id) {
+    if (data.type === BUN && ingredients.bun?._id === data._id) {
       result = 1;
     } else {
       result = ingredients.data.filter((item) => item._id === data._id).length;

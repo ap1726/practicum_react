@@ -7,7 +7,7 @@ import {
 } from "../actions/actions";
 
 const initialState = {
-  bun: {} ,
+  bun: null ,
   data: [],
 };
 export const constructorReducer = (state = initialState, action) => {
