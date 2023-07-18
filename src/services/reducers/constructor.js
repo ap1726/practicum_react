@@ -31,9 +31,12 @@ export const constructorReducer = (state = initialState, action) => {
       };
     }
     case SORT_INGREDIENTS: {
+      const updatedData = [...state.data];
+      updatedData[action.payload.dragIndex] = state.data[action.payload.hoverIndex];
+      updatedData[action.payload.hoverIndex] = state.data[action.payload.dragIndex];
       return {
         ...state,
-        data: action.payload,
+        data: updatedData,
       };
     }
     case CLEAR_INGREDIENTS: {
