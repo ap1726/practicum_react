@@ -4,13 +4,22 @@ import modalStyles from "./modal.module.css";
 import { useCallback, useEffect } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import {
+  CLOSE_MODAL,
+  CLOSE_INGREDIENT_MODAL,
+  CLOSE_ORDER_MODAL,
+} from "../../services/actions/actions";
 
-const Modal = ({ body, title = "", handleClose }) => {
+const Modal = ({ body, title = "" }) => {
   const modalRoot = document.getElementById("modals");
+  const dispatch = useDispatch();
 
-  const handleCloseModal = useCallback(() => {
-      handleClose();
-  }, [handleClose])
+  const handleCloseModal =() => {
+      dispatch({ type: CLOSE_INGREDIENT_MODAL });
+      dispatch({ type: CLOSE_ORDER_MODAL });
+      dispatch({ type: CLOSE_MODAL });
+  }
 
 
   useEffect(() => {

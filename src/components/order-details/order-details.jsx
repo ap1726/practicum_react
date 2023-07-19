@@ -1,13 +1,18 @@
 import styles from "./order-details.module.css";
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import done from '../../images/done.svg';
+import { useSelector } from "react-redux";
+import { getOrder, getOrderFailed } from "../../utils/function_tools";
 
-const OrderDetails = ({ number }) => {
 
+const OrderDetails = () => {
+  const order = useSelector(getOrder);
+  const orderFailed = useSelector(getOrderFailed);
   return (
+    !orderFailed &&
     <div className={`${styles.main} pt-9`}>
       <h2 className={`${styles.title} text text_type_digits-large`}>
-        {number}
+        {order}
       </h2>
       <p className={`text mt-10 text_type_main-medium`}>идентификатор заказа</p>
       <img className={`${styles.image} mt-15`} src={done} alt="done" />
@@ -22,7 +27,7 @@ const OrderDetails = ({ number }) => {
     </div>)
 }
 
-OrderDetails.propTypes = {
-  number:PropTypes.number,}
+// OrderDetails.propTypes = {
+//   number:PropTypes.number,}
 
 export default OrderDetails;
