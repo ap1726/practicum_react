@@ -7,24 +7,37 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './app-header.module.css';
 
+import { NavLink } from "react-router-dom";
+import { homePage, profilePage } from "../../utils/variables";
+
 function AppHeader() {
   return (
     <header className={`${styles.header} pt-2 pb-2`}>
       <nav className={styles.header_navigation}>
         <ul className={styles.header_list}>
           <li className={styles.menuItem}>
+            <NavLink
+              to={homePage}
+            >
               <BurgerIcon type="primary" />
-              <a href="/">Конструктор</a>
+              Конструктор
+            </NavLink>
           </li>
           <li className={styles.menuItem}>
               <ListIcon type="primary" />
               <a href="/">Лента заказов</a>
           </li>
         </ul>
-          <a href="/"><Logo /></a>
+        <NavLink to={homePage} className={styles.header__logoWrapper}>
+          <Logo />
+        </NavLink>
         <div className={styles.menuItem}>
+          <NavLink
+            to={profilePage}
+          >
             <ProfileIcon type="primary" />
-            <a href="/">Личный кабинет</a>
+            Личный кабинет
+          </NavLink>
         </div>
       </nav>
     </header>
