@@ -20,7 +20,7 @@ const ForgotPassword = () => {
   const onSubmitForm = (e) => {
     e.preventDefault();
     dispatch(forgotPasswords(email))
-    navigate(pathname, {replace: resetPasswordPage });
+    navigate( resetPasswordPage );
     setEmail('');
   }
 

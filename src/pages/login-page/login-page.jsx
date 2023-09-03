@@ -30,9 +30,7 @@ const LoginPage = () => {
 
   if (userData) {
     return (
-      <Navigate
-        to={{ pathname: state ? state.from.pathname : homePage }}
-      />
+      <Navigate to={ state?.from || homePage } />
     );
   }
 

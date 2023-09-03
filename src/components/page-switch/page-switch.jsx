@@ -40,31 +40,35 @@ const PageSwitch = () => {
           </main>
         }/>
         <Route path={loginPage} element={
-          <LoginPage />
+          <ProtectedRoute onlyUnAuth={true}>
+            <LoginPage />
+          </ProtectedRoute>
         }/>
         <Route path={registerPage} element={
-          <RegisterPage />
+          <ProtectedRoute onlyUnAuth={true}>
+            <RegisterPage />
+          </ProtectedRoute>
         }/>
         <Route path={forgotPasswordPage} element={
-            <ProtectedRoute onlyUnAuth={false}>
+            <ProtectedRoute onlyUnAuth={true}>
               <ForgotPassword />
             </ProtectedRoute>
         } />
         <Route path={resetPasswordPage} element={
-          <ResetPassword />
-        }/>
-
-        <Route path={`${ingredientsPage}/:id`} element={
-          <IngredientDetails title="Детали ингредиента" />
+          <ProtectedRoute onlyUnAuth={true}>
+            <ResetPassword />
+          </ProtectedRoute>
         }/>
         <Route path={profilePage} element={
             <ProtectedRoute onlyUnAuth={false}>
               <ProfilePage />
             </ProtectedRoute>
-        } />
-
+        }/>
         <Route element={
           <Page404 />
+        }/>
+        <Route path={`${ingredientsPage}/:id`} element={
+          <IngredientDetails title="Детали ингредиента" />
         }/>
       </Routes>
 

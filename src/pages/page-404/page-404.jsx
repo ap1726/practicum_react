@@ -7,7 +7,7 @@ import { homePage } from "../../utils/variables";
 const NotFound404 = () => {
     const navigate = useNavigate();
     const onclick = useCallback(() => {
-        navigate(pathname, {replace: homePage })
+        navigate(homePage)
     }, [navigate])
 
   return (

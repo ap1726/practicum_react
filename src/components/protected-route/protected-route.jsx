@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import { loginPage, homePage } from "../../utils/variables";
 import { getUserData } from "../../utils/function_tools";
 
-export function ProtectedRoute({ onlyUnAuth = true, children }) {
+export function ProtectedRoute({ onlyUnAuth = false, children }) {
   const userData = useSelector(getUserData);
   const location = useLocation();
   const accessToken = getCookie("accessToken");
@@ -27,9 +27,13 @@ export function ProtectedRoute({ onlyUnAuth = true, children }) {
     );
   }
 
+  if (userData && !onlyUnAuth) {
+    return (children);
+  }
+
   if (!onlyUnAuth && !userData) {
     return (
-        <Navigate to={{ pathname: loginPage, state: { from: location } }} />
+        <Navigate to={loginPage} state = {{ from: location }}  />
     );
   }
 

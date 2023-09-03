@@ -29,12 +29,12 @@ const ResetPassword = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     resetPasswords(password, token);
-    navigate(pathname, {replace: {loginPage}})
+    navigate(loginPage)
   }
 
   useEffect(()=> {
     if (!isForgotPassword) {
-      navigate(pathname, {replace: forgotPasswordPage })
+      navigate(forgotPasswordPage)
     }
   },[isForgotPassword, navigate])
 
