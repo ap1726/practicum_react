@@ -1,6 +1,6 @@
 import styles from "./ingredient-details.module.css";
 import DetailsMutted from './details-mutted/details-mutted.jsx'
-import { TypeIngredient } from '../../utils/prop-types.js';
+// import { TypeIngredient } from '../../utils/prop-types.js';
 import { getDetailsIngredient } from "../../utils/function_tools";
 import { useSelector } from "react-redux";
 
@@ -30,7 +30,7 @@ const IngredientDetails = ({data}) => {
   );
 };
 
-IngredientDetails.propTypes = { data: TypeIngredient }; 
+// IngredientDetails.propTypes = { data: TypeIngredient }; 
  
 
 export default IngredientDetails;

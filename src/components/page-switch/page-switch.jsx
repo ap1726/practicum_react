@@ -10,7 +10,7 @@ import RegisterPage from "../../pages/register-page/register-page";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile-page/profile-page";
-import Page404 from "../../pages/page-404/page-404";
+import NotFound404 from "../../pages/page-404/page-404";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 import {
@@ -59,16 +59,16 @@ const PageSwitch = () => {
             <ResetPassword />
           </ProtectedRoute>
         }/>
-        <Route path={profilePage} element={
+        <Route path={profilePage+'/*'} element={
             <ProtectedRoute onlyUnAuth={false}>
               <ProfilePage />
             </ProtectedRoute>
         }/>
-        <Route element={
-          <Page404 />
-        }/>
         <Route path={`${ingredientsPage}/:id`} element={
           <IngredientDetails title="Детали ингредиента" />
+        }/>
+        <Route path="*" element={
+          <NotFound404 />
         }/>
       </Routes>
 
