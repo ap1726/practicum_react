@@ -19,8 +19,8 @@ const ForgotPassword = () => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    dispatch(forgotPasswords(email))
-    navigate( resetPasswordPage );
+    email && dispatch(forgotPasswords(email));
+    email && navigate( resetPasswordPage );
     setEmail('');
   }
 
@@ -38,7 +38,9 @@ const ForgotPassword = () => {
             width={'100%'}
           />
         </div>
-        <Button type="primary" size="medium" htmlType="submit">
+        <Button type="primary"
+          size="medium"
+          htmlType="submit">
           Восстановить
         </Button>
       </form>
