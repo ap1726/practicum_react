@@ -1,5 +1,6 @@
 import styles from "./burger-constructor.module.css";
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ConstructorElement,CurrencyIcon, Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal.jsx';
@@ -17,11 +18,12 @@ import {
 import { 
           getOrderModal,
           getSelectedIngredients, 
-          getSelectedBun } from "../../utils/function_tools";
+          getSelectedBun,
+          getUserData } from "../../utils/function_tools";
 
 import { ConstructorItem }  from './constructor-item/constructor-item.jsx';
 
-import { BUN } from "../../utils/variables";
+import { BUN, loginPage } from "../../utils/variables";
 
 const BurgerConstructor = () => {
 
@@ -30,7 +32,8 @@ const BurgerConstructor = () => {
   const bun = useSelector(getSelectedBun);
 
   const isModalOpen = useSelector(getOrderModal)
-
+  const userData = useSelector(getUserData);
+  const navigate = useNavigate();
 
   const moveListItem = (dragIndex, hoverIndex) => {
       dispatch({
@@ -49,7 +52,8 @@ const BurgerConstructor = () => {
   );
 
   const handleSubmitOrderClick = () => {
-    if (ingredients.length !== 0 && bun?._id.length>0) {
+    !userData && navigate(loginPage);
+    if (userData && ingredients.length !== 0 && bun?._id.length>0) {
       dispatch(addOrder(orderIngredients));
       dispatch({ type: OPEN_ORDER_MODAL });
     }
