@@ -32,7 +32,7 @@ const PageSwitch = () => {
     <>
       <Routes location={background || location}>
         <Route path={homePage} element={
-          <main className={styles.content}>
+          <main className={styles.main}>
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients />
               <BurgerConstructor />

@@ -1,9 +1,7 @@
-import React, { useMemo, useState, useRef } from "react";
+import { useMemo, useState, useRef } from "react";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient.jsx";
-// import PropTypes from 'prop-types';
-// import { TypeIngredient } from '../../utils/prop-types.js';
 import { getIngredientsByType } from '../../utils/function_tools.js';
 import { useSelector } from "react-redux";
 import { getData } from "../../utils/function_tools";
@@ -85,7 +83,5 @@ const BurgerIngredients = () => {
     </section>
   );
 };
-
-// BurgerIngredients.propTypes = { data: PropTypes.arrayOf(TypeIngredient).isRequired };
 
 export default BurgerIngredients;

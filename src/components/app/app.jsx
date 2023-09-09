@@ -24,7 +24,7 @@ function App() {
   return (
     <>
     {!isLoad &&
-      <div>
+      <div className={styles.container}>
         <AppHeader />
           <div className={styles.container}>
             <PageSwitch />

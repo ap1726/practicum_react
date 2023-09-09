@@ -1,11 +1,9 @@
 import styles from "./burger-constructor.module.css";
 import { useMemo } from 'react';
-import { ConstructorElement,CurrencyIcon, Button, DragIcon,
+import { ConstructorElement,CurrencyIcon, Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-// import PropTypes from 'prop-types';
 import Modal from '../modal/modal.jsx';
 import OrderDetails from '../order-details/order-details.jsx';
-// import { TypeIngredient } from '../../utils/prop-types.js';
 import { useSelector, useDispatch } from "react-redux";
 import { addOrder } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
@@ -127,11 +125,5 @@ const BurgerConstructor = () => {
     </section>
   );
 };
-
-// BurgerConstructor.propTypes = {
-//   ingredients: PropTypes.arrayOf(TypeIngredient).isRequired,
-
-//   bun: TypeIngredient
-// }; 
 
 export default BurgerConstructor;
