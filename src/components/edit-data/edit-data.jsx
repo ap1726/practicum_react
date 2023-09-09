@@ -2,7 +2,7 @@ import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-co
 import { useEffect, useState } from 'react';
 import styles from './edit-data.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { refreshAndSend } from '../../services/actions/user';
+import { updateTokenAndProfile } from '../../services/actions/user';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUserData } from '../../utils/function_tools';
 
@@ -25,7 +25,7 @@ const EditData = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(refreshAndSend(email, name, password))
+    dispatch(updateTokenAndProfile(email, name, password))
     setIsDataChanged(false)
   }
 

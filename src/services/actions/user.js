@@ -188,7 +188,7 @@ export function updateProfile(token, email, name, password) {
   };
 }
 
-export function refreshAndSend(email, name, password) {
+export function updateTokenAndProfile(email, name, password) {
   return function (dispatch) {
     getUserData(getCookie("accessToken"))
       .then(() => {

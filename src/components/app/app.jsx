@@ -16,9 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getIngredientsStore());
-    // if (accessToken) {
       dispatch(getUser(accessToken));
-    // }
   }, [dispatch, accessToken]);
 
   return (
