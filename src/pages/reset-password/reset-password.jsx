@@ -7,9 +7,8 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import { resetPasswords } from '../../services/actions/user';
-import { getCookie } from '../../utils/cookie';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { 
   loginPage,
   forgotPasswordPage
@@ -20,16 +19,16 @@ import {
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
   const [code, setCode] = useState('');
-  const token = getCookie('accessToken');
   const isForgotPassword = useSelector(getIsForgotPassword);
 
   const navigate = useNavigate();
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    resetPasswords(password, token);
-    navigate(loginPage)
+    password && code && dispatch(resetPasswords(password, code));
+    password && code && navigate(loginPage)
   }
 
   useEffect(()=> {
