@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyles from "./modal.module.css";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
@@ -10,15 +10,17 @@ import {
   CLOSE_INGREDIENT_MODAL,
   CLOSE_ORDER_MODAL,
 } from "../../services/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 const Modal = ({ body, title = "" }) => {
   const modalRoot = document.getElementById("modals");
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handleCloseModal =() => {
       dispatch({ type: CLOSE_INGREDIENT_MODAL });
       dispatch({ type: CLOSE_ORDER_MODAL });
       dispatch({ type: CLOSE_MODAL });
+      navigate(-1);
   }
 
 

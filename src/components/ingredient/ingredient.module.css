@@ -13,3 +13,10 @@
 	position:relative;
 	right:10px;
 }
+.link {
+	text-decoration: none;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	}

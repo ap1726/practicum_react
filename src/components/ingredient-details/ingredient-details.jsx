@@ -1,30 +1,38 @@
 import styles from "./ingredient-details.module.css";
 import DetailsMutted from './details-mutted/details-mutted.jsx'
-import { getDetailsIngredient } from "../../utils/function_tools";
+import { getData } from "../../utils/function_tools";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 
-const IngredientDetails = ({data}) => {
+const IngredientDetails = ({title = ""}) => {
 
-  const item = useSelector(getDetailsIngredient);
-
+  const ingredients = useSelector(getData);
+  const { ingredientId } = useParams();
+  const detailsIngredient = ingredients.find((item) => item._id === ingredientId);
   return (
-    <>{item && 
+    <>
+    {detailsIngredient && 
         <div className={styles.content}>
+            {title && (
+              <h2 className={'mt-20 text text_type_main-large'}>
+                {title}
+              </h2>
+            )}
             <div className={styles.detailsContainer}>
-                <img className='mb-4' src={item.image_large} alt={item.name} ></img>
+                <img className='mb-4' src={detailsIngredient.image_large} alt={detailsIngredient.name} ></img>
             </div>
-            <div className={`${styles.caption} text text_type_main-medium mb-8`}>
-                {item.name}
+            <div className={`${styles.caption} text text_type_main-medium mb-8 mt-5`}>
+                {detailsIngredient.name}
             </div>
             <div className={styles.detailsContainer}>
-                <DetailsMutted title="Калории, ккал" value={item.calories} extraClass={" mr-5"}/>
-                <DetailsMutted title="Белки, г" value={item.proteins} extraClass={" mr-5"}/>
-                <DetailsMutted title="Жиры, г" value={item.fat} extraClass={" mr-5"}/>
-                <DetailsMutted title="Углеводы, г" value={item.carbohydrates} extraClass={""}/>
+                <DetailsMutted title="Калории, ккал" value={detailsIngredient.calories} extraClass={" mr-5"}/>
+                <DetailsMutted title="Белки, г" value={detailsIngredient.proteins} extraClass={" mr-5"}/>
+                <DetailsMutted title="Жиры, г" value={detailsIngredient.fat} extraClass={" mr-5"}/>
+                <DetailsMutted title="Углеводы, г" value={detailsIngredient.carbohydrates} extraClass={""}/>
             </div>
         </div>}
-      {!item && <div>Информация отсутствует</div>}
+      {!detailsIngredient && <div>Информация отсутствует</div>}
     </>
   );
 }; 

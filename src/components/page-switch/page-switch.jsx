@@ -12,6 +12,7 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile-page/profile-page";
 import NotFound404 from "../../pages/page-404/page-404";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from '../modal/modal.jsx';
 
 import {
   homePage,
@@ -27,7 +28,6 @@ import {
 const PageSwitch = () => {
   const location = useLocation();
   const background = location.state?.background;
-
   return (
     <>
       <Routes location={background || location}>
@@ -64,14 +64,20 @@ const PageSwitch = () => {
               <ProfilePage />
             </ProtectedRoute>
         }/>
-        <Route path={`${ingredientsPage}/:id`} element={
-          <IngredientDetails title="Детали ингредиента" />
+        <Route path={ingredientsPage+'/:ingredientId'} element={
+          <IngredientDetails title="Детали ингредиента"/>
         }/>
         <Route path="*" element={
           <NotFound404 />
         }/>
       </Routes>
-
+      {background && (
+        <Routes>
+          <Route path={ingredientsPage+'/:ingredientId'}
+          element={<Modal body={<IngredientDetails />} title="Детали ингредиента" />}
+          />
+        </Routes>
+        )}
     </>
   );
 };

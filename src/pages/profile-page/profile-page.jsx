@@ -2,7 +2,8 @@ import styles from "./profile-page.module.css";
 import {
   NavLink,
   Route,
-  Routes
+  Routes,
+  useLocation
 } from "react-router-dom";
 import EditData from "../../components/edit-data/edit-data";
 import { useDispatch } from "react-redux";
@@ -16,7 +17,7 @@ const linkClass = `${styles.link} text text_type_main-medium pt-4 pb-5 text_colo
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const handleLogoutClick = () => {
     const refreshToken = getCookie("refreshToken");
     dispatch(logOut(refreshToken));
@@ -24,19 +25,18 @@ const ProfilePage = () => {
   };
 
 
-
   return (
     <main className={styles.wrapper}>
       <nav className={styles.nav}>
         <NavLink
           to={profilePage}
-          className={linkClass + styles.active }
+          className={location.pathname == profilePage ? linkClass + styles.active:linkClass }
         >
           Профиль
         </NavLink>
         <NavLink
           to={profilePage + '/' + ordersPage}
-          className={linkClass}
+          className={location.pathname == profilePage + '/' + ordersPage ? linkClass + styles.active:linkClass }
           >
           История заказов
         </NavLink>
@@ -55,7 +55,7 @@ const ProfilePage = () => {
 
         <Route path={'/'} element={<EditData />} />
 
-        <Route path={"*"} element={<NotFound404 />} />
+        <Route path={"/orders"} element={<NotFound404 />} />
 
       </Routes>
     </main>
