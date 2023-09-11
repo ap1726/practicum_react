@@ -30,13 +30,13 @@ const ProfilePage = () => {
       <nav className={styles.nav}>
         <NavLink
           to={profilePage}
-          className={location.pathname == profilePage ? linkClass + styles.active:linkClass }
+          className={location.pathname === profilePage ? linkClass + styles.active:linkClass }
         >
           Профиль
         </NavLink>
         <NavLink
           to={profilePage + '/' + ordersPage}
-          className={location.pathname == profilePage + '/' + ordersPage ? linkClass + styles.active:linkClass }
+          className={location.pathname === profilePage + '/' + ordersPage ? linkClass + styles.active:linkClass }
           >
           История заказов
         </NavLink>
