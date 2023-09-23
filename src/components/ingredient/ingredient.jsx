@@ -13,13 +13,17 @@ import {
 
 import { useDrag } from "react-dnd";
 
-import { BUN } from '../../utils/variables'
+import { BUN, ingredientsPage } from '../../utils/variables'
+
+import { Link, useLocation } from "react-router-dom";
 
 const Ingedient = ({data}) => {
 
   const ingredients = useSelector(getIngredients);
   const isOpenDetails = useSelector(getOpenDetails);
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const handleClick = () => {
       dispatch({
         type: SET_INGREDIENT_INFO,
@@ -27,7 +31,6 @@ const Ingedient = ({data}) => {
       });
       dispatch({ type: OPEN_INGREDIENT_MODAL });
     };
-
   const count = useMemo(() => {
     let result = null;
     if (data.type === BUN && ingredients.bun?._id === data._id) {
@@ -47,6 +50,11 @@ const Ingedient = ({data}) => {
 
   return (
     <><div ref={dragRef} className={styles.card} onClick={()=>handleClick()} >
+      <Link
+        className={styles.link}
+        state={{background: location }}
+        to={ingredientsPage+'/'+data._id}
+      >
         {count>0?<Counter count={count} size="default" extraClass={styles.counter_my} />:
         <></>}
         <img className={styles.img} src={data.image} alt={data.name} />
@@ -57,8 +65,9 @@ const Ingedient = ({data}) => {
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text text_type_main-default">{data.name}</p>
+        </Link>
     </div>
-    {isOpenDetails && <Modal body={<IngredientDetails data={data} />} title="Детали ингредиента" />}</>
+    {isOpenDetails && <Modal body={<IngredientDetails />} title="Детали ингредиента" />}</>
   );
 };
 

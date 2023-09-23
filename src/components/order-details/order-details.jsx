@@ -1,5 +1,4 @@
 import styles from "./order-details.module.css";
-// import PropTypes from 'prop-types';
 import done from '../../images/done.svg';
 import { useSelector } from "react-redux";
 import { getOrder, getOrderFailed } from "../../utils/function_tools";
@@ -26,8 +25,5 @@ const OrderDetails = () => {
       </div>
     </div>)
 }
-
-// OrderDetails.propTypes = {
-//   number:PropTypes.number,}
 
 export default OrderDetails;

@@ -7,7 +7,7 @@ import { rootReducer } from "./services/reducers";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { compose, createStore, applyMiddleware } from 'redux';
-
+import { BrowserRouter as Router } from 'react-router-dom';
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
@@ -24,7 +24,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
+    <Router>
     <App />
+    </Router>
   </Provider>
 );
 

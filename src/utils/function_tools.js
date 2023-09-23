@@ -24,3 +24,6 @@ export const getOrder = (store) => store.order.order;
 export const getOrderFailed = (store) => store.order.orderFailed;
 export const getSelectedIngredients = (store) => store.construct.data;
 export const getSelectedBun = (store) => store.construct.bun;
+
+export const getUserData = (store) => store.user.userData;
+export const getIsForgotPassword = (store) => store.user.isPasswordForgot;

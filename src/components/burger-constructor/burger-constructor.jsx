@@ -1,11 +1,10 @@
 import styles from "./burger-constructor.module.css";
 import { useMemo } from 'react';
-import { ConstructorElement,CurrencyIcon, Button, DragIcon,
+import { useNavigate } from 'react-router-dom';
+import { ConstructorElement,CurrencyIcon, Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-// import PropTypes from 'prop-types';
 import Modal from '../modal/modal.jsx';
 import OrderDetails from '../order-details/order-details.jsx';
-// import { TypeIngredient } from '../../utils/prop-types.js';
 import { useSelector, useDispatch } from "react-redux";
 import { addOrder } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
@@ -19,11 +18,12 @@ import {
 import { 
           getOrderModal,
           getSelectedIngredients, 
-          getSelectedBun } from "../../utils/function_tools";
+          getSelectedBun,
+          getUserData } from "../../utils/function_tools";
 
 import { ConstructorItem }  from './constructor-item/constructor-item.jsx';
 
-import { BUN } from "../../utils/variables";
+import { BUN, loginPage } from "../../utils/variables";
 
 const BurgerConstructor = () => {
 
@@ -32,7 +32,8 @@ const BurgerConstructor = () => {
   const bun = useSelector(getSelectedBun);
 
   const isModalOpen = useSelector(getOrderModal)
-
+  const userData = useSelector(getUserData);
+  const navigate = useNavigate();
 
   const moveListItem = (dragIndex, hoverIndex) => {
       dispatch({
@@ -51,7 +52,8 @@ const BurgerConstructor = () => {
   );
 
   const handleSubmitOrderClick = () => {
-    if (ingredients.length !== 0 && bun?._id.length>0) {
+    !userData && navigate(loginPage);
+    if (userData && ingredients.length !== 0 && bun?._id.length>0) {
       dispatch(addOrder(orderIngredients));
       dispatch({ type: OPEN_ORDER_MODAL });
     }
@@ -127,11 +129,5 @@ const BurgerConstructor = () => {
     </section>
   );
 };
-
-// BurgerConstructor.propTypes = {
-//   ingredients: PropTypes.arrayOf(TypeIngredient).isRequired,
-
-//   bun: TypeIngredient
-// }; 
 
 export default BurgerConstructor;

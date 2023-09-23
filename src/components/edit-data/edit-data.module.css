@@ -1,0 +1,12 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* width: 480px; */
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
