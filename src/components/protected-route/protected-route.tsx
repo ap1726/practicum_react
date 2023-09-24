@@ -2,14 +2,18 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, FC, ReactPortal, ReactElement } from "react";
 import { getUser } from "../../services/actions/user";
 import { getCookie } from "../../utils/cookie";
-import PropTypes from "prop-types";
 import { loginPage, homePage } from "../../utils/variables";
 import { getUserData } from "../../utils/function_tools";
 
-export function ProtectedRoute({ onlyUnAuth = false, children }) {
+interface IProtectedRouteType {
+  onlyUnAuth: boolean,
+  children: ReactElement | ReactPortal
+}
+
+export const ProtectedRoute: FC<IProtectedRouteType> = ({ onlyUnAuth = false, children }) => {
   const userData = useSelector(getUserData);
   const location = useLocation();
   const accessToken = getCookie("accessToken");
@@ -39,8 +43,3 @@ export function ProtectedRoute({ onlyUnAuth = false, children }) {
 
   return (children);
 }
-
-ProtectedRoute.propTypes = {
-  children: PropTypes.element.isRequired,
-  onlyUnAuth: PropTypes.bool,
-};

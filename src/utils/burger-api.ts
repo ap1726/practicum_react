@@ -1,6 +1,8 @@
+import { IData } from "../components/ingredient/ingredient";
+
 const NORMA_API = "https://norma.nomoreparties.space/api";
 
-export const checkResponse = (res) => {
+export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
@@ -10,7 +12,7 @@ export const getIngredients = () => {
 }
 
 // ingredients - массив _id ингредиентов 
-export const setNewOrder = (ingredients) => {
+export const setNewOrder = (ingredients: IData) => {
   return fetch(`${NORMA_API}/orders`, {
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +23,7 @@ export const setNewOrder = (ingredients) => {
   .then(checkResponse);
 };
 
-export const forgotPassword = (email) => {
+export const forgotPassword = (email: string) => {
   return fetch(`${NORMA_API}/password-reset`, {
     method: "POST",
     headers: {
@@ -33,7 +35,7 @@ export const forgotPassword = (email) => {
   }).then((res) => checkResponse(res));
 };
 
-export const resetPassword = (password, token) => {
+export const resetPassword = (password: string, token: string | undefined) => {
   return fetch(`${NORMA_API}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -47,7 +49,7 @@ export const resetPassword = (password, token) => {
 };
 
 //Регистрация пользователя
-export const registerNewUser = (email, name, password) => {
+export const registerNewUser = (email: string, name: string, password: string) => {
   return fetch(`${NORMA_API}/auth/register`, {
     method: "POST",
     headers: {
@@ -62,7 +64,7 @@ export const registerNewUser = (email, name, password) => {
 };
 
 //Авторизация пользователя
-export const loginUser = (email, password) => {
+export const loginUser = (email: string, password: string) => {
   return fetch(`${NORMA_API}/auth/login`, {
     method: "POST",
     headers: {
@@ -76,7 +78,7 @@ export const loginUser = (email, password) => {
 };
 
 //Обновление токена
-export const refreshToken = (refreshToken) => {
+export const refreshToken = (refreshToken: string | undefined) => {
   return fetch(`${NORMA_API}/auth/token`, {
     method: "POST",
     headers: {
@@ -89,7 +91,7 @@ export const refreshToken = (refreshToken) => {
 };
 
 //Выход из системы
-export const logout = (refreshToken) => {
+export const logout = (refreshToken: string | undefined) => {
   return fetch(`${NORMA_API}/auth/logout`, {
     method: "POST",
     headers: {
@@ -102,7 +104,7 @@ export const logout = (refreshToken) => {
 };
 
 //Получение данных о пользователе
-export const getUserData = (token) => {
+export const getUserData = (token: string | undefined) => {
   return fetch(`${NORMA_API}/auth/user`, {
     method: "GET",
     headers: {
@@ -113,7 +115,7 @@ export const getUserData = (token) => {
 };
 
 //Изменение данных о пользователе
-export const updateUserData = (token, email, name, password) => {
+export const updateUserData = (token: string | undefined, email: string, name: string, password: string) => {
   return fetch(`${NORMA_API}/auth/user`, {
     method: "PATCH",
     headers: {

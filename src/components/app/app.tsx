@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styles from "./app.module.css";
-import AppHeader from '../app-header/app-header.jsx';
+import AppHeader from '../app-header/app-header';
 import { getIngredientsStore } from "../../services/actions/get-data";
 import { getIsLoad } from "../../utils/function_tools";
 import { useDispatch, useSelector } from "react-redux";

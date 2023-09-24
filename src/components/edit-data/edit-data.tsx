@@ -23,25 +23,25 @@ const EditData = () => {
     }
   },[userData])
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(updateTokenAndProfile(email, name, password))
+    dispatch(updateTokenAndProfile(email, name, password) as any)
     setIsDataChanged(false)
   }
 
-  const onNameChange = (e) => {
+  const onNameChange = (e: any) => {
     const value = e.target.value
     setName(value)
     value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
-  const onEmailChange = (e) => {
+  const onEmailChange = (e: any) => {
     const value = e.target.value
     setEmail(value)
     value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
-  const onCancelEdit = (e) => {
+  const onCancelEdit = (e: any) => {
     e.preventDefault();
     setName(userData.name);
     setEmail(userData.email);

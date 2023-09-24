@@ -1,31 +1,33 @@
 import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import modalStyles from "./modal.module.css";
-import { useEffect } from "react";
+import { useEffect, FC, ReactElement } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import {
-  CLOSE_MODAL,
-  CLOSE_INGREDIENT_MODAL,
-  CLOSE_ORDER_MODAL,
+  actions
 } from "../../services/actions/actions";
 import { useNavigate } from "react-router-dom";
 
-const Modal = ({ body, title = "" }) => {
-  const modalRoot = document.getElementById("modals");
+interface IModalType {
+  body: ReactElement,
+  title?: string
+}
+
+const Modal: FC<IModalType> = ({ body, title = "" }) => {
+  const modalRoot = document.getElementById("modals") as HTMLElement;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleCloseModal =() => {
-      dispatch({ type: CLOSE_INGREDIENT_MODAL });
-      dispatch({ type: CLOSE_ORDER_MODAL });
-      dispatch({ type: CLOSE_MODAL });
+      dispatch({ type: actions.CLOSE_INGREDIENT_MODAL });
+      dispatch({ type: actions.CLOSE_ORDER_MODAL });
+      dispatch({ type: actions.CLOSE_MODAL });
       navigate(-1);
   }
 
 
   useEffect(() => {
-    const closeModalByEsc = (e) => {
+    const closeModalByEsc = (e: any) => {
       e.key === "Escape" && handleCloseModal();
     };
     document.addEventListener("keydown", closeModalByEsc);
@@ -57,11 +59,6 @@ const Modal = ({ body, title = "" }) => {
     </>,
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  body: PropTypes.element,
-  title: PropTypes.string,
 };
 
 export default Modal;

@@ -1,15 +1,16 @@
 import styles from "./ingredient-details.module.css";
-import DetailsMutted from './details-mutted/details-mutted.jsx'
+import DetailsMutted from './details-mutted/details-mutted'
 import { getData } from "../../utils/function_tools";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { itemDataType } from "../ingredient/ingredient";
 
 const IngredientDetails = ({title = ""}) => {
 
   const ingredients = useSelector(getData);
   const { ingredientId } = useParams();
-  const detailsIngredient = ingredients.find((item) => item._id === ingredientId);
+  const detailsIngredient = ingredients.find((item: itemDataType) => item._id === ingredientId);
   return (
     <>
     {detailsIngredient && 

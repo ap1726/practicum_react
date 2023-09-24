@@ -9,9 +9,9 @@ import EditData from "../../components/edit-data/edit-data";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../services/actions/user";
 import { getCookie } from "../../utils/cookie";
-import { LOGOUT_SUCCESS } from "../../services/actions/user";
+import { userActions } from "../../services/actions/user";
 import { loginPage, profilePage, ordersPage } from "../../utils/variables";
-import NotFound404 from "../../pages/page-404/page-404.jsx"
+import NotFound404 from "../../pages/page-404/page-404"
 
 const linkClass = `${styles.link} text text_type_main-medium pt-4 pb-5 text_color_inactive`;
 
@@ -19,9 +19,9 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const handleLogoutClick = () => {
-    const refreshToken = getCookie("refreshToken");
-    dispatch(logOut(refreshToken));
-    dispatch({ type: LOGOUT_SUCCESS });
+    const refreshToken = getCookie("refreshToken") || "";
+    dispatch(logOut(refreshToken) as any);
+    dispatch({ type: userActions.LOGOUT_SUCCESS });
   };
 
 

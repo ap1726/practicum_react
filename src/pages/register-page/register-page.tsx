@@ -23,14 +23,14 @@ const RegisterPage = () => {
   const userData = useSelector(getUserData);
   const { state } = useLocation();
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e: any) => {
     e.preventDefault();
 
     if (!email || !password || !name) {
       return;
     }
 
-    dispatch(registration(email, password, name))
+    dispatch(registration(email, password, name) as any)
   }
 
   if (userData) {

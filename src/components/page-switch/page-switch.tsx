@@ -12,7 +12,7 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile-page/profile-page";
 import NotFound404 from "../../pages/page-404/page-404";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from '../modal/modal.jsx';
+import Modal from '../modal/modal';
 
 import {
   homePage,

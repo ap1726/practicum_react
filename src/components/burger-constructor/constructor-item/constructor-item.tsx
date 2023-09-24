@@ -2,17 +2,32 @@ import { ConstructorElement,DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { useRef } from "react";
+import { useRef, FC, ReactElement, Ref } from "react";
 import { deleteIngredientFromOrder } from "../../../services/actions/order";
 
 import { getSelectedIngredients } from "../../../utils/function_tools";
 
-export const ConstructorItem = ({ item, index, moveListItem }) => {
+export interface itemType {
+  _id: string,
+  name: string,
+  price: number,
+  image_mobile: string,
+  index?: number,
+  type?: string
+}
+
+type dataType = {
+  item: itemType,
+  index: number,
+  moveListItem: Function
+}
+
+export const ConstructorItem: FC<dataType> = ({ item, index, moveListItem }) => {
   const dispatch = useDispatch();
   const ingredients = useSelector(getSelectedIngredients);
 
-  const handleDeleteIngredient = (index) => {
-    dispatch(deleteIngredientFromOrder(ingredients, index));
+  const handleDeleteIngredient = (index: number) => {
+    dispatch(deleteIngredientFromOrder(ingredients, index) as any);
   };
 
   const [, dragRef] = useDrag({
@@ -22,17 +37,17 @@ export const ConstructorItem = ({ item, index, moveListItem }) => {
 
   const [, dropRef] = useDrop({
     accept: "item",
-    hover: (item, monitor) => {
-      const dragIndex = item.index;
+    hover: (item: itemType, monitor: any) => {
+      const dragIndex: number | undefined = item.index;
       const hoverIndex = index;
-      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      const hoverBoundingRect: Ref<HTMLDivElement> | any =ref.current? ref.current.getBoundingClientRect() : null;
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
 
       if (dragIndex === hoverIndex) return;
-      if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
-      if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
+      if (dragIndex && dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return;
+      if (dragIndex && dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return;
 
       moveListItem(dragIndex, hoverIndex);
       item.index = hoverIndex;
@@ -43,8 +58,8 @@ export const ConstructorItem = ({ item, index, moveListItem }) => {
     }),
   });
 
-  const ref = useRef(null);
-  const dragDropRef = dragRef(dropRef(ref));
+  const ref = useRef<HTMLDivElement>(null);
+  const dragDropRef: Ref<HTMLDivElement> | any | null = dragRef(dropRef(ref));
 
 
     return (

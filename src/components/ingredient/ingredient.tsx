@@ -1,14 +1,12 @@
 import styles from "./ingredient.module.css";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from '../ingredient-details/ingredient-details.jsx';
-import Modal from '../modal/modal.jsx';
-import { TypeIngredient } from '../../utils/prop-types.js';
-import { useMemo } from 'react';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+import { useMemo, FC } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getOpenDetails, getIngredients } from "../../utils/function_tools";
 import {
-  OPEN_INGREDIENT_MODAL,
-  SET_INGREDIENT_INFO
+  actions
 } from "../../services/actions/actions";
 
 import { useDrag } from "react-dnd";
@@ -17,7 +15,26 @@ import { BUN, ingredientsPage } from '../../utils/variables'
 
 import { Link, useLocation } from "react-router-dom";
 
-const Ingedient = ({data}) => {
+export type itemDataType = {
+      _id: string,
+      name: string,
+      type: string,
+      proteins: number,
+      fat: number,
+      carbohydrates: number,
+      calories: number,
+      price: number,
+      image: string,
+      image_mobile: string,
+      image_large: string,
+      __v: number
+  }
+
+export interface IData {
+    data: itemDataType
+}
+
+export const Ingedient: FC<IData> = ({data}) => {
 
   const ingredients = useSelector(getIngredients);
   const isOpenDetails = useSelector(getOpenDetails);
@@ -26,17 +43,17 @@ const Ingedient = ({data}) => {
 
   const handleClick = () => {
       dispatch({
-        type: SET_INGREDIENT_INFO,
+        type: actions.SET_INGREDIENT_INFO,
         item: data,
       });
-      dispatch({ type: OPEN_INGREDIENT_MODAL });
+      dispatch({ type: actions.OPEN_INGREDIENT_MODAL });
     };
   const count = useMemo(() => {
     let result = null;
     if (data.type === BUN && ingredients.bun?._id === data._id) {
       result = 1;
     } else {
-      result = ingredients.data.filter((item) => item._id === data._id).length;
+      result = ingredients.data.filter((item: itemDataType) => item._id === data._id).length;
     }
 
     return result;
@@ -71,6 +88,5 @@ const Ingedient = ({data}) => {
   );
 };
 
-Ingedient.propTypes = {data: TypeIngredient};
 
 export default Ingedient;

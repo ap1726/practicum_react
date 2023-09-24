@@ -25,9 +25,9 @@ const ResetPassword = () => {
 
   const navigate = useNavigate();
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e: any) => {
     e.preventDefault();
-    password && code && dispatch(resetPasswords(password, code));
+    password && code && dispatch(resetPasswords(password, code) as any);
     password && code && navigate(loginPage)
   }
 

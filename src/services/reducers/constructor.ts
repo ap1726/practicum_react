@@ -1,36 +1,32 @@
 import {
-  ADD_INGREDIENT_ORDER,
-  ADD_INGREDIENT_BUN_ORDER,
-  REMOVE_INGREDIENT_ORDER,
-  SORT_INGREDIENTS,
-  CLEAR_INGREDIENTS,
+  actions
 } from "../actions/actions";
 
 const initialState = {
   bun: null ,
   data: [],
 };
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case ADD_INGREDIENT_ORDER: {
+    case actions.ADD_INGREDIENT_ORDER: {
       return {
         ...state,
         data: [...state.data, action.payload.data],
       };
     }
-    case ADD_INGREDIENT_BUN_ORDER: {
+    case actions.ADD_INGREDIENT_BUN_ORDER: {
       return {
         ...state,
         bun: action.payload.data,
       };
     }
-    case REMOVE_INGREDIENT_ORDER: {
+    case actions.REMOVE_INGREDIENT_ORDER: {
       return {
         ...state,
         data: action.payload,
       };
     }
-    case SORT_INGREDIENTS: {
+    case actions.SORT_INGREDIENTS: {
       const updatedData = [...state.data];
       updatedData[action.payload.dragIndex] = state.data[action.payload.hoverIndex];
       updatedData[action.payload.hoverIndex] = state.data[action.payload.dragIndex];
@@ -39,7 +35,7 @@ export const constructorReducer = (state = initialState, action) => {
         data: updatedData,
       };
     }
-    case CLEAR_INGREDIENTS: {
+    case actions.CLEAR_INGREDIENTS: {
       return {
         ...state,
         data: [],

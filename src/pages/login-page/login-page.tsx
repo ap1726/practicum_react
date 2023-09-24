@@ -20,12 +20,12 @@ const LoginPage = () => {
   const { state } = useLocation();
  
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = (e: any) => {
     e.preventDefault();
     if (!email || !password) {
       return
     }
-    dispatch(signIn(email, password))
+    dispatch(signIn(email, password) as any)
   }
 
   if (userData) {

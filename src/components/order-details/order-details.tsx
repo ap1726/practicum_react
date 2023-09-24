@@ -8,7 +8,7 @@ const OrderDetails = () => {
   const order = useSelector(getOrder);
   const orderFailed = useSelector(getOrderFailed);
   return (
-    !orderFailed &&
+    <>{!orderFailed &&
     <div className={`${styles.main} pt-9`}>
       <h2 className={`${styles.title} text text_type_digits-large`}>
         {order}
@@ -23,7 +23,9 @@ const OrderDetails = () => {
           Дождитесь готовности на орбитальной станции
         </p>
       </div>
-    </div>)
+    </div>}
+    {orderFailed && <></>}
+    </>)
 }
 
 export default OrderDetails;

@@ -3,17 +3,14 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ConstructorElement,CurrencyIcon, Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import Modal from '../modal/modal.jsx';
-import OrderDetails from '../order-details/order-details.jsx';
+import Modal from '../modal/modal';
+import OrderDetails from '../order-details/order-details';
 import { useSelector, useDispatch } from "react-redux";
 import { addOrder } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 
 import {
-          OPEN_ORDER_MODAL,
-          ADD_INGREDIENT_ORDER,
-          ADD_INGREDIENT_BUN_ORDER,
-          SORT_INGREDIENTS
+         actions
         } from "../../services/actions/actions";
 import { 
           getOrderModal,
@@ -21,9 +18,11 @@ import {
           getSelectedBun,
           getUserData } from "../../utils/function_tools";
 
-import { ConstructorItem }  from './constructor-item/constructor-item.jsx';
+import { ConstructorItem }  from './constructor-item/constructor-item';
 
 import { BUN, loginPage } from "../../utils/variables";
+
+import { itemType } from "./constructor-item/constructor-item";
 
 const BurgerConstructor = () => {
 
@@ -35,9 +34,9 @@ const BurgerConstructor = () => {
   const userData = useSelector(getUserData);
   const navigate = useNavigate();
 
-  const moveListItem = (dragIndex, hoverIndex) => {
+  const moveListItem = (dragIndex: number, hoverIndex: number) => {
       dispatch({
-        type: SORT_INGREDIENTS,
+        type: actions.SORT_INGREDIENTS,
         payload: { dragIndex, hoverIndex }
       });
     };
@@ -45,7 +44,7 @@ const BurgerConstructor = () => {
   const totalSum = useMemo(
     () =>
       ingredients.reduce(
-        (sum, ingredient) => sum + ingredient.price,
+        (sum: number, ingredient: itemType) => sum + ingredient.price,
         bun?.price ? bun?.price * 2 : 0
       ),
     [ingredients, bun]
@@ -54,24 +53,24 @@ const BurgerConstructor = () => {
   const handleSubmitOrderClick = () => {
     !userData && navigate(loginPage);
     if (userData && ingredients.length !== 0 && bun?._id.length>0) {
-      dispatch(addOrder(orderIngredients));
-      dispatch({ type: OPEN_ORDER_MODAL });
+      dispatch(addOrder(orderIngredients) as any);
+      dispatch({ type: actions.OPEN_ORDER_MODAL });
     }
   };
   
   const orderIngredients = useMemo(
-    () => ingredients.map((element) => element._id).concat(bun?._id),
+    () => ingredients.map((element: itemType) => element._id).concat(bun?._id),
     [ingredients, bun]
   );
 
   const [ , dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item: any) {
       dispatch({
         type:
           item.data.type === BUN
-            ? ADD_INGREDIENT_BUN_ORDER
-            : ADD_INGREDIENT_ORDER,
+            ? actions.ADD_INGREDIENT_BUN_ORDER
+            : actions.ADD_INGREDIENT_ORDER,
         payload: item,
       });
     },
@@ -92,14 +91,13 @@ const BurgerConstructor = () => {
           }
       <div className={styles.with_scroll}>
         {ingredients.length>0 ?
-          ingredients.map((item, index)=> item.type !== BUN && 
+          ingredients.map((item: itemType, index: number)=> item.type !== BUN && 
             <div key={'div'+item._id+index} className={styles.items+' mb-3'}>
               <ConstructorItem
                   key={'ConstructorItem'+item._id + index}
                   item={item}
                   index={index}
                   moveListItem={moveListItem}
-                  extraClass={'ml-4'}
               />
             </div>)
           : <div className={styles.items+' mb-3 ml-10'}>

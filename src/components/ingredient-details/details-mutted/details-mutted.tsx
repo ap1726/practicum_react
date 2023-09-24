@@ -1,7 +1,13 @@
 import styles from "./details-mutted.module.css";
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-const DetailsMutted = ({title, value, extraClass}) => {
+interface IDetailsType {
+  title: string,
+  value: string,
+  extraClass: string
+}
+
+const DetailsMutted: FC<IDetailsType> = ({title, value, extraClass}) => {
 
   return (
     <div className={`${styles.detailsItem}`+extraClass}>
@@ -13,13 +19,6 @@ const DetailsMutted = ({title, value, extraClass}) => {
         </span>
     </div>
   );
-};
-
-DetailsMutted.propTypes = {
-  title:PropTypes.string,
- value:PropTypes.number,
- extraClass:PropTypes.string,
 }; 
- 
 
 export default DetailsMutted;
