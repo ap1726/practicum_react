@@ -1,6 +1,11 @@
 import styles from "./modal-overlay.module.css";
+import {FC} from 'react'
 
-const ModalOverlay = ( handleClose: () => void ) => {
+interface state {
+  handleClose: Function
+}
+
+const ModalOverlay:FC<state> = ( {handleClose} ) => {
   function handleCloseOverlay(){
     handleClose();
   }
