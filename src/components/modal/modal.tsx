@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import {
   actions
 } from "../../services/actions/actions";
-import { useNavigate } from "react-router-dom";
 
 interface IModalType {
   body: ReactElement,
@@ -17,10 +16,8 @@ interface IModalType {
 const Modal: FC<IModalType> = ({ body, title = "" }) => {
   const modalRoot = document.getElementById("modals") as HTMLElement;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const handleCloseModal =() => {
       dispatch({ type: actions.CLOSE_MODAL });
-      navigate(-1);
   }
 
 
