@@ -6,25 +6,28 @@ export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
+const request = (endpoint: string, options?: object) => {
+  // принимает два аргумента: endpoint и объект опций, как и `fetch`
+  return fetch(NORMA_API+endpoint, options).then(checkResponse)
+}
+
 export const getIngredients = () => {
-   return fetch(`${NORMA_API}/ingredients`)
-          .then(checkResponse)
+   return request("/ingredients")
 }
 
 // ingredients - массив _id ингредиентов 
 export const setNewOrder = (ingredients: IData) => {
-  return fetch(`${NORMA_API}/orders`, {
+  return request("/orders", {
       headers: {
         "Content-Type": "application/json",
       },
         method: "POST",
         body: JSON.stringify({ingredients: ingredients}),
       })
-  .then(checkResponse);
 };
 
 export const forgotPassword = (email: string) => {
-  return fetch(`${NORMA_API}/password-reset`, {
+  return request("/password-reset", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,11 +35,11 @@ export const forgotPassword = (email: string) => {
     body: JSON.stringify({
       email,
     }),
-  }).then((res) => checkResponse(res));
+  })
 };
 
 export const resetPassword = (password: string, token: string | undefined) => {
-  return fetch(`${NORMA_API}/password-reset/reset`, {
+  return request("/password-reset/reset", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -45,12 +48,12 @@ export const resetPassword = (password: string, token: string | undefined) => {
       password,
       token,
     }),
-  }).then((res) => checkResponse(res));
+  })
 };
 
 //Регистрация пользователя
 export const registerNewUser = (email: string, name: string, password: string) => {
-  return fetch(`${NORMA_API}/auth/register`, {
+  return request("/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -60,12 +63,12 @@ export const registerNewUser = (email: string, name: string, password: string) =
       password: password,
       name: name,
     }),
-  }).then((res) => checkResponse(res));
+  })
 };
 
 //Авторизация пользователя
 export const loginUser = (email: string, password: string) => {
-  return fetch(`${NORMA_API}/auth/login`, {
+  return request("/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -74,12 +77,12 @@ export const loginUser = (email: string, password: string) => {
       email: email,
       password: password,
     }),
-  }).then((res) => checkResponse(res));
+  })
 };
 
 //Обновление токена
 export const refreshToken = (refreshToken: string | undefined) => {
-  return fetch(`${NORMA_API}/auth/token`, {
+  return request("/auth/token", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -87,12 +90,12 @@ export const refreshToken = (refreshToken: string | undefined) => {
     body: JSON.stringify({
       token: refreshToken,
     }),
-  }).then((res) => checkResponse(res));
+  })
 };
 
 //Выход из системы
 export const logout = (refreshToken: string | undefined) => {
-  return fetch(`${NORMA_API}/auth/logout`, {
+  return request("/auth/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -100,23 +103,23 @@ export const logout = (refreshToken: string | undefined) => {
     body: JSON.stringify({
       token: refreshToken,
     }),
-  }).then((res) => checkResponse(res));
+  })
 };
 
 //Получение данных о пользователе
 export const getUserData = (token: string | undefined) => {
-  return fetch(`${NORMA_API}/auth/user`, {
+  return request("/auth/user", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
       authorization: "Bearer " + token,
     },
-  }).then((res) => checkResponse(res));
+  })
 };
 
 //Изменение данных о пользователе
 export const updateUserData = (token: string | undefined, email: string, name: string, password: string) => {
-  return fetch(`${NORMA_API}/auth/user`, {
+  return request("/auth/user", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -127,5 +130,5 @@ export const updateUserData = (token: string | undefined, email: string, name: s
       name: name,
       password: password,
     }),
-  }).then((res) => checkResponse(res));
+  })
 };
