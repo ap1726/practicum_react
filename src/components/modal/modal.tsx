@@ -19,8 +19,6 @@ const Modal: FC<IModalType> = ({ body, title = "" }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleCloseModal =() => {
-      dispatch({ type: actions.CLOSE_INGREDIENT_MODAL });
-      dispatch({ type: actions.CLOSE_ORDER_MODAL });
       dispatch({ type: actions.CLOSE_MODAL });
       navigate(-1);
   }

@@ -17,23 +17,10 @@ export const modalReducer = (state = initialState, action: any) => {
         ingredientModal: true,
       };
     }
-    case actions.CLOSE_INGREDIENT_MODAL: {
-      return {
-        ...state,
-        ingredientModal: false,
-        detailsIngredient: [],
-      };
-    }
     case actions.OPEN_ORDER_MODAL: {
       return {
         ...state,
         orderModal: true,
-      };
-    }
-    case actions.CLOSE_ORDER_MODAL: {
-      return {
-        ...state,
-        orderModal: false,
       };
     }
     case actions.SET_INGREDIENT_INFO: {
@@ -46,6 +33,9 @@ export const modalReducer = (state = initialState, action: any) => {
       return {
         ...state,
         isOpen: false,
+        ingredientModal: false,
+        detailsIngredient: [],
+        orderModal: false,
       };
     }
     case actions.OPEN_MODAL: {
