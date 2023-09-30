@@ -3,7 +3,7 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import { useMemo, FC } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { getOpenDetails, getIngredients } from "../../utils/function_tools";
 import {
   actions
@@ -36,9 +36,9 @@ export interface IData {
 
 export const Ingedient: FC<IData> = ({data}) => {
 
-  const ingredients = useSelector(getIngredients);
-  const isOpenDetails = useSelector(getOpenDetails);
-  const dispatch = useDispatch();
+  const ingredients = useAppSelector(getIngredients);
+  const isOpenDetails = useAppSelector(getOpenDetails);
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   const handleClick = () => {

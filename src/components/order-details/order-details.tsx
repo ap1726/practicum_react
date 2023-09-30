@@ -1,12 +1,12 @@
 import styles from "./order-details.module.css";
 import done from '../../images/done.svg';
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../utils/hooks";
 import { getOrder, getOrderFailed } from "../../utils/function_tools";
 
 
 const OrderDetails = () => {
-  const order = useSelector(getOrder);
-  const orderFailed = useSelector(getOrderFailed);
+  const order = useAppSelector(getOrder);
+  const orderFailed = useAppSelector(getOrderFailed);
   return (
     <>{!orderFailed &&
     <div className={`${styles.main} pt-9`}>

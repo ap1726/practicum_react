@@ -1,7 +1,7 @@
 import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import styles from './edit-data.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { updateTokenAndProfile } from '../../services/actions/user';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUserData } from '../../utils/function_tools';
@@ -12,9 +12,9 @@ const EditData = () => {
   const [ password, setPassword ] = useState('');
 
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const userData = useSelector(getUserData);
+  const userData = useAppSelector(getUserData);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(()=> {
     if (userData) {

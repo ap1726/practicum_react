@@ -8,7 +8,7 @@ import {
 import { Link, Navigate, useLocation } from 'react-router-dom';
 
 import { registration } from '../../services/actions/user';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { 
   loginPage,
   homePage
@@ -19,8 +19,8 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName ] = useState("");
-  const dispatch = useDispatch();
-  const userData = useSelector(getUserData);
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
   const { state } = useLocation();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {

@@ -3,14 +3,14 @@ import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredient/ingredient";
 import { getIngredientsByType } from '../../utils/function_tools';
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../utils/hooks";
 import { getData } from "../../utils/function_tools";
 
 import { BUN, SAUCE, MAIN } from '../../utils/variables'
 import { itemDataType } from "../ingredient/ingredient";
 const BurgerIngredients = () => {
 
-  const data = useSelector(getData);
+  const data = useAppSelector(getData);
 
   const buns = useMemo( () => getIngredientsByType(data, BUN), [data]);
   const mains = useMemo( () => getIngredientsByType(data, MAIN), [data]);

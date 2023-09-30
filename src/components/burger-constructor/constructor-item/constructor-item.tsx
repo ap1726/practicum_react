@@ -1,6 +1,6 @@
 import { ConstructorElement,DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef, FC, Ref } from "react";
 import { deleteIngredientFromOrder } from "../../../services/actions/order";
@@ -23,8 +23,8 @@ type dataType = {
 }
 
 export const ConstructorItem: FC<dataType> = ({ item, index, moveListItem }) => {
-  const dispatch = useDispatch();
-  const ingredients = useSelector(getSelectedIngredients);
+  const dispatch = useAppDispatch();
+  const ingredients = useAppSelector(getSelectedIngredients);
 
   const handleDeleteIngredient = (index: number) => {
     dispatch(deleteIngredientFromOrder(ingredients, index) as any);

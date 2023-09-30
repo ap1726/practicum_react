@@ -6,7 +6,7 @@ import {
   PasswordInput
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { signIn } from "../../services/actions/user";
 import { homePage } from "../../utils/variables";
 import { getUserData } from "../../utils/function_tools";
@@ -15,8 +15,8 @@ import { getUserData } from "../../utils/function_tools";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const userData = useSelector(getUserData);
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector(getUserData);
   const { state } = useLocation();
  
 

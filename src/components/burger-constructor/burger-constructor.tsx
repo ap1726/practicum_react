@@ -5,7 +5,7 @@ import { ConstructorElement,CurrencyIcon, Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { addOrder } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 
@@ -26,12 +26,12 @@ import { itemType } from "./constructor-item/constructor-item";
 
 const BurgerConstructor = () => {
 
-  const dispatch = useDispatch();
-  const ingredients = useSelector(getSelectedIngredients);
-  const bun = useSelector(getSelectedBun);
+  const dispatch = useAppDispatch();
+  const ingredients = useAppSelector(getSelectedIngredients);
+  const bun = useAppSelector(getSelectedBun);
 
-  const isModalOpen = useSelector(getOrderModal)
-  const userData = useSelector(getUserData);
+  const isModalOpen = useAppSelector(getOrderModal)
+  const userData = useAppSelector(getUserData);
   const navigate = useNavigate();
 
   const moveListItem = (dragIndex: number, hoverIndex: number) => {

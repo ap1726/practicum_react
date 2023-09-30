@@ -8,7 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import { resetPasswords } from '../../services/actions/user';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { 
   loginPage,
   forgotPasswordPage
@@ -19,9 +19,9 @@ import {
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [code, setCode] = useState('');
-  const isForgotPassword = useSelector(getIsForgotPassword);
+  const isForgotPassword = useAppSelector(getIsForgotPassword);
 
   const navigate = useNavigate();
 

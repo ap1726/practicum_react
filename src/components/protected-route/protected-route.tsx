@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../utils/hooks";
 
 import { useLocation } from "react-router-dom";
 import { useEffect, FC, ReactPortal, ReactElement } from "react";
@@ -14,7 +14,7 @@ interface IProtectedRouteType {
 }
 
 export const ProtectedRoute: FC<IProtectedRouteType> = ({ onlyUnAuth = false, children }) => {
-  const userData = useSelector(getUserData);
+  const userData = useAppSelector(getUserData);
   const location = useLocation();
   const accessToken = getCookie("accessToken");
 
