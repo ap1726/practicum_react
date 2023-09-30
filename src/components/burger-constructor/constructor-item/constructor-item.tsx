@@ -2,7 +2,7 @@ import { ConstructorElement,DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { useRef, FC, ReactElement, Ref } from "react";
+import { useRef, FC, Ref } from "react";
 import { deleteIngredientFromOrder } from "../../../services/actions/order";
 
 import { getSelectedIngredients } from "../../../utils/function_tools";

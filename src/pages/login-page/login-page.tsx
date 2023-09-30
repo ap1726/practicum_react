@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./login-page.module.css";
 import {
   Input,
@@ -20,7 +20,7 @@ const LoginPage = () => {
   const { state } = useLocation();
  
 
-  const handleSubmitForm = (e: any) => {
+  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !password) {
       return

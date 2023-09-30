@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import styles from './reset-password.module.css';
 import {
   Input,
@@ -25,7 +25,7 @@ const ResetPassword = () => {
 
   const navigate = useNavigate();
 
-  const handleFormSubmit = (e: any) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     password && code && dispatch(resetPasswords(password, code) as any);
     password && code && navigate(loginPage)

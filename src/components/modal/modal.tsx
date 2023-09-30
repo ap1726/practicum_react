@@ -27,7 +27,7 @@ const Modal: FC<IModalType> = ({ body, title = "" }) => {
 
 
   useEffect(() => {
-    const closeModalByEsc = (e: any) => {
+    const closeModalByEsc = (e: KeyboardEvent) => {
       e.key === "Escape" && handleCloseModal();
     };
     document.addEventListener("keydown", closeModalByEsc);

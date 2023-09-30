@@ -1,5 +1,5 @@
 import styles from './register-page.module.css';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import {
     Input,
     Button,
@@ -23,7 +23,7 @@ const RegisterPage = () => {
   const userData = useSelector(getUserData);
   const { state } = useLocation();
 
-  const handleFormSubmit = (e: any) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!email || !password || !name) {

@@ -1,5 +1,5 @@
 import { Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
 import styles from './edit-data.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTokenAndProfile } from '../../services/actions/user';
@@ -23,25 +23,25 @@ const EditData = () => {
     }
   },[userData])
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateTokenAndProfile(email, name, password) as any)
     setIsDataChanged(false)
   }
 
-  const onNameChange = (e: any) => {
+  const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setName(value)
     value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
-  const onEmailChange = (e: any) => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setEmail(value)
     value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
-  const onCancelEdit = (e: any) => {
+  const onCancelEdit = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     setName(userData.name);
     setEmail(userData.email);

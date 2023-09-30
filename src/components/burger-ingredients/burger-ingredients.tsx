@@ -68,7 +68,6 @@ const BurgerIngredients = () => {
           <h2 className="text text_type_main-medium mt-11 mb-6">Булки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
               {buns.map((item: itemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
-              (верх)
           </div>
         </div>
         <div ref={sauceRef} id={SAUCE} className={styles.categoty}>
@@ -81,7 +80,6 @@ const BurgerIngredients = () => {
           <h2 className="text text_type_main-medium mt-11 mb-6">Начинки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
               {mains.map((item: itemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
-              (низ)
           </div>
         </div>
       </div>

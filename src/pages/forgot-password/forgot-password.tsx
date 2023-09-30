@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./forgot-password.module.css";
 import {
   Input,
@@ -17,7 +17,7 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmitForm = (e: any) => {
+  const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     email && dispatch(forgotPasswords(email) as any);
     email && navigate( resetPasswordPage );
