@@ -13,7 +13,7 @@ import ProfilePage from "../../pages/profile-page/profile-page";
 import NotFound404 from "../../pages/page-404/page-404";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from '../modal/modal';
-
+import { useNavigate } from "react-router-dom";
 import {
   homePage,
   loginPage,
@@ -28,6 +28,8 @@ import {
 const PageSwitch = () => {
   const location = useLocation();
   const background = location.state?.background;
+  const navigate = useNavigate();
+
   return (
     <>
       <Routes location={background || location}>
@@ -74,7 +76,7 @@ const PageSwitch = () => {
       {background && (
         <Routes>
           <Route path={ingredientsPage+'/:ingredientId'}
-          element={<Modal body={<IngredientDetails />} title="Детали ингредиента" />}
+          element={<Modal body={<IngredientDetails />} title="Детали ингредиента" onClose={()=> {navigate(-1);}} />}
           />
         </Routes>
         )}

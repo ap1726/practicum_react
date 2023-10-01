@@ -10,14 +10,16 @@ import {
 
 interface IModalType {
   body: ReactElement,
-  title?: string
+  title?: string,
+  onClose?: Function
 }
 
-const Modal: FC<IModalType> = ({ body, title = "" }) => {
+const Modal: FC<IModalType> = ({ body, title = "", onClose }) => {
   const modalRoot = document.getElementById("modals") as HTMLElement;
   const dispatch = useDispatch();
   const handleCloseModal =() => {
       dispatch({ type: actions.CLOSE_MODAL });
+      onClose && onClose();
   }
 
 
