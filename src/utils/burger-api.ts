@@ -1,6 +1,6 @@
 import { IData } from "../components/ingredient/ingredient";
 
-const NORMA_API = "https://norma.nomoreparties.space/api";
+import { NORMA_API } from "./variables";
 
 export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));

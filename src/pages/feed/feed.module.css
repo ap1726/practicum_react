@@ -1,0 +1,18 @@
+.wrapper {
+    max-width: 1240px;
+    width: 100%; 
+  }
+  
+  .container {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    
+    
+  }
+  
+  .title {
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-top: 40px;
+  }

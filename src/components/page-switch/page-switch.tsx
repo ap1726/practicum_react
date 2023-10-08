@@ -22,10 +22,19 @@ import {
   resetPasswordPage,
   profilePage,
   ingredientsPage,
+  feedPage,
+  ordersPage
 } from "../../utils/variables";
+import Feed from "../../pages/feed/feed";
+import SingleOrder from "../../pages/single-order/single-order";
+import { getOrderModal } from "../../utils/function_tools";
+import { useAppSelector } from "../../utils/hooks";
+import OrderDetails from "../order-details/order-details";
+import OrdersHistory from "../orders-history/orders-history";
 
 
 const PageSwitch = () => {
+  const orderModal = useAppSelector(getOrderModal);
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
@@ -69,6 +78,23 @@ const PageSwitch = () => {
         <Route path={ingredientsPage+'/:ingredientId'} element={
           <IngredientDetails title="Детали ингредиента"/>
         }/>
+        <Route path={feedPage} element={<Feed />} />
+
+        <Route path={feedPage+'/:id'} element={<SingleOrder />} />
+        
+        
+        <Route path={profilePage+'/'+ordersPage} 
+          element={
+                  <ProtectedRoute onlyUnAuth={false}>
+                    <OrdersHistory />
+                  </ProtectedRoute>}/>
+
+        <Route path={profilePage+'/'+ordersPage+'/:id'} 
+          element={
+                  <ProtectedRoute onlyUnAuth={false}>
+                    <SingleOrder />
+                  </ProtectedRoute>}/>
+
         <Route path="*" element={
           <NotFound404 />
         }/>
@@ -80,6 +106,22 @@ const PageSwitch = () => {
           />
         </Routes>
         )}
+
+
+      {orderModal && (
+        <Modal body={<OrderDetails />} />
+      )}
+      { background  && (
+      <Route path={feedPage+'/:id'} element={<Modal body={<SingleOrder/>} />} />
+      )}
+
+      { background && (
+        <Route path={profilePage+'/'+ordersPage+'/:id'} 
+        element={
+                <ProtectedRoute onlyUnAuth={false}>
+                  <Modal body={<SingleOrder/>} />
+                </ProtectedRoute>}/>
+      )}
     </>
   );
 };

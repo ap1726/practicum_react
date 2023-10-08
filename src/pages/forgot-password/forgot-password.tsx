@@ -5,7 +5,7 @@ import {
   Button
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../utils/hooks"; 
 import { forgotPasswords } from "../../services/actions/user";
 import { 
   resetPasswordPage,
@@ -14,7 +14,7 @@ import {
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {

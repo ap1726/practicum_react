@@ -6,7 +6,7 @@ import {
   useLocation
 } from "react-router-dom";
 import EditData from "../../components/edit-data/edit-data";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../utils/hooks"; 
 import { logOut } from "../../services/actions/user";
 import { getCookie } from "../../utils/cookie";
 import { userActions } from "../../services/actions/user";
@@ -16,7 +16,7 @@ import NotFound404 from "../../pages/page-404/page-404"
 const linkClass = `${styles.link} text text_type_main-medium pt-4 pb-5 text_color_inactive`;
 
 const ProfilePage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const handleLogoutClick = () => {
     const refreshToken = getCookie("refreshToken") || "";

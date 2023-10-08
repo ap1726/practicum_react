@@ -8,7 +8,7 @@ import {
 import styles from './app-header.module.css';
 
 import { NavLink } from "react-router-dom";
-import { homePage, profilePage } from "../../utils/variables";
+import { feedPage, homePage, profilePage } from "../../utils/variables";
 
 function AppHeader() {
   return (
@@ -24,8 +24,12 @@ function AppHeader() {
             </NavLink>
           </li>
           <li className={styles.menuItem}>
-              <ListIcon type="primary" />
-              <a href="/">Лента заказов</a>
+            <NavLink
+                to={feedPage}
+              >
+                <ListIcon type="primary" />
+                Лента заказов
+            </NavLink>
           </li>
         </ul>
         <NavLink to={homePage} className={styles.header__logoWrapper}>
