@@ -1,5 +1,5 @@
 import styles from './single-order.module.css';
-import { useParams, useMatch } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../utils/hooks';
 import { useEffect, useMemo } from 'react';
 import OrderPositions from '../../components/order-position-list/order-position';
@@ -16,10 +16,10 @@ const SingleOrder = () => {
   const profileOrders = useAppSelector((store) => store.wsOrders.orders);
   const feedOrders = useAppSelector((store) => store.wsFeed.orders);
   const data = useAppSelector(getData);
-  const isProfileOrders = `${profilePage}/${ordersPage}/:id`;
-  const isFeedOrders = `${feedPage}/:id`;
-  const path = useMatch(isProfileOrders || isFeedOrders);
-
+  const isProfileOrders = `${profilePage}/${ordersPage}/${id}`;
+  const isFeedOrders = `${feedPage}/${id}`;
+  const path = useLocation();
+  console.log(path)
   const orders = path?.pathname === isProfileOrders ? profileOrders : feedOrders;
 
   const order = useMemo(
