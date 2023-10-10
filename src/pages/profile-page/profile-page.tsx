@@ -18,6 +18,7 @@ const linkClass = `${styles.link} text text_type_main-medium pt-4 pb-5 text_colo
 const ProfilePage = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const accessToken = getCookie("accessToken") || "";
   const handleLogoutClick = () => {
     const refreshToken = getCookie("refreshToken") || "";
     dispatch(logOut(refreshToken) as any);
@@ -35,7 +36,7 @@ const ProfilePage = () => {
           Профиль
         </NavLink>
         <NavLink
-          to={profilePage + '/' + ordersPage}
+          to={`${profilePage}/${ordersPage}?token=${accessToken}`}
           className={location.pathname === profilePage + '/' + ordersPage ? linkClass + styles.active:linkClass }
           >
           История заказов
