@@ -19,7 +19,6 @@ const SingleOrder = () => {
   const isProfileOrders = `${profilePage}/${ordersPage}/${id}`;
   const isFeedOrders = `${feedPage}/${id}`;
   const path = useLocation();
-  console.log(path)
   const orders = path?.pathname === isProfileOrders ? profileOrders : feedOrders;
 
   const order = useMemo(
