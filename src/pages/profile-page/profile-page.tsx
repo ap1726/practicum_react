@@ -21,7 +21,7 @@ const ProfilePage = () => {
   const accessToken = getCookie("accessToken") || "";
   const handleLogoutClick = () => {
     const refreshToken = getCookie("refreshToken") || "";
-    dispatch(logOut(refreshToken) as any);
+    dispatch(logOut(refreshToken));
     dispatch({ type: userActions.LOGOUT_SUCCESS });
   };
 
