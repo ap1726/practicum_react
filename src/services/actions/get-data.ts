@@ -1,10 +1,11 @@
+import { AppDispatch } from "../..";
 import { getIngredients } from "../../utils/burger-api";
 import {
   actions
 } from "./actions";
 
 export function getIngredientsStore(): any {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: actions.GET_INGREDIENTS_REQUEST,
     });

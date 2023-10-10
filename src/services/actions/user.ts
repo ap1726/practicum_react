@@ -7,6 +7,7 @@ import {
 } from "../../utils/burger-api";
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import { loginUser, logout, getUserData } from "../../utils/burger-api";
+import { AppDispatch } from "../..";
 
 export enum userActions {
     REGISTRATION = "REGISTRATION",
@@ -36,7 +37,7 @@ export enum userActions {
   }
 
 export function registration(email: string, password: string, name: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: userActions.REGISTRATION,
     });
@@ -56,7 +57,7 @@ export function registration(email: string, password: string, name: string) {
 }
 
 export function signIn(email: string, password: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: userActions.LOGIN,
     });
@@ -79,7 +80,7 @@ export function signIn(email: string, password: string) {
 }
 
 export function logOut(refreshToken: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: userActions.LOGOUT });
 
     logout(refreshToken)
@@ -96,7 +97,7 @@ export function logOut(refreshToken: string) {
 }
 
 export function getUser(token: string | undefined): any {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: userActions.LOGIN });
 
     getUserData(token)
@@ -113,7 +114,7 @@ export function getUser(token: string | undefined): any {
 }
 
 export function forgotPasswords(email: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: userActions.FORGOT_PASSWORD });
 
     forgotPassword(email)
@@ -130,7 +131,7 @@ export function forgotPasswords(email: string) {
 }
 
 export function resetPasswords(password: string, token: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: userActions.RESET_PASSWORD });
 
     resetPassword(password, token)
@@ -146,7 +147,7 @@ export function resetPasswords(password: string, token: string) {
 }
 
 export function updateToken(token: string | undefined) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: userActions.REFRESH_TOKEN });
 
     refreshToken(token)
@@ -166,7 +167,7 @@ export function updateToken(token: string | undefined) {
 }
 
 export function updateProfile(token: string | undefined, email: string, name: string, password: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: userActions.SEND_USER_DATA });
 
     updateUserData(token, email, name, password)
@@ -184,7 +185,7 @@ export function updateProfile(token: string | undefined, email: string, name: st
 }
 
 export function updateTokenAndProfile(email: string, name: string, password: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     getUserData(getCookie("accessToken"))
       .then(() => {
         dispatch(

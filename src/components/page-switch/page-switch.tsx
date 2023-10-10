@@ -109,18 +109,22 @@ const PageSwitch = () => {
 
 
       {orderModal && (
-        <Modal body={<OrderDetails />} />
+          <Modal body={<OrderDetails />} title="Детали заказа" onClose={()=> {navigate(-1);}}/>
       )}
       { background  && (
-      <Route path={feedPage+'/:id'} element={<Modal body={<SingleOrder/>} />} />
+      <Routes>
+          <Route path={feedPage+'/:id'} element={<Modal body={<SingleOrder/>} title="Детали заказа" onClose={()=> {navigate(-1);}}/>} />
+      </Routes>
       )}
 
       { background && (
-        <Route path={profilePage+'/'+ordersPage+'/:id'} 
+        <Routes>
+          <Route path={profilePage+'/'+ordersPage+'/:id'} 
         element={
                 <ProtectedRoute onlyUnAuth={false}>
-                  <Modal body={<SingleOrder/>} />
+                  <Modal body={<SingleOrder/>} title="Детали заказа" onClose={()=> {navigate(-1);}}/>
                 </ProtectedRoute>}/>
+        </Routes>
       )}
     </>
   );

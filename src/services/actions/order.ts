@@ -2,9 +2,10 @@ import {
   actions
 } from "./actions";
 import { setNewOrder } from "../../utils/burger-api";
+import { AppDispatch } from "../..";
 
 export function addOrder(order: any) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: actions.CREATE_ORDER_REQUEST,
     });
@@ -25,7 +26,7 @@ export function addOrder(order: any) {
 }
 
 export function deleteIngredientFromOrder(selectedIngredients: any, index: any) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     const copyArr = selectedIngredients.slice();
     copyArr.splice(index, 1);
     dispatch({

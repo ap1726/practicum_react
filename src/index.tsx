@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from "./components/app/app";
@@ -9,13 +8,13 @@ import thunk from "redux-thunk";
 import { compose, createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { wsOrdersUrl, wsUrlAll } from './utils/variables';
+import { wsActions } from './services/actions/ws-actions';
+import { socketMiddleware } from './services/middleware/ws-middleware';
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
-import { wsActions } from './services/actions/ws-actions';
-import { socketMiddleware } from './services/middleware/ws-middleware';
 
 const feedWsActions = {
   wsInit: wsActions.WS_FEED_CONNECTION_START,
