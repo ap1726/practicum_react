@@ -1,5 +1,4 @@
 import { IData } from "../components/ingredient/ingredient";
-import { getCookie } from "./cookie";
 
 import { NORMA_API } from "./variables";
 
@@ -17,12 +16,11 @@ export const getIngredients = () => {
 }
 
 // ingredients - массив _id ингредиентов 
-export const setNewOrder = (ingredients: IData) => {
-  const accessToken: string | undefined = getCookie('accessToken');
+export const setNewOrder = (ingredients: IData, token: string | undefined) => {
   return request("/orders", {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": accessToken,
+        "Authorization": "Bearer " + token
       },
         method: "POST",
         body: JSON.stringify({ingredients: ingredients}),

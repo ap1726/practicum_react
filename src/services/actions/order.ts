@@ -3,14 +3,16 @@ import {
 } from "./actions";
 import { setNewOrder } from "../../utils/burger-api";
 import { AppDispatch } from "../..";
+import { getCookie } from "../../utils/cookie";
 
 export function addOrder(order: any) {
+  const token = getCookie("accessToken");
+
   return function (dispatch: AppDispatch) {
     dispatch({
       type: actions.CREATE_ORDER_REQUEST,
     });
-
-    setNewOrder(order)
+    setNewOrder(order, token)
           .then((result) => {
               if (result && result.success) {
                 dispatch({
