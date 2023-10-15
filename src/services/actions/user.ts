@@ -9,7 +9,7 @@ import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import { loginUser, logout, getUserData } from "../../utils/burger-api";
 import { AppDispatch } from "../..";
 
-export enum userActions {
+export enum UserActions {
     REGISTRATION = "REGISTRATION",
     REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS",
     REGISTRATION_FAILED = "REGISTRATION_FAILED",
@@ -39,18 +39,18 @@ export enum userActions {
 export function registration(email: string, password: string, name: string) {
   return function (dispatch: AppDispatch) {
     dispatch({
-      type: userActions.REGISTRATION,
+      type: UserActions.REGISTRATION,
     });
 
     registerNewUser(email, name, password)
       .then((res) => {
-        dispatch({ type: userActions.REGISTRATION_SUCCESS });
+        dispatch({ type: UserActions.REGISTRATION_SUCCESS });
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
-        dispatch({ type: userActions.LOGIN_SUCCESS, payload: res.user });
+        dispatch({ type: UserActions.LOGIN_SUCCESS, payload: res.user });
       })
       .catch((err) => {
-        dispatch({ type: userActions.REGISTRATION_FAILED });
+        dispatch({ type: UserActions.REGISTRATION_FAILED });
         console.log(err);
       });
   };
@@ -59,21 +59,21 @@ export function registration(email: string, password: string, name: string) {
 export function signIn(email: string, password: string) {
   return function (dispatch: AppDispatch) {
     dispatch({
-      type: userActions.LOGIN,
+      type: UserActions.LOGIN,
     });
 
     loginUser(email, password)
       .then((res) => {
-        dispatch({ type: userActions.LOGIN_SUCCESS });
+        dispatch({ type: UserActions.LOGIN_SUCCESS });
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
         dispatch({
-          type: userActions.LOGIN_SUCCESS,
+          type: UserActions.LOGIN_SUCCESS,
           payload: res.user,
         });
       })
       .catch((err) => {
-        dispatch({ type: userActions.LOGIN_FAILED });
+        dispatch({ type: UserActions.LOGIN_FAILED });
         console.log(err.status);
       });
   };
@@ -81,16 +81,16 @@ export function signIn(email: string, password: string) {
 
 export function logOut(refreshToken: string) {
   return function (dispatch: AppDispatch) {
-    dispatch({ type: userActions.LOGOUT });
+    dispatch({ type: UserActions.LOGOUT });
 
     logout(refreshToken)
       .then(() => {
         deleteCookie("refreshToken");
         deleteCookie("accessToken");
-        dispatch({ type: userActions.LOGOUT_SUCCESS });
+        dispatch({ type: UserActions.LOGOUT_SUCCESS });
       })
       .catch((err) => {
-        dispatch({ type: userActions.LOGOUT_FAILED });
+        dispatch({ type: UserActions.LOGOUT_FAILED });
         console.log(err);
       });
   };
@@ -98,14 +98,14 @@ export function logOut(refreshToken: string) {
 
 export function getUser(token: string | undefined): any {
   return function (dispatch: AppDispatch) {
-    dispatch({ type: userActions.LOGIN });
+    dispatch({ type: UserActions.LOGIN });
 
     getUserData(token)
       .then((res) => {
-        dispatch({ type: userActions.LOGIN_SUCCESS, payload: res.user });
+        dispatch({ type: UserActions.LOGIN_SUCCESS, payload: res.user });
       })
       .catch((err) => {
-        dispatch({ type: userActions.LOGIN_FAILED });
+        dispatch({ type: UserActions.LOGIN_FAILED });
         console.log(err);
 
         dispatch(updateToken(getCookie("refreshToken")));
@@ -115,16 +115,16 @@ export function getUser(token: string | undefined): any {
 
 export function forgotPasswords(email: string) {
   return function (dispatch: AppDispatch) {
-    dispatch({ type: userActions.FORGOT_PASSWORD });
+    dispatch({ type: UserActions.FORGOT_PASSWORD });
 
     forgotPassword(email)
       .then((res) => {
         if (res.success) {
-          dispatch({ type: userActions.FORGOT_PASSWORD_SUCCESS });
+          dispatch({ type: UserActions.FORGOT_PASSWORD_SUCCESS });
         }
       })
       .catch((err) => {
-        dispatch({ type: userActions.FORGOT_PASSWORD_FAILED });
+        dispatch({ type: UserActions.FORGOT_PASSWORD_FAILED });
         console.log(err);
       });
   };
@@ -132,15 +132,15 @@ export function forgotPasswords(email: string) {
 
 export function resetPasswords(password: string, token: string) {
   return function (dispatch: AppDispatch) {
-    dispatch({ type: userActions.RESET_PASSWORD });
+    dispatch({ type: UserActions.RESET_PASSWORD });
 
     resetPassword(password, token)
       .then((res) => {
-        dispatch({ type: userActions.RESET_PASSWORD_SUCCESS });
+        dispatch({ type: UserActions.RESET_PASSWORD_SUCCESS });
         console.log(res);
       })
       .catch((err) => {
-        dispatch({ type: userActions.RESET_PASSWORD_FAILED });
+        dispatch({ type: UserActions.RESET_PASSWORD_FAILED });
         console.log(err);
       });
   };
@@ -148,11 +148,11 @@ export function resetPasswords(password: string, token: string) {
 
 export function updateToken(token: string | undefined) {
   return function (dispatch: AppDispatch) {
-    dispatch({ type: userActions.REFRESH_TOKEN });
+    dispatch({ type: UserActions.REFRESH_TOKEN });
 
     refreshToken(token)
       .then((res) => {
-        dispatch({ type: userActions.REFRESH_TOKEN_SUCCESS });
+        dispatch({ type: UserActions.REFRESH_TOKEN_SUCCESS });
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
       })
@@ -161,24 +161,24 @@ export function updateToken(token: string | undefined) {
       })
       .catch((err) => {
         console.log(err);
-        dispatch({ type: userActions.REFRESH_TOKEN_FAILED });
+        dispatch({ type: UserActions.REFRESH_TOKEN_FAILED });
       });
   };
 }
 
 export function updateProfile(token: string | undefined, email: string, name: string, password: string) {
   return function (dispatch: AppDispatch) {
-    dispatch({ type: userActions.SEND_USER_DATA });
+    dispatch({ type: UserActions.SEND_USER_DATA });
 
     updateUserData(token, email, name, password)
       .then((res) => {
         dispatch({
-          type: userActions.SEND_USER_DATA_SUCCESS,
+          type: UserActions.SEND_USER_DATA_SUCCESS,
           payload: res.user,
         });
       })
       .catch((err) => {
-        dispatch({ type: userActions.SEND_USER_DATA_FAILED });
+        dispatch({ type: UserActions.SEND_USER_DATA_FAILED });
         console.log(err);
       });
   };

@@ -1,8 +1,10 @@
+import { MiddlewareAPI } from "redux";
 import { getCookie } from "../../utils/cookie";
+import { AppDispatch, RootState } from "../..";
 
 
-export const socketMiddleware = (wsUrl: string, wsActions: any, isAuth: boolean ) => {
-	return (store: any) => {
+export const socketMiddleware = (wsUrl: string, wsActions: {[key: string]: any}, isAuth: boolean ): any => {
+	return (store: MiddlewareAPI<AppDispatch, RootState>) => {
 		let socket: WebSocket | null = null;
 
 		return (next: any) => (action: any) => {

@@ -7,7 +7,6 @@ import {
   wsActions,
 } from "../../services/actions/ws-actions";
 import { NavLink, useLocation } from "react-router-dom"
-import { v4 as uuidv4 } from "uuid";
 
 const OrdersHistory = () => {
   const { orders } = useAppSelector(getWsOrders);
@@ -38,11 +37,11 @@ const OrdersHistory = () => {
         orders.reverse().map((order: orderType) => {
           return(
             <NavLink
-              key={uuidv4()}
+              key={'nav_'+order._id}
               className={styles.link}
               to={`${location.pathname}/${order._id}`}
               state={{background : location }} >
-            <OrderCard viewStatus={true} key={uuidv4()} order={order} />
+            <OrderCard viewStatus={true} key={'orderCard_'+order._id} order={order} />
             </NavLink>
           )
 

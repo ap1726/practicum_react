@@ -1,3 +1,4 @@
+import { RootState } from "..";
 import { itemType } from "../components/burger-constructor/constructor-item/constructor-item";
 import { orderType } from "../components/orders/components/order-card/order-card";
 export const getIngredientsByType = (arr: any, type: string) => {
@@ -5,28 +6,28 @@ export const getIngredientsByType = (arr: any, type: string) => {
 }
 
 // store в следующем спринте
-export const getOrderModal = (store: any) => store.modal.orderModal;
-export const getOpenDetails = (store: any) => store.modal.ingredientModal;
-export const getDetailsIngredient = (store: any) => store.modal.detailsIngredient;
-export const getIsOpen = (store: any) => store.modal;
+export const getOrderModal = (store: RootState) => store.modal.orderModal;
+export const getOpenDetails = (store: RootState) => store.modal.ingredientModal;
+export const getDetailsIngredient = (store: RootState) => store.modal.detailsIngredient;
+export const getIsOpen = (store: RootState) => store.modal;
 
-export const getIsLoad = (store: any) => store.data.ingredientsRequest;
-export const getData = (store: any) => store.data.ingredients;
+export const getIsLoad = (store: RootState) => store.data.ingredientsRequest;
+export const getData = (store: RootState) => store.data.ingredients;
 
-export const getIngredients = (store: any) => store.construct;
+export const getIngredients = (store: RootState) => store.construct;
 
-export const getOrder = (store: any) => store.order.order;
+export const getOrder = (store: RootState) => store.order.order;
 
-export const getOrderFailed = (store: any) => store.order.orderFailed;
-export const getSelectedIngredients = (store: any) => store.construct.data;
-export const getSelectedBun = (store: any) => store.construct.bun;
+export const getOrderFailed = (store: RootState) => store.order.orderFailed;
+export const getSelectedIngredients = (store: RootState) => store.construct.data;
+export const getSelectedBun = (store: RootState) => store.construct.bun;
 
-export const getUserData = (store: any) => store.user.userData;
-export const getIsForgotPassword = (store: any) => store.user.isPasswordForgot;
+export const getUserData = (store: RootState) => store.user.userData;
+export const getIsForgotPassword = (store: RootState) => store.user.isPasswordForgot;
 
-export const getWsFeed = (store: any) => store.wsFeed;
+export const getWsFeed = (store: RootState) => store.wsFeed;
 
-export const getWsOrders = (store: any) => store.wsOrders;
+export const getWsOrders = (store: RootState) => store.wsOrders;
 
 export const getRandomInt = (min: number, max: number) => {
   min = Math.ceil(min);

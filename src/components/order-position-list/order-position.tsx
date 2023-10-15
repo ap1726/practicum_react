@@ -7,7 +7,7 @@ import { FC, useMemo } from "react";
 import { uniq } from "../../utils/function_tools";
 import { itemDataType } from "../ingredient/ingredient";
 
-type orderPositionsType = {
+export type orderPositionsType = {
   ingredients: Array<itemDataType>
 }
 const OrderPositions: FC<orderPositionsType> = ({ ingredients }) => {

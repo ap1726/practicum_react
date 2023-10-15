@@ -4,8 +4,9 @@ import {
 import { setNewOrder } from "../../utils/burger-api";
 import { AppDispatch } from "../..";
 import { getCookie } from "../../utils/cookie";
+import { IData, itemDataType } from "../../components/ingredient/ingredient";
 
-export function addOrder(order: any) {
+export function addOrder(order: IData) {
   const token = getCookie("accessToken");
 
   return function (dispatch: AppDispatch) {
@@ -27,7 +28,7 @@ export function addOrder(order: any) {
   };
 }
 
-export function deleteIngredientFromOrder(selectedIngredients: any, index: any) {
+export function deleteIngredientFromOrder(selectedIngredients: Array<itemDataType>, index: number) {
   return function (dispatch: AppDispatch) {
     const copyArr = selectedIngredients.slice();
     copyArr.splice(index, 1);

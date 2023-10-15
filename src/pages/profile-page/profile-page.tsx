@@ -9,7 +9,7 @@ import EditData from "../../components/edit-data/edit-data";
 import { useAppDispatch } from "../../utils/hooks"; 
 import { logOut } from "../../services/actions/user";
 import { getCookie } from "../../utils/cookie";
-import { userActions } from "../../services/actions/user";
+import { UserActions } from "../../services/actions/user";
 import { loginPage, profilePage, ordersPage } from "../../utils/variables";
 import NotFound404 from "../../pages/page-404/page-404"
 
@@ -22,7 +22,7 @@ const ProfilePage = () => {
   const handleLogoutClick = () => {
     const refreshToken = getCookie("refreshToken") || "";
     dispatch(logOut(refreshToken));
-    dispatch({ type: userActions.LOGOUT_SUCCESS });
+    dispatch({ type: UserActions.LOGOUT_SUCCESS });
   };
 
 
