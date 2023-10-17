@@ -14,14 +14,14 @@ const OrderPositions: FC<orderPositionsType> = ({ ingredients }) => {
   const data = useAppSelector(getData);
   
   const count = (elem: itemDataType) => {
-    let count = ingredients.filter((item: itemDataType) => {
+    let count = ingredients.filter((item) => {
       return item === elem;
     }).length;
     return count;
   }
 
   const orderIngredient = useMemo(() => {
-    return ingredients.map((elem: itemDataType) => {
+    return ingredients.map((elem) => {
       return data.find((item: itemDataType) => {
         return elem._id === item._id;
       });

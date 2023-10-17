@@ -1,6 +1,9 @@
 import {
-  actions
-} from "./actions";
+    CREATE_ORDER_REQUEST,
+    CREATE_ORDER_SUCCESS,
+    CREATE_ORDER_FAILED,
+    REMOVE_INGREDIENT_ORDER,
+  } from "./actions";
 import { setNewOrder } from "../../utils/burger-api";
 import { AppDispatch } from "../..";
 import { getCookie } from "../../utils/cookie";
@@ -11,19 +14,19 @@ export function addOrder(order: IData) {
 
   return function (dispatch: AppDispatch) {
     dispatch({
-      type: actions.CREATE_ORDER_REQUEST,
+      type: CREATE_ORDER_REQUEST,
     });
     setNewOrder(order, token)
           .then((result) => {
               if (result && result.success) {
                 dispatch({
-                  type: actions.CREATE_ORDER_SUCCESS,
+                  type: CREATE_ORDER_SUCCESS,
                   item: result.order.number,
                 });
               }
             })
           .catch( error =>
-              {dispatch({ type: actions.CREATE_ORDER_FAILED });}
+              {dispatch({ type: CREATE_ORDER_FAILED });}
               );
   };
 }
@@ -33,7 +36,7 @@ export function deleteIngredientFromOrder(selectedIngredients: Array<itemDataTyp
     const copyArr = selectedIngredients.slice();
     copyArr.splice(index, 1);
     dispatch({
-      type: actions.REMOVE_INGREDIENT_ORDER,
+      type: REMOVE_INGREDIENT_ORDER,
       payload: copyArr,
     });
   };

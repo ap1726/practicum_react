@@ -8,6 +8,7 @@ import { deleteIngredientFromOrder } from "../../../services/actions/order";
 import { getSelectedIngredients } from "../../../utils/function_tools";
 
 export interface itemType {
+  uniqueId?: string,
   _id: string,
   name: string,
   price: number,

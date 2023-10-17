@@ -1,28 +1,30 @@
 import { AppDispatch } from "../..";
 import { getIngredients } from "../../utils/burger-api";
 import {
-  actions
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_FAILED,
 } from "./actions";
 
 export function getIngredientsStore(): any {
   return function (dispatch: AppDispatch) {
     dispatch({
-      type: actions.GET_INGREDIENTS_REQUEST,
+      type: GET_INGREDIENTS_REQUEST,
     });
 
     getIngredients()
           .then((result) => {      
               if (result && result.success) {
                 dispatch({
-                  type: actions.GET_INGREDIENTS_SUCCESS,
+                  type: GET_INGREDIENTS_SUCCESS,
                   items: result.data,
                 });
               } else {
-                dispatch({ type: actions.GET_INGREDIENTS_FAILED });
+                dispatch({ type: GET_INGREDIENTS_FAILED });
               }
             })
           .catch( error =>
-              {dispatch({ type: actions.GET_INGREDIENTS_FAILED });
+              {dispatch({ type: GET_INGREDIENTS_FAILED });
             })
   };
 }

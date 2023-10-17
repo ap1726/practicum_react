@@ -23,6 +23,8 @@ import { ConstructorItem }  from './constructor-item/constructor-item';
 import { BUN, loginPage } from "../../utils/variables";
 
 import { itemType } from "./constructor-item/constructor-item";
+import { addIngredient, addIngredientBun } from "../../services/reducers/constructor";
+import { IData } from "../ingredient/ingredient";
 
 const BurgerConstructor = () => {
 
@@ -65,14 +67,10 @@ const BurgerConstructor = () => {
 
   const [ , dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item: any) {
-      dispatch({
-        type:
-          item.data.type === BUN
-            ? actions.ADD_INGREDIENT_BUN_ORDER
-            : actions.ADD_INGREDIENT_ORDER,
-        payload: item,
-      });
+    drop(item: IData) {
+      item.data.type === BUN?
+      dispatch(addIngredientBun(item))
+      :dispatch(addIngredient(item));
     },
   });
 
@@ -92,9 +90,9 @@ const BurgerConstructor = () => {
       <div className={styles.with_scroll}>
         {ingredients.length>0 ?
           ingredients.map((item: itemType, index: number)=> item.type !== BUN && 
-            <div key={'div'+item._id+index} className={styles.items+' mb-3'}>
+            <div key={'div'+item.uniqueId} className={styles.items+' mb-3'}>
               <ConstructorItem
-                  key={'ConstructorItem'+item._id + index}
+                  key={'ConstructorItem'+item.uniqueId}
                   item={item}
                   index={index}
                   moveListItem={moveListItem}

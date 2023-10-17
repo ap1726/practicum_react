@@ -1,6 +1,13 @@
+import { IData } from "../../components/ingredient/ingredient";
 import {
-  actions
+    ADD_INGREDIENT_ORDER,
+    REMOVE_INGREDIENT_ORDER,
+    ADD_INGREDIENT_BUN_ORDER,
+    SORT_INGREDIENTS,
+    CLEAR_INGREDIENTS,
 } from "../actions/actions";
+import { v4 as uuidv4 } from "uuid";
+
 
 const initialState = {
   bun: null ,
@@ -8,25 +15,25 @@ const initialState = {
 };
 export const constructorReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case actions.ADD_INGREDIENT_ORDER: {
+    case ADD_INGREDIENT_ORDER: {
       return {
         ...state,
         data: [...state.data, action.payload.data],
       };
     }
-    case actions.ADD_INGREDIENT_BUN_ORDER: {
+    case ADD_INGREDIENT_BUN_ORDER: {
       return {
         ...state,
         bun: action.payload.data,
       };
     }
-    case actions.REMOVE_INGREDIENT_ORDER: {
+    case REMOVE_INGREDIENT_ORDER: {
       return {
         ...state,
         data: action.payload,
       };
     }
-    case actions.SORT_INGREDIENTS: {
+    case SORT_INGREDIENTS: {
       const updatedData = [...state.data];
       updatedData[action.payload.dragIndex] = state.data[action.payload.hoverIndex];
       updatedData[action.payload.hoverIndex] = state.data[action.payload.dragIndex];
@@ -35,7 +42,7 @@ export const constructorReducer = (state = initialState, action: any) => {
         data: updatedData,
       };
     }
-    case actions.CLEAR_INGREDIENTS: {
+    case CLEAR_INGREDIENTS: {
       return {
         ...state,
         data: [],
@@ -47,3 +54,23 @@ export const constructorReducer = (state = initialState, action: any) => {
     }
   }
 };
+
+export const addIngredient = (item: IData) => {
+  return {
+      type: ADD_INGREDIENT_ORDER,
+      payload: {
+          ...item, // используем `spread`, чтобы поменять ссылку на объект. Таким образом `redux` обновит его в хранилище
+         data: {...item.data, uniqueId: uuidv4()}  // и добавляем в объект новое поле, которое потом будет использовано в `key`
+      }
+  }
+}
+
+export const addIngredientBun = (item: IData) => {
+  return {
+      type: ADD_INGREDIENT_BUN_ORDER,
+      payload: {
+          ...item, // используем `spread`, чтобы поменять ссылку на объект. Таким образом `redux` обновит его в хранилище
+         bun: {...item.data, uniqueId: uuidv4()}
+      }
+  }
+}
