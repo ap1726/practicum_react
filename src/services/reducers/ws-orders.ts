@@ -1,5 +1,8 @@
 import {
-  wsActions,
+  WS_ORDERS_CONNECTION_SUCCESS,
+  WS_ORDERS_CONNECTION_ERROR,
+  WS_ORDERS_CONNECTION_CLOSED,
+  WS_ORDERS_GET_MESSAGE
 } from "../actions/ws-actions";
 
 const initialState = {
@@ -12,28 +15,28 @@ const initialState = {
 
 export const wsOrdersReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case wsActions.WS_ORDERS_CONNECTION_SUCCESS:
+    case WS_ORDERS_CONNECTION_SUCCESS:
       return {
         ...state,
         wsConnected: true,
         error: null,
       };
 
-    case wsActions.WS_ORDERS_CONNECTION_ERROR:
+    case WS_ORDERS_CONNECTION_ERROR:
       return {
         ...state,
         wsConnected: false,
         error: action.payload,
       };
 
-    case wsActions.WS_ORDERS_CONNECTION_CLOSED:
+    case WS_ORDERS_CONNECTION_CLOSED:
       return {
         ...state,
         wsConnected: false,
         error: null,
       };
 
-    case wsActions.WS_ORDERS_GET_MESSAGE:
+    case WS_ORDERS_GET_MESSAGE:
       return {
         ...state,
         orders: action.payload.orders,

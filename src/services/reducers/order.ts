@@ -1,5 +1,7 @@
 import {
-  actions
+  CREATE_ORDER_SUCCESS,
+  CREATE_ORDER_REQUEST,
+  CREATE_ORDER_FAILED
 } from "../actions/actions";
 
 const initialState = {
@@ -10,21 +12,21 @@ const initialState = {
 
 export const orderReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case actions.CREATE_ORDER_SUCCESS: {
+    case CREATE_ORDER_SUCCESS: {
       return {
         ...state,
         orderRequest: false,
         order: action.item,
       };
     }
-    case actions.CREATE_ORDER_REQUEST: {
+    case CREATE_ORDER_REQUEST: {
       return {
         ...state,
         orderRequest: true,
         orderFailed: false,
       };
     }
-    case actions.CREATE_ORDER_FAILED: {
+    case CREATE_ORDER_FAILED: {
       return {
         ...state,
         orderRequest: false,

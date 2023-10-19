@@ -1,5 +1,9 @@
 import {
-  actions
+    OPEN_INGREDIENT_MODAL,
+    OPEN_ORDER_MODAL,
+    SET_INGREDIENT_INFO,
+    CLOSE_MODAL,
+    OPEN_MODAL
 } from "../actions/actions";
 
 const initialState = {
@@ -11,25 +15,25 @@ const initialState = {
 
 export const modalReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case actions.OPEN_INGREDIENT_MODAL: {
+    case OPEN_INGREDIENT_MODAL: {
       return {
         ...state,
         ingredientModal: true,
       };
     }
-    case actions.OPEN_ORDER_MODAL: {
+    case OPEN_ORDER_MODAL: {
       return {
         ...state,
         orderModal: true,
       };
     }
-    case actions.SET_INGREDIENT_INFO: {
+    case SET_INGREDIENT_INFO: {
       return {
         ...state,
         detailsIngredient: action.item,
       };
     }
-    case actions.CLOSE_MODAL: {
+    case CLOSE_MODAL: {
       return {
         ...state,
         isOpen: false,
@@ -38,7 +42,7 @@ export const modalReducer = (state = initialState, action: any) => {
         orderModal: false,
       };
     }
-    case actions.OPEN_MODAL: {
+    case OPEN_MODAL: {
       return {
         ...state,
         isOpen: true,

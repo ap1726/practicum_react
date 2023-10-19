@@ -10,7 +10,7 @@ import { itemDataType } from "../../../ingredient/ingredient";
 export type orderType = {
     _id: string,
     ingredients: Array<itemDataType>,
-    number: number|never,
+    number: number,
     createdAt: Date,
     name: string,
     status: string,

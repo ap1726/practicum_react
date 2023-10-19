@@ -1,5 +1,11 @@
+import { orderType } from '../../components/orders/components/order-card/order-card'
+
 import {
-    wsActions,
+  WS_FEED_CONNECTION_SUCCESS,
+  WS_FEED_CONNECTION_ERROR,
+  WS_FEED_CONNECTION_CLOSED,
+  WS_FEED_GET_MESSAGE,
+  TWsActions
   } from "../actions/ws-actions";
   
   const initialState = {
@@ -10,30 +16,40 @@ import {
     error: null,
   };
   
-  export const wsFeedReducer = (state = initialState, action: any) => {
+type InitialState = {
+    wsConnected: boolean,
+    orders: Array<orderType>,
+    total: number,
+    totalToday: number,
+    error: string | null,
+}
+
+
+
+  export const wsFeedReducer = (state:InitialState = initialState, action: TWsActions) => {
     switch (action.type) {
-      case wsActions.WS_FEED_CONNECTION_SUCCESS:
+      case WS_FEED_CONNECTION_SUCCESS:
         return {
           ...state,
           wsConnected: true,
           error: null,
         };
   
-      case wsActions.WS_FEED_CONNECTION_ERROR:
+      case WS_FEED_CONNECTION_ERROR:
         return {
           ...state,
           wsConnected: false,
           error: action.payload,
         };
   
-      case wsActions.WS_FEED_CONNECTION_CLOSED:
+      case WS_FEED_CONNECTION_CLOSED:
         return {
           ...state,
           wsConnected: false,
           error: null,
         };
   
-      case wsActions.WS_FEED_GET_MESSAGE:
+      case WS_FEED_GET_MESSAGE:
         return {
           ...state,
           orders: action.payload.orders,

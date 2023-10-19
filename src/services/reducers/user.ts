@@ -1,5 +1,28 @@
 import {
-  UserActions
+    REGISTRATION,
+    REGISTRATION_SUCCESS,
+    REGISTRATION_FAILED,
+    LOGIN,
+    LOGIN_SUCCESS,
+    LOGIN_FAILED,
+    FORGOT_PASSWORD,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAILED,
+    RESET_PASSWORD,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAILED,
+    GET_USER_DATA,
+    GET_USER_DATA_SUCCESS,
+    GET_USER_DATA_FAILED,
+    LOGOUT,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILED,
+    REFRESH_TOKEN,
+    REFRESH_TOKEN_SUCCESS,
+    REFRESH_TOKEN_FAILED,
+    SEND_USER_DATA,
+    SEND_USER_DATA_SUCCESS,
+    SEND_USER_DATA_FAILED,
 } from "../actions/user";
 
 const initialState = {
@@ -25,166 +48,166 @@ const initialState = {
 
 export const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case UserActions.REGISTRATION: {
+    case REGISTRATION: {
       return {
         ...state,
         registrationRequest: true,
         registrationRequestFailed: false,
       };
     }
-    case UserActions.REGISTRATION_SUCCESS: {
+    case REGISTRATION_SUCCESS: {
       return {
         ...state,
         registrationRequest: false,
         accessToken: action.payload,
       };
     }
-    case UserActions.REGISTRATION_FAILED: {
+    case REGISTRATION_FAILED: {
       return {
         ...state,
         registrationRequest: false,
         registrationRequestFailed: true,
       };
     }
-    case UserActions.LOGIN: {
+    case LOGIN: {
       return {
         ...state,
         loginRequest: true,
         loginRequestFailed: false,
       };
     }
-    case UserActions.LOGIN_SUCCESS: {
+    case LOGIN_SUCCESS: {
       return {
         ...state,
         loginRequest: false,
         userData: action.payload,
       };
     }
-    case UserActions.LOGIN_FAILED: {
+    case LOGIN_FAILED: {
       return {
         ...state,
         loginRequest: false,
         loginRequestFailed: true,
       };
     }
-    case UserActions.FORGOT_PASSWORD: {
+    case FORGOT_PASSWORD: {
       return {
         ...state,
         forgotPasswordRequest: true,
         forgotPasswordRequestFailed: false,
       };
     }
-    case UserActions.FORGOT_PASSWORD_SUCCESS: {
+    case FORGOT_PASSWORD_SUCCESS: {
       return {
         ...state,
         forgotPasswordRequest: false,
         isPasswordForgot: true,
       };
     }
-    case UserActions.FORGOT_PASSWORD_FAILED: {
+    case FORGOT_PASSWORD_FAILED: {
       return {
         ...state,
         forgotPasswordRequest: false,
         forgotPasswordRequestFailed: true,
       };
     }
-    case UserActions.RESET_PASSWORD: {
+    case RESET_PASSWORD: {
       return {
         ...state,
         resetPasswordRequest: true,
         resetPasswordRequestFailed: false,
       };
     }
-    case UserActions.RESET_PASSWORD_SUCCESS: {
+    case RESET_PASSWORD_SUCCESS: {
       return {
         ...state,
         resetPasswordRequest: false,
       };
     }
-    case UserActions.RESET_PASSWORD_FAILED: {
+    case RESET_PASSWORD_FAILED: {
       return {
         ...state,
         resetPasswordRequest: false,
         resetPasswordRequestFailed: true,
       };
     }
-    case UserActions.GET_USER_DATA: {
+    case GET_USER_DATA: {
       return {
         ...state,
         getUserDataRequest: true,
         getUserDataRequestFailed: false,
       };
     }
-    case UserActions.GET_USER_DATA_SUCCESS: {
+    case GET_USER_DATA_SUCCESS: {
       return {
         ...state,
         getUserDataRequest: false,
         userData: action.payload,
       };
     }
-    case UserActions.GET_USER_DATA_FAILED: {
+    case GET_USER_DATA_FAILED: {
       return {
         ...state,
         getUserDataRequest: false,
         getUserDataRequestFailed: true,
       };
     }
-    case UserActions.LOGOUT: {
+    case LOGOUT: {
       return {
         ...state,
         logoutRequest: true,
         logoutRequestFailed: false,
       };
     }
-    case UserActions.LOGOUT_SUCCESS: {
+    case LOGOUT_SUCCESS: {
       return {
         ...state,
         logoutRequest: false,
         userData: null,
       };
     }
-    case UserActions.LOGOUT_FAILED: {
+    case LOGOUT_FAILED: {
       return {
         ...state,
         logoutRequest: false,
         logoutRequestFailed: true,
       };
     }
-    case UserActions.REFRESH_TOKEN: {
+    case REFRESH_TOKEN: {
       return {
         ...state,
         refreshTokenRequest: true,
         refreshTokenRequestFailed: false,
       };
     }
-    case UserActions.REFRESH_TOKEN_SUCCESS: {
+    case REFRESH_TOKEN_SUCCESS: {
       return {
         ...state,
         refreshTokenRequest: false,
       };
     }
-    case UserActions.REFRESH_TOKEN_FAILED: {
+    case REFRESH_TOKEN_FAILED: {
       return {
         ...state,
         refreshTokenRequest: false,
         refreshTokenRequestFailed: true,
       };
     }
-    case UserActions.SEND_USER_DATA: {
+    case SEND_USER_DATA: {
       return {
         ...state,
         sendUserDataRequest: true,
         sendUserDataRequestFailed: false,
       };
     }
-    case UserActions.SEND_USER_DATA_SUCCESS: {
+    case SEND_USER_DATA_SUCCESS: {
       return {
         ...state,
         sendUserDataRequest: false,
         userData: action.payload,
       };
     }
-    case UserActions.SEND_USER_DATA_FAILED: {
+    case SEND_USER_DATA_FAILED: {
       return {
         ...state,
         sendUserDataRequest: false,

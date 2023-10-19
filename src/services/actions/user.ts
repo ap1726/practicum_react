@@ -7,7 +7,7 @@ import {
 } from "../../utils/burger-api";
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import { loginUser, logout, getUserData } from "../../utils/burger-api";
-import { AppDispatch } from "../..";
+import { AppDispatch, AppThunk } from "../..";
 
 export const REGISTRATION: "REGISTRATION" = "REGISTRATION";
 export const REGISTRATION_SUCCESS: "REGISTRATION_SUCCESS" = "REGISTRATION_SUCCESS";
@@ -138,7 +138,7 @@ export type TUserActions =
           | IRefreshTokenSuccess
           | IRefreshTokenFailed;
 
-export function registration(email: string, password: string, name: string) {
+export const registration: AppThunk = (email: string, password: string, name: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: REGISTRATION,
@@ -158,7 +158,7 @@ export function registration(email: string, password: string, name: string) {
   };
 }
 
-export function signIn(email: string, password: string) {
+export const signIn: AppThunk = (email: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGIN,
@@ -181,7 +181,7 @@ export function signIn(email: string, password: string) {
   };
 }
 
-export function logOut(refreshToken: string) {
+export const logOut: AppThunk = (refreshToken: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({ type: LOGOUT });
 
@@ -198,7 +198,7 @@ export function logOut(refreshToken: string) {
   };
 }
 
-export function getUser(token: string | undefined): any {
+export const getUser: AppThunk = (token: string | undefined) => {
   return function (dispatch: AppDispatch) {
     dispatch({ type: LOGIN });
 
@@ -215,7 +215,7 @@ export function getUser(token: string | undefined): any {
   };
 }
 
-export function forgotPasswords(email: string) {
+export const forgotPasswords: AppThunk = (email: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({ type: FORGOT_PASSWORD });
 
@@ -232,7 +232,7 @@ export function forgotPasswords(email: string) {
   };
 }
 
-export function resetPasswords(password: string, token: string) {
+export const resetPasswords: AppThunk = (password: string, token: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({ type: RESET_PASSWORD });
 
@@ -248,7 +248,7 @@ export function resetPasswords(password: string, token: string) {
   };
 }
 
-export function updateToken(token: string | undefined) {
+export const updateToken: AppThunk = (token: string | undefined) => {
   return function (dispatch: AppDispatch) {
     dispatch({ type: REFRESH_TOKEN });
 
@@ -268,7 +268,7 @@ export function updateToken(token: string | undefined) {
   };
 }
 
-export function updateProfile(token: string | undefined, email: string, name: string, password: string) {
+export const updateProfile: AppThunk = (token: string | undefined, email: string, name: string, password: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({ type: SEND_USER_DATA });
 
@@ -286,7 +286,7 @@ export function updateProfile(token: string | undefined, email: string, name: st
   };
 }
 
-export function updateTokenAndProfile(email: string, name: string, password: string) {
+export const updateTokenAndProfile: AppThunk = (email: string, name: string, password: string) => {
   return function (dispatch: AppDispatch) {
     getUserData(getCookie("accessToken"))
       .then(() => {

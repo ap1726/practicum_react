@@ -6,7 +6,8 @@ import { useMemo, FC } from 'react';
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { getOpenDetails, getIngredients } from "../../utils/function_tools";
 import {
-  actions
+  SET_INGREDIENT_INFO,
+  OPEN_INGREDIENT_MODAL
 } from "../../services/actions/actions";
 
 import { useDrag } from "react-dnd";
@@ -43,10 +44,10 @@ export const Ingedient: FC<IData> = ({data}) => {
 
   const handleClick = () => {
       dispatch({
-        type: actions.SET_INGREDIENT_INFO,
+        type: SET_INGREDIENT_INFO,
         item: data,
       });
-      dispatch({ type: actions.OPEN_INGREDIENT_MODAL });
+      dispatch({ type: OPEN_INGREDIENT_MODAL });
     };
   const count = useMemo(() => {
     let result = null;

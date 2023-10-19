@@ -1,4 +1,4 @@
-import { AppDispatch } from "../..";
+import { AppDispatch, AppThunk } from "../..";
 import { getIngredients } from "../../utils/burger-api";
 import {
   GET_INGREDIENTS_REQUEST,
@@ -6,7 +6,7 @@ import {
   GET_INGREDIENTS_FAILED,
 } from "./actions";
 
-export function getIngredientsStore(): any {
+export const getIngredientsStore: AppThunk = () => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,

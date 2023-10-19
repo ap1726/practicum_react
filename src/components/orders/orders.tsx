@@ -1,5 +1,5 @@
 import styles from "./orders.module.css";
-import OrderCard, { orderType } from "./components/order-card/order-card";
+import OrderCard from "./components/order-card/order-card";
 import { useAppSelector } from "../../utils/hooks"; 
 import { getWsFeed } from "../../utils/function_tools";
 import { useLocation, NavLink } from "react-router-dom";
@@ -11,7 +11,7 @@ const Orders = () => {
 
   return (
     <ul className={styles.ordersList}>
-      {orders && orders.map((item: orderType, index: number) => {
+      {orders && orders.map((item, index) => {
           return(
             <NavLink
               key={'navLink__'+item._id}

@@ -5,7 +5,10 @@ import { useEffect, useMemo } from 'react';
 import OrderPositions from '../../components/order-position-list/order-position';
 import { getData, formatDate } from '../../utils/function_tools';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { wsActions } from '../../services/actions/ws-actions';
+import { WS_ORDERS_CONNECTION_START,
+        WS_FEED_CONNECTION_START,
+        WS_ORDERS_CONNECTION_CLOSED,
+        WS_FEED_CONNECTION_CLOSED } from '../../services/actions/ws-actions';
 import { feedPage, ordersPage, profilePage } from '../../utils/variables';
 import { itemDataType } from '../../components/ingredient/ingredient';
 import { orderType } from '../../components/orders/components/order-card/order-card';
@@ -45,18 +48,18 @@ const SingleOrder = () => {
 
   useEffect(() => {
     if (path?.pathname === isProfileOrders) {
-      dispatch({ type: wsActions.WS_ORDERS_CONNECTION_START });
+      dispatch({ type: WS_ORDERS_CONNECTION_START });
     }
     if (path?.pathname === isFeedOrders) {
-      dispatch({ type: wsActions.WS_FEED_CONNECTION_START });
+      dispatch({ type: WS_FEED_CONNECTION_START });
     }
 
     return () => {
       if (path?.pathname === isProfileOrders) {
-        dispatch({ type: wsActions.WS_ORDERS_CONNECTION_CLOSED });
+        dispatch({ type: WS_ORDERS_CONNECTION_CLOSED });
       }
       if (path?.pathname === isFeedOrders) {
-        dispatch({ type: wsActions.WS_FEED_CONNECTION_CLOSED });
+        dispatch({ type: WS_FEED_CONNECTION_CLOSED });
       }
     };
   }, [dispatch, isProfileOrders, isFeedOrders, path]);

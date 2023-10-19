@@ -4,7 +4,8 @@ import { useAppSelector, useAppDispatch } from "../../utils/hooks";
 import { getWsOrders } from "../../utils/function_tools";
 import { useEffect } from "react";
 import {
-  wsActions,
+  WS_ORDERS_CONNECTION_START,
+  WS_ORDERS_CONNECTION_CLOSED
 } from "../../services/actions/ws-actions";
 import { NavLink, useLocation } from "react-router-dom"
 
@@ -15,10 +16,10 @@ const OrdersHistory = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch({ type: wsActions.WS_ORDERS_CONNECTION_START });
+    dispatch({ type: WS_ORDERS_CONNECTION_START });
 
     return () => {
-      dispatch({ type: wsActions.WS_ORDERS_CONNECTION_CLOSED });
+      dispatch({ type: WS_ORDERS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
 

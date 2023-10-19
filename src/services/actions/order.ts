@@ -5,11 +5,11 @@ import {
     REMOVE_INGREDIENT_ORDER,
   } from "./actions";
 import { setNewOrder } from "../../utils/burger-api";
-import { AppDispatch } from "../..";
+import { AppDispatch, AppThunk } from "../..";
 import { getCookie } from "../../utils/cookie";
 import { IData, itemDataType } from "../../components/ingredient/ingredient";
 
-export function addOrder(order: IData) {
+export const addOrder: AppThunk = (order: IData) => {
   const token = getCookie("accessToken");
 
   return function (dispatch: AppDispatch) {
@@ -31,7 +31,7 @@ export function addOrder(order: IData) {
   };
 }
 
-export function deleteIngredientFromOrder(selectedIngredients: Array<itemDataType>, index: number) {
+export const deleteIngredientFromOrder: AppThunk = (selectedIngredients: Array<itemDataType>, index: number) => {
   return function (dispatch: AppDispatch) {
     const copyArr = selectedIngredients.slice();
     copyArr.splice(index, 1);

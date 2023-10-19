@@ -10,7 +10,8 @@ import { addOrder } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 
 import {
-         actions
+  SORT_INGREDIENTS,
+  OPEN_ORDER_MODAL
         } from "../../services/actions/actions";
 import { 
           getOrderModal,
@@ -38,7 +39,7 @@ const BurgerConstructor = () => {
 
   const moveListItem = (dragIndex: number, hoverIndex: number) => {
       dispatch({
-        type: actions.SORT_INGREDIENTS,
+        type: SORT_INGREDIENTS,
         payload: { dragIndex, hoverIndex }
       });
     };
@@ -56,7 +57,7 @@ const BurgerConstructor = () => {
     !userData && navigate(loginPage);
     if (userData && ingredients.length !== 0 && bun?._id.length>0) {
       dispatch(addOrder(orderIngredients));
-      dispatch({ type: actions.OPEN_ORDER_MODAL });
+      dispatch({ type: OPEN_ORDER_MODAL });
     }
   };
   

@@ -5,7 +5,7 @@ import { useEffect, FC, ReactElement } from "react";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { useAppDispatch } from "../../utils/hooks"; 
 import {
-  actions
+  CLOSE_MODAL
 } from "../../services/actions/actions";
 
 interface IModalType {
@@ -18,7 +18,7 @@ const Modal: FC<IModalType> = ({ body, title = "", onClose }) => {
   const modalRoot = document.getElementById("modals") as HTMLElement;
   const dispatch = useAppDispatch();
   const handleCloseModal =() => {
-      dispatch({ type: actions.CLOSE_MODAL });
+      dispatch({ type: CLOSE_MODAL });
       onClose && onClose();
   }
 
