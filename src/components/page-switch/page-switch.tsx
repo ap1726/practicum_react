@@ -30,7 +30,6 @@ import SingleOrder from "../../pages/single-order/single-order";
 import { getOrderModal } from "../../utils/function_tools";
 import { useAppSelector } from "../../utils/hooks";
 import OrderDetails from "../order-details/order-details";
-import OrdersHistory from "../orders-history/orders-history";
 
 
 const PageSwitch = () => {
@@ -82,13 +81,6 @@ const PageSwitch = () => {
 
         <Route path={feedPage+'/:id'} element={<SingleOrder />} />
         
-        
-        <Route path={profilePage+'/'+ordersPage} 
-          element={
-                  <ProtectedRoute onlyUnAuth={false}>
-                    <OrdersHistory />
-                  </ProtectedRoute>}/>
-
         <Route path={profilePage+'/'+ordersPage+'/:id'} 
           element={
                   <ProtectedRoute onlyUnAuth={false}>

@@ -12,6 +12,8 @@ import { getCookie } from "../../utils/cookie";
 import { LOGOUT_SUCCESS } from "../../services/actions/user";
 import { loginPage, profilePage, ordersPage } from "../../utils/variables";
 import NotFound404 from "../../pages/page-404/page-404"
+import { ProtectedRoute } from "../../components/protected-route/protected-route";
+import OrdersHistory from "../../components/orders-history/orders-history";
 
 const linkClass = `${styles.link} text text_type_main-medium pt-4 pb-5 text_color_inactive`;
 
@@ -36,7 +38,7 @@ const ProfilePage = () => {
           Профиль
         </NavLink>
         <NavLink
-          to={`${profilePage}/${ordersPage}?token=${accessToken}`}
+          to={`${profilePage}/${ordersPage}`}
           className={location.pathname === profilePage + '/' + ordersPage ? linkClass + styles.active:linkClass }
           >
           История заказов
@@ -56,7 +58,11 @@ const ProfilePage = () => {
 
         <Route path={'/'} element={<EditData />} />
 
-        <Route path={"/orders"} element={<NotFound404 />} />
+        <Route path={ordersPage} 
+          element={
+                  <ProtectedRoute onlyUnAuth={false}>
+                    <OrdersHistory />
+                  </ProtectedRoute>}/>
 
       </Routes>
     </main>
