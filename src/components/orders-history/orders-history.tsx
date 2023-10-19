@@ -1,5 +1,5 @@
 import styles from "./orders-history.module.css";
-import OrderCard, { orderType } from "../orders/components/order-card/order-card";
+import OrderCard, { TOrderType } from "../orders/components/order-card/order-card";
 import { useAppSelector, useAppDispatch } from "../../utils/hooks"; 
 import { getWsOrders } from "../../utils/function_tools";
 import { useEffect } from "react";
@@ -35,7 +35,7 @@ const OrdersHistory = () => {
   return (
     <div className={styles.wrapper}>
       {orders ? 
-        orders.reverse().map((order: orderType) => {
+        orders.reverse().map((order: TOrderType) => {
           return(
             <NavLink
               key={'nav_'+order._id}

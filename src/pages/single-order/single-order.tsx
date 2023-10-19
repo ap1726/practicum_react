@@ -10,8 +10,8 @@ import { WS_ORDERS_CONNECTION_START,
         WS_ORDERS_CONNECTION_CLOSED,
         WS_FEED_CONNECTION_CLOSED } from '../../services/actions/ws-actions';
 import { feedPage, ordersPage, profilePage } from '../../utils/variables';
-import { itemDataType } from '../../components/ingredient/ingredient';
-import { orderType } from '../../components/orders/components/order-card/order-card';
+import { TItemDataType } from '../../components/ingredient/ingredient';
+import { TOrderType } from '../../components/orders/components/order-card/order-card';
 
 const SingleOrder = () => {
   const dispatch = useAppDispatch();
@@ -25,20 +25,20 @@ const SingleOrder = () => {
   const orders = path?.pathname === isProfileOrders ? profileOrders : feedOrders;
 
   const order = useMemo(
-    () => orders.filter((order: orderType) => order._id === id)[0],[orders,id]
+    () => orders.filter((order: TOrderType) => order._id === id)[0],[orders,id]
   )
 
 
   const orderIngredientsData = useMemo(() => {
     return order ? order.ingredients.map((id: string) => {
-      return data.find((item: itemDataType) => {
+      return data.find((item: TItemDataType) => {
         return id === item._id;
       });
     }) : 0;
   }, [order,data]);
 
   const orderTotalPrice = useMemo(() => {
-    return order ? orderIngredientsData.reduce((sum: number, item: itemDataType) => {
+    return order ? orderIngredientsData.reduce((sum: number, item: TItemDataType) => {
       if (item.type === "bun") {
         return (sum += item.price * 2);
       }

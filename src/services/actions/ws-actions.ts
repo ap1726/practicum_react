@@ -1,4 +1,4 @@
-import { orderType } from "../../components/orders/components/order-card/order-card";
+import { TOrderType } from "../../components/orders/components/order-card/order-card";
 
 export const WS_FEED_CONNECTION_START: "WS_FEED_CONNECTION_START" = "WS_FEED_CONNECTION_START";
 export const WS_FEED_CONNECTION_SUCCESS: "WS_FEED_CONNECTION_SUCCESS" = "WS_FEED_CONNECTION_SUCCESS";
@@ -39,7 +39,7 @@ export interface IWsFeedConectionClosed {
 export interface IWsFeedGetMessage {
     readonly type: typeof WS_FEED_GET_MESSAGE;
     readonly payload: {
-      orders: Array<orderType>,
+      orders: Array<TOrderType>,
       total: number,
       totalToday: number
     }

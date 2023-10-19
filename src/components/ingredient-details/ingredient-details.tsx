@@ -4,13 +4,13 @@ import { getData } from "../../utils/function_tools";
 import { useAppSelector } from "../../utils/hooks";
 import { useParams } from "react-router-dom";
 
-import { itemDataType } from "../ingredient/ingredient";
+import { TItemDataType } from "../ingredient/ingredient";
 
 const IngredientDetails = ({title = ""}) => {
 
   const ingredients = useAppSelector(getData);
   const { ingredientId } = useParams();
-  const detailsIngredient = ingredients.find((item: itemDataType) => item._id === ingredientId);
+  const detailsIngredient = ingredients.find((item: TItemDataType) => item._id === ingredientId);
   return (
     <>
     {detailsIngredient && 

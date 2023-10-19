@@ -7,7 +7,7 @@ import { useAppSelector } from "../../utils/hooks";
 import { getData } from "../../utils/function_tools";
 
 import { BUN, SAUCE, MAIN } from '../../utils/variables'
-import { itemDataType } from "../ingredient/ingredient";
+import { TItemDataType } from "../ingredient/ingredient";
 const BurgerIngredients = () => {
 
   const data = useAppSelector(getData);
@@ -67,19 +67,19 @@ const BurgerIngredients = () => {
         <div ref={bunRef} id={BUN} className={styles.category}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Булки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {buns.map((item: itemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
+              {buns.map((item: TItemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
         <div ref={sauceRef} id={SAUCE} className={styles.categoty}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Соусы</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {sauces.map((item: itemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
+              {sauces.map((item: TItemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
         <div ref={mainRef} id={MAIN} className={styles.categoty}>
           <h2 className="text text_type_main-medium mt-11 mb-6">Начинки</h2>
           <div className={`${styles.cardsContainer} ml-4 mb-10`}>
-              {mains.map((item: itemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
+              {mains.map((item: TItemDataType)=><Ingredient key={"key_"+item._id} data={item} />)}
           </div>
         </div>
       </div>

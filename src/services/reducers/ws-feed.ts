@@ -1,4 +1,4 @@
-import { orderType } from '../../components/orders/components/order-card/order-card'
+import { TOrderType } from '../../components/orders/components/order-card/order-card'
 
 import {
   WS_FEED_CONNECTION_SUCCESS,
@@ -18,7 +18,7 @@ import {
   
 type InitialState = {
     wsConnected: boolean,
-    orders: Array<orderType>,
+    orders: Array<TOrderType>,
     total: number,
     totalToday: number,
     error: string | null,

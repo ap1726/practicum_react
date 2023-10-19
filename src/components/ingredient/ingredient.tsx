@@ -16,7 +16,7 @@ import { BUN, ingredientsPage } from '../../utils/variables'
 
 import { Link, useLocation } from "react-router-dom";
 
-export type itemDataType = {
+export type TItemDataType = {
       _id: string,
       name: string,
       type: string,
@@ -32,7 +32,7 @@ export type itemDataType = {
   }
 
 export interface IData {
-    data: itemDataType
+    data: TItemDataType
 }
 
 export const Ingedient: FC<IData> = ({data}) => {
@@ -54,7 +54,7 @@ export const Ingedient: FC<IData> = ({data}) => {
     if (data.type === BUN && ingredients.bun?._id === data._id) {
       result = 1;
     } else {
-      result = ingredients.data.filter((item: itemDataType) => item._id === data._id).length;
+      result = ingredients.data.filter((item: TItemDataType) => item._id === data._id).length;
     }
 
     return result;

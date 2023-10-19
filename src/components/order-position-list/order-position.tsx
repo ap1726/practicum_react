@@ -5,15 +5,15 @@ import { useAppSelector } from "../../utils/hooks";
 import { getData } from "../../utils/function_tools";
 import { FC, useMemo } from "react";
 import { uniq } from "../../utils/function_tools";
-import { itemDataType } from "../ingredient/ingredient";
+import { TItemDataType } from "../ingredient/ingredient";
 
-export type orderPositionsType = {
-  ingredients: Array<itemDataType>
+export type TOrderPositionsType = {
+  ingredients: Array<TItemDataType>
 }
-const OrderPositions: FC<orderPositionsType> = ({ ingredients }) => {
+const OrderPositions: FC<TOrderPositionsType> = ({ ingredients }) => {
   const data = useAppSelector(getData);
   
-  const count = (elem: itemDataType) => {
+  const count = (elem: TItemDataType) => {
     let count = ingredients.filter((item) => {
       return item === elem;
     }).length;
@@ -22,7 +22,7 @@ const OrderPositions: FC<orderPositionsType> = ({ ingredients }) => {
 
   const orderIngredient = useMemo(() => {
     return ingredients.map((elem) => {
-      return data.find((item: itemDataType) => {
+      return data.find((item: TItemDataType) => {
         return elem._id === item._id;
       });
     });

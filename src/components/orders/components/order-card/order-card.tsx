@@ -5,11 +5,11 @@ import { useAppSelector } from "../../../../utils/hooks";
 import { getData } from "../../../../utils/function_tools";
 import { useMemo, FC } from "react";
 import { formatDate } from "../../../../utils/function_tools";
-import { itemDataType } from "../../../ingredient/ingredient";
+import { TItemDataType } from "../../../ingredient/ingredient";
 
-export type orderType = {
+export type TOrderType = {
     _id: string,
-    ingredients: Array<itemDataType>,
+    ingredients: Array<TItemDataType>,
     number: number,
     createdAt: Date,
     name: string,
@@ -18,7 +18,7 @@ export type orderType = {
 
 
 interface IOrder {
-  order: orderType,
+  order: TOrderType,
   viewStatus?: boolean
 }
 

@@ -1,6 +1,6 @@
 import { RootState } from "..";
 import { itemType } from "../components/burger-constructor/constructor-item/constructor-item";
-import { orderType } from "../components/orders/components/order-card/order-card";
+import { TOrderType } from "../components/orders/components/order-card/order-card";
 export const getIngredientsByType = (arr: any, type: string) => {
   return arr.filter((item: itemType) => item.type === type);
 }
@@ -61,15 +61,15 @@ export const formatDate = (date: Date) => {
   return `${getDays(diffTime)}, ${hours}:${min}`;
 };
 
-export const filterOrders = (orders: Array<orderType>) => {
+export const filterOrders = (orders: Array<TOrderType>) => {
     if (!orders) {
       return null
     }
-    type resultType = {
+    type TResultType = {
       done: Array<number>,
       pending: Array<number>,
     }
-    const result: resultType = {done: [], pending: []}
+    const result: TResultType = {done: [], pending: []}
     
     orders.filter((item) => {
       return item.status === "done"

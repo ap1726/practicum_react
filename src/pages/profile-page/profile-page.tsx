@@ -11,7 +11,6 @@ import { logOut } from "../../services/actions/user";
 import { getCookie } from "../../utils/cookie";
 import { LOGOUT_SUCCESS } from "../../services/actions/user";
 import { loginPage, profilePage, ordersPage } from "../../utils/variables";
-import NotFound404 from "../../pages/page-404/page-404"
 import { ProtectedRoute } from "../../components/protected-route/protected-route";
 import OrdersHistory from "../../components/orders-history/orders-history";
 
@@ -20,7 +19,6 @@ const linkClass = `${styles.link} text text_type_main-medium pt-4 pb-5 text_colo
 const ProfilePage = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const accessToken = getCookie("accessToken") || "";
   const handleLogoutClick = () => {
     const refreshToken = getCookie("refreshToken") || "";
     dispatch(logOut(refreshToken));
