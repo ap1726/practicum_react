@@ -8,10 +8,11 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { WS_ORDERS_CONNECTION_START,
         WS_FEED_CONNECTION_START,
         WS_ORDERS_CONNECTION_CLOSED,
-        WS_FEED_CONNECTION_CLOSED } from '../../services/actions/ws-actions';
+        WS_FEED_CONNECTION_CLOSED, 
+        wsFeedConnectionClosed} from '../../services/actions/ws-actions';
 import { feedPage, ordersPage, profilePage } from '../../utils/variables';
-import { TItemDataType } from '../../components/ingredient/ingredient';
 import { TOrderType } from '../../components/orders/components/order-card/order-card';
+import { TItemDataType } from '../../components/ingredient/ingredient';
 
 const SingleOrder = () => {
   const dispatch = useAppDispatch();
@@ -38,8 +39,9 @@ const SingleOrder = () => {
   }, [order,data]);
 
   const orderTotalPrice = useMemo(() => {
-    return order ? orderIngredientsData.reduce((sum: number, item: TItemDataType) => {
-      if (item.type === "bun") {
+    return order && orderIngredientsData 
+    ? orderIngredientsData.reduce((sum, item) => {
+      if (item && item.type === "bun") {
         return (sum += item.price * 2);
       }
       return (sum += item ? item.price : 0);
@@ -59,7 +61,7 @@ const SingleOrder = () => {
         dispatch({ type: WS_ORDERS_CONNECTION_CLOSED });
       }
       if (path?.pathname === isFeedOrders) {
-        dispatch({ type: WS_FEED_CONNECTION_CLOSED });
+        dispatch(wsFeedConnectionClosed())
       }
     };
   }, [dispatch, isProfileOrders, isFeedOrders, path]);

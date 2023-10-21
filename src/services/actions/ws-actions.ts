@@ -59,6 +59,7 @@ export interface IWsOrdersConectionSuccess {
 
 export interface IWsOrdersConectionError {
     readonly type: typeof WS_ORDERS_CONNECTION_ERROR;
+    payload: string;
   }
 
 export interface IWsOrdersConectionClosed {
@@ -67,6 +68,9 @@ export interface IWsOrdersConectionClosed {
 
 export interface IWsOrdersGetMessage {
     readonly type: typeof WS_ORDERS_GET_MESSAGE;
+    payload: {orders:Array<TOrderType>, 
+              total: number,
+              totalToday: number};
   }
 
 export interface IWsOrdersSendMessage {
@@ -86,3 +90,6 @@ export type TWsActions =
         | IWsOrdersConectionClosed
         | IWsOrdersGetMessage
         | IWsOrdersSendMessage
+
+export const wsFeedConnectionStart = (): IWsFeedConectionStart => ({type: WS_FEED_CONNECTION_START})
+export const wsFeedConnectionClosed = (): IWsFeedConectionClosed => ({type: WS_FEED_CONNECTION_CLOSED, wsConnected: false, error: ""})

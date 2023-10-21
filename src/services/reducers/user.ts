@@ -23,9 +23,39 @@ import {
     SEND_USER_DATA,
     SEND_USER_DATA_SUCCESS,
     SEND_USER_DATA_FAILED,
+    TUserActions,
 } from "../actions/user";
 
-const initialState = {
+export type TUserType = {
+    email?: string,
+    name?: string,
+    accessToken?: string,
+    refreshToken?: string,
+}
+
+type TUser = {
+  registrationRequest: boolean,
+  registrationRequestFailed: boolean,
+  loginRequest: boolean,
+  loginRequestFailed: boolean,
+  forgotPasswordRequest: boolean,
+  forgotPasswordRequestFailed: boolean,
+  resetPasswordRequest: boolean,
+  resetPasswordRequestFailed: boolean,
+  getUserDataRequest: boolean,
+  getUserDataRequestFailed: boolean,
+  logoutRequest: boolean,
+  logoutRequestFailed: boolean,
+  refreshTokenRequest: boolean,
+  refreshTokenRequestFailed: boolean,
+  sendUserDataRequest: boolean,
+  sendUserDataRequestFailed: boolean,
+  isPasswordForgot: boolean,
+  accessToken?: string,
+  userData?: TUserType,
+};
+
+const initialState: TUser  = {
   registrationRequest: false,
   registrationRequestFailed: false,
   loginRequest: false,
@@ -43,10 +73,11 @@ const initialState = {
   sendUserDataRequest: false,
   sendUserDataRequestFailed: false,
   isPasswordForgot: false,
-  userData: null,
+  accessToken: undefined,
+  userData: undefined,
 };
 
-export const userReducer = (state = initialState, action: any) => {
+export const userReducer = (state = initialState, action: TUserActions): TUser => {
   switch (action.type) {
     case REGISTRATION: {
       return {
@@ -163,7 +194,7 @@ export const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         logoutRequest: false,
-        userData: null,
+        userData: undefined,
       };
     }
     case LOGOUT_FAILED: {

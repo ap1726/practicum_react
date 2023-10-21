@@ -1,11 +1,21 @@
+import { TOrderType } from "../../components/orders/components/order-card/order-card";
 import {
   WS_ORDERS_CONNECTION_SUCCESS,
   WS_ORDERS_CONNECTION_ERROR,
   WS_ORDERS_CONNECTION_CLOSED,
-  WS_ORDERS_GET_MESSAGE
+  WS_ORDERS_GET_MESSAGE,
+  TWsActions
 } from "../actions/ws-actions";
 
-const initialState = {
+type TWsOrders = {
+  wsConnected: boolean,
+  orders: Array<TOrderType>,
+  total: number,
+  totalToday: number,
+  error: string | null,
+}
+
+const initialState: TWsOrders = {
   wsConnected: false,
   orders: [],
   total: 0,
@@ -13,7 +23,7 @@ const initialState = {
   error: null,
 };
 
-export const wsOrdersReducer = (state = initialState, action: any) => {
+export const wsOrdersReducer = (state = initialState, action: TWsActions):TWsOrders => {
   switch (action.type) {
     case WS_ORDERS_CONNECTION_SUCCESS:
       return {

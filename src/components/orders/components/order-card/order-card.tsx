@@ -9,11 +9,20 @@ import { TItemDataType } from "../../../ingredient/ingredient";
 
 export type TOrderType = {
     _id: string,
-    ingredients: Array<TItemDataType>,
+    ingredients: Array<string>,
     number: number,
     createdAt: Date,
     name: string,
     status: string,
+}
+
+export const TOrderInitial: TOrderType = {
+    _id: "",
+    ingredients: [],
+    number: 0,
+    createdAt: new Date(),
+    name: "",
+    status: "",
 }
 
 
@@ -82,7 +91,7 @@ const OrderCard: FC<IOrder> = ({ order, viewStatus }) => {
                   style={{ zIndex: zIndex }}
                   key={index}
                 >
-                  <IngredientImage image={item?.image} alt={item?.name} />
+                  {item && <IngredientImage image={item.image} alt={item.name} />}
                 </li>
               );
             })}

@@ -1,19 +1,28 @@
+import { TItemDataType } from "../../components/ingredient/ingredient";
 import {
     OPEN_INGREDIENT_MODAL,
     OPEN_ORDER_MODAL,
     SET_INGREDIENT_INFO,
     CLOSE_MODAL,
-    OPEN_MODAL
+    OPEN_MODAL,
+    TActions
 } from "../actions/actions";
 
-const initialState = {
+type TModal = {
+  ingredientModal: boolean,
+  detailsIngredient?: TItemDataType,
+  orderModal: boolean,
+  isOpen: boolean
+};
+
+const initialState: TModal = {
   ingredientModal: false,
-  detailsIngredient: [],
+  detailsIngredient: undefined,
   orderModal: false,
   isOpen: false
 };
 
-export const modalReducer = (state = initialState, action: any) => {
+export const modalReducer = (state = initialState, action: TActions):TModal => {
   switch (action.type) {
     case OPEN_INGREDIENT_MODAL: {
       return {
@@ -38,7 +47,7 @@ export const modalReducer = (state = initialState, action: any) => {
         ...state,
         isOpen: false,
         ingredientModal: false,
-        detailsIngredient: [],
+        detailsIngredient: undefined,
         orderModal: false,
       };
     }

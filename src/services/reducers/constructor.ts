@@ -1,19 +1,24 @@
-import { IData } from "../../components/ingredient/ingredient";
+import { IData, TItemDataType } from "../../components/ingredient/ingredient";
 import {
     ADD_INGREDIENT_ORDER,
     REMOVE_INGREDIENT_ORDER,
     ADD_INGREDIENT_BUN_ORDER,
     SORT_INGREDIENTS,
     CLEAR_INGREDIENTS,
+    TActions,
 } from "../actions/actions";
 import { v4 as uuidv4 } from "uuid";
 
+type TConstructor = {
+  bun: TItemDataType | null,
+  data: Array<TItemDataType>
+};
 
-const initialState = {
+const initialState: TConstructor = {
   bun: null ,
   data: [],
 };
-export const constructorReducer = (state = initialState, action: any) => {
+export const constructorReducer = (state = initialState, action: TActions):TConstructor => {
   switch (action.type) {
     case ADD_INGREDIENT_ORDER: {
       return {
@@ -46,7 +51,7 @@ export const constructorReducer = (state = initialState, action: any) => {
       return {
         ...state,
         data: [],
-        bun: {},
+        bun: null,
       };
     }
     default: {

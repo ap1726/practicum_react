@@ -27,10 +27,10 @@ const IngredientDetails = ({title = ""}) => {
                 {detailsIngredient.name}
             </div>
             <div className={styles.detailsContainer}>
-                <DetailsMutted title="Калории, ккал" value={detailsIngredient.calories} extraClass={" mr-5"}/>
-                <DetailsMutted title="Белки, г" value={detailsIngredient.proteins} extraClass={" mr-5"}/>
-                <DetailsMutted title="Жиры, г" value={detailsIngredient.fat} extraClass={" mr-5"}/>
-                <DetailsMutted title="Углеводы, г" value={detailsIngredient.carbohydrates} extraClass={""}/>
+                <DetailsMutted title="Калории, ккал" value={`${detailsIngredient.calories}`} extraClass={" mr-5"}/>
+                <DetailsMutted title="Белки, г" value={`${detailsIngredient.proteins}`} extraClass={" mr-5"}/>
+                <DetailsMutted title="Жиры, г" value={`${detailsIngredient.fat}`} extraClass={" mr-5"}/>
+                <DetailsMutted title="Углеводы, г" value={`${detailsIngredient.carbohydrates}`} extraClass={""}/>
             </div>
         </div>}
       {!detailsIngredient && <div>Информация отсутствует</div>}

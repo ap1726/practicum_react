@@ -3,8 +3,8 @@ import { useAppDispatch } from "../../utils/hooks";
 import OrdersStats from "../../components/orders-stats/orders-stats";
 import Orders from "../../components/orders/orders";
 import {
-  WS_FEED_CONNECTION_START,
-  WS_FEED_CONNECTION_CLOSED
+  wsFeedConnectionStart,
+  wsFeedConnectionClosed
   } from "../../services/actions/ws-actions";
 import styles from "./feed.module.css";
 
@@ -13,10 +13,10 @@ const Feed = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch({ type: WS_FEED_CONNECTION_START });
+    dispatch(wsFeedConnectionStart());
 
     return () => {
-      dispatch({type: WS_FEED_CONNECTION_CLOSED})
+      dispatch(wsFeedConnectionClosed())
     }
   }, [dispatch]);
 

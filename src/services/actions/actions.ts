@@ -1,3 +1,6 @@
+import { TItemDataType } from "../../components/ingredient/ingredient"
+import { TOrderType } from "../../components/orders/components/order-card/order-card"
+
 export const GET_INGREDIENTS_REQUEST: "GET_INGREDIENTS_REQUEST" = "GET_INGREDIENTS_REQUEST"
 export const GET_INGREDIENTS_SUCCESS: "GET_INGREDIENTS_SUCCESS" = "GET_INGREDIENTS_SUCCESS"
 export const GET_INGREDIENTS_FAILED: "GET_INGREDIENTS_FAILED" = "GET_INGREDIENTS_FAILED"
@@ -21,6 +24,7 @@ export interface IGetIngredientsRequest {
 }
 export interface IGetIngredientsSuccess {
     readonly type: typeof GET_INGREDIENTS_SUCCESS;
+    items: Array<TItemDataType>;
 }
 export interface IGetIngredientsFailed {
     readonly type: typeof GET_INGREDIENTS_FAILED;
@@ -39,6 +43,7 @@ export interface IOpenOrderModal{
 }
 export interface ISetIngredientInfo {
     readonly type: typeof SET_INGREDIENT_INFO;
+    item: TItemDataType;
 }
 export interface ISetOrderInfo {
     readonly type: typeof SET_ORDER_INFO;
@@ -48,21 +53,26 @@ export interface ICreateOrderRequest {
 }
 export interface ICreateOrderSuccess {
     readonly type: typeof CREATE_ORDER_SUCCESS;
+    readonly item: TOrderType | number;
 }
 export interface ICreateOrderFailed {
     readonly type: typeof CREATE_ORDER_FAILED;
 }
-export interface IAddIngrediemtOrder {
+export interface IAddIngredientOrder {
     readonly type: typeof ADD_INGREDIENT_ORDER;
+    payload: {data: TItemDataType};
 }
-export interface IRemoveIngrediemtOrder {
+export interface IRemoveIngredientOrder {
     readonly type: typeof REMOVE_INGREDIENT_ORDER;
+    readonly payload: Array<TItemDataType>;
 }
-export interface IAddIngrediemtBunOrder {
+export interface IAddIngredientBunOrder {
     readonly type: typeof ADD_INGREDIENT_BUN_ORDER;
+    payload: {data: TItemDataType};
 }
-export interface ISortIngrediemts {
+export interface ISortIngredients {
     readonly type: typeof SORT_INGREDIENTS;
+    readonly payload: {dragIndex: number, hoverIndex: number}
 }
 export interface IClearIngredients {
     readonly type: typeof CLEAR_INGREDIENTS;
@@ -81,8 +91,29 @@ export type TActions =
     | ICreateOrderRequest
     | ICreateOrderSuccess
     | ICreateOrderFailed
-    | IAddIngrediemtOrder
-    | IRemoveIngrediemtOrder
-    | IAddIngrediemtBunOrder
-    | ISortIngrediemts
+    | IAddIngredientOrder
+    | IRemoveIngredientOrder
+    | IAddIngredientBunOrder
+    | ISortIngredients
     | IClearIngredients
+
+export const getIngredientsRequest = ():IGetIngredientsRequest => ({type: GET_INGREDIENTS_REQUEST});
+export const getIngredientsSuccess = (ingredients: Array<TItemDataType>):IGetIngredientsSuccess => ({type: GET_INGREDIENTS_SUCCESS, items: ingredients});
+export const getIngredientsFailed = ():IGetIngredientsFailed => ({type: GET_INGREDIENTS_FAILED});
+export const closeModal = ():ICloseModal => ({type: CLOSE_MODAL});
+export const openModal = ():IOpenModal => ({type: OPEN_MODAL});
+export const openIngredientModal = ():IOpenIngredientModal => ({type: OPEN_INGREDIENT_MODAL});
+export const openOrderModal = ():IOpenOrderModal => ({type: OPEN_ORDER_MODAL});
+export const setIngredientInfo = (ingredientData: TItemDataType):ISetIngredientInfo => ({type: SET_INGREDIENT_INFO,
+                                                            item: ingredientData
+                                                        });
+export const setOrderInfo = ():ISetOrderInfo => ({type: SET_ORDER_INFO});
+export const createOrderRequest = ():ICreateOrderRequest => ({type: CREATE_ORDER_REQUEST});
+export const createOrderSuccess = (number: number):ICreateOrderSuccess => ({type: CREATE_ORDER_SUCCESS, item: number});
+export const createOrderFailed = ():ICreateOrderFailed => ({type: CREATE_ORDER_FAILED});
+
+export const addIngredientOrder = (ingredientData: TItemDataType):IAddIngredientOrder => ({type: ADD_INGREDIENT_ORDER, payload: {data: ingredientData}});
+export const removeIngredientOrder = (ingredientsOrder: Array<TItemDataType>):IRemoveIngredientOrder => ({type: REMOVE_INGREDIENT_ORDER, payload: ingredientsOrder});
+export const addIngredientBunOrder = (ingredientData: TItemDataType):IAddIngredientBunOrder => ({type: ADD_INGREDIENT_BUN_ORDER, payload: {data: ingredientData}});
+export const sortIngredients = (dIndex: number, hIndex: number):ISortIngredients => ({type: SORT_INGREDIENTS, payload: {dragIndex: dIndex, hoverIndex: hIndex}});
+export const clearIngredient = ():IClearIngredients => ({type: CLEAR_INGREDIENTS});

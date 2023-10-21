@@ -8,6 +8,7 @@ import {
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import { loginUser, logout, getUserData } from "../../utils/burger-api";
 import { AppDispatch, AppThunk } from "../..";
+import { TUserType } from "../reducers/user";
 
 export const REGISTRATION: "REGISTRATION" = "REGISTRATION";
 export const REGISTRATION_SUCCESS: "REGISTRATION_SUCCESS" = "REGISTRATION_SUCCESS";
@@ -43,6 +44,7 @@ export interface IRegistration {
 }
 export interface IRegistrationSuccess {
   readonly type: typeof REGISTRATION_SUCCESS;
+  payload?: string;
 }
 export interface IRegistrationFailed {
   readonly type: typeof REGISTRATION_FAILED;
@@ -52,6 +54,7 @@ export interface ILogin {
 }
 export interface ILoginSuccess {
   readonly type: typeof LOGIN_SUCCESS;
+  readonly payload?: {name: string, email: string};
 }
 export interface ILoginFailed {
   readonly type: typeof LOGIN_FAILED;
@@ -79,6 +82,8 @@ export interface IGetUserData {
 }
 export interface IGetUserDataSuccess {
   readonly type: typeof GET_USER_DATA_SUCCESS;
+  readonly payload: {name: string, email: string};
+
 }
 export interface IGetUserDataFailed {
   readonly type: typeof GET_USER_DATA_FAILED;
@@ -88,6 +93,8 @@ export interface ISendUserData {
 }
 export interface ISendUserDataSuccess {
   readonly type: typeof SEND_USER_DATA_SUCCESS;
+  readonly payload: {name: string, email: string};
+
 }
 export interface ISendUserDataFailed {
   readonly type: typeof SEND_USER_DATA_FAILED;
@@ -138,15 +145,17 @@ export type TUserActions =
           | IRefreshTokenSuccess
           | IRefreshTokenFailed;
 
-export const registration: AppThunk = (email: string, password: string, name: string) => {
-  return function (dispatch: AppDispatch) {
+export const registrationSuccessAction = (): IRegistrationSuccess => ({type: REGISTRATION_SUCCESS})
+export const loginSuccess = (): ILoginSuccess => ({ type: LOGIN_SUCCESS })
+
+export const registration: AppThunk = (email: string, password: string, name: string) => (dispatch) => {
     dispatch({
       type: REGISTRATION,
     });
 
     registerNewUser(email, name, password)
       .then((res) => {
-        dispatch({ type: REGISTRATION_SUCCESS });
+        dispatch(registrationSuccessAction());
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
         dispatch({ type: LOGIN_SUCCESS, payload: res.user });
@@ -155,18 +164,17 @@ export const registration: AppThunk = (email: string, password: string, name: st
         dispatch({ type: REGISTRATION_FAILED });
         console.log(err);
       });
-  };
-}
+};
 
 export const signIn: AppThunk = (email: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({
       type: LOGIN,
     });
 
     loginUser(email, password)
       .then((res) => {
-        dispatch({ type: LOGIN_SUCCESS });
+        dispatch(loginSuccess());
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
         dispatch({
@@ -182,7 +190,7 @@ export const signIn: AppThunk = (email: string, password: string) => {
 }
 
 export const logOut: AppThunk = (refreshToken: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: LOGOUT });
 
     logout(refreshToken)
@@ -198,8 +206,8 @@ export const logOut: AppThunk = (refreshToken: string) => {
   };
 }
 
-export const getUser: AppThunk = (token: string | undefined) => {
-  return function (dispatch: AppDispatch) {
+export const getUser: AppThunk = (token?: string) => {
+  return function (dispatch) {
     dispatch({ type: LOGIN });
 
     getUserData(token)
@@ -216,7 +224,7 @@ export const getUser: AppThunk = (token: string | undefined) => {
 }
 
 export const forgotPasswords: AppThunk = (email: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: FORGOT_PASSWORD });
 
     forgotPassword(email)
@@ -233,7 +241,7 @@ export const forgotPasswords: AppThunk = (email: string) => {
 }
 
 export const resetPasswords: AppThunk = (password: string, token: string) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch) {
     dispatch({ type: RESET_PASSWORD });
 
     resetPassword(password, token)
@@ -248,8 +256,8 @@ export const resetPasswords: AppThunk = (password: string, token: string) => {
   };
 }
 
-export const updateToken: AppThunk = (token: string | undefined) => {
-  return function (dispatch: AppDispatch) {
+export const updateToken: AppThunk = (token?: string ) => {
+  return function (dispatch) {
     dispatch({ type: REFRESH_TOKEN });
 
     refreshToken(token)
@@ -268,11 +276,11 @@ export const updateToken: AppThunk = (token: string | undefined) => {
   };
 }
 
-export const updateProfile: AppThunk = (token: string | undefined, email: string, name: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+export const sendUserData: AppThunk = (email: string, name: string, password: string, token: string) => 
+  (dispatch) => {
     dispatch({ type: SEND_USER_DATA });
 
-    updateUserData(token, email, name, password)
+    updateUserData(email, name, password, token)
       .then((res) => {
         dispatch({
           type: SEND_USER_DATA_SUCCESS,
@@ -283,15 +291,14 @@ export const updateProfile: AppThunk = (token: string | undefined, email: string
         dispatch({ type: SEND_USER_DATA_FAILED });
         console.log(err);
       });
-  };
-}
+};
 
-export const updateTokenAndProfile: AppThunk = (email: string, name: string, password: string) => {
-  return function (dispatch: AppDispatch) {
+export const updateTokenAndProfile: AppThunk = (
+  email: string, name: string, password: string) => (dispatch) =>{
     getUserData(getCookie("accessToken"))
       .then(() => {
         dispatch(
-          updateProfile(getCookie("accessToken"), email, name, password)
+          sendUserData(email, name, password, getCookie("accessToken"))
         );
       })
       .catch(() => {
@@ -302,12 +309,11 @@ export const updateTokenAndProfile: AppThunk = (email: string, name: string, pas
           })
           .then(() => {
             dispatch(
-              updateProfile(getCookie("accessToken"), email, name, password)
+              sendUserData(email, name, password, getCookie("accessToken"))
             );
           })
           .catch((err) => {
             console.log(err);
           });
       });
-  };
 }

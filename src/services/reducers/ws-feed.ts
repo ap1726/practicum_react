@@ -8,15 +8,7 @@ import {
   TWsActions
   } from "../actions/ws-actions";
   
-  const initialState = {
-    wsConnected: false,
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    error: null,
-  };
-  
-type InitialState = {
+type TWsFeed = {
     wsConnected: boolean,
     orders: Array<TOrderType>,
     total: number,
@@ -24,9 +16,15 @@ type InitialState = {
     error: string | null,
 }
 
+const initialState:TWsFeed = {
+  wsConnected: false,
+  orders: [],
+  total: 0,
+  totalToday: 0,
+  error: null,
+};
 
-
-  export const wsFeedReducer = (state:InitialState = initialState, action: TWsActions) => {
+  export const wsFeedReducer = (state = initialState, action: TWsActions):TWsFeed => {
     switch (action.type) {
       case WS_FEED_CONNECTION_SUCCESS:
         return {

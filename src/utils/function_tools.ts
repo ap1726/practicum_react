@@ -1,8 +1,8 @@
 import { RootState } from "..";
-import { itemType } from "../components/burger-constructor/constructor-item/constructor-item";
+import { TItemDataType } from "../components/ingredient/ingredient";
 import { TOrderType } from "../components/orders/components/order-card/order-card";
-export const getIngredientsByType = (arr: any, type: string) => {
-  return arr.filter((item: itemType) => item.type === type);
+export const getIngredientsByType = (arr: Array<TItemDataType>, type: string) => {
+  return arr.filter((item: TItemDataType) => item.type === type);
 }
 
 // store в следующем спринте

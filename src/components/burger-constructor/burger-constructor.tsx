@@ -11,7 +11,8 @@ import { useDrop } from "react-dnd";
 
 import {
   SORT_INGREDIENTS,
-  OPEN_ORDER_MODAL
+  OPEN_ORDER_MODAL,
+  openOrderModal
         } from "../../services/actions/actions";
 import { 
           getOrderModal,
@@ -23,9 +24,8 @@ import { ConstructorItem }  from './constructor-item/constructor-item';
 
 import { BUN, loginPage } from "../../utils/variables";
 
-import { itemType } from "./constructor-item/constructor-item";
 import { addIngredient, addIngredientBun } from "../../services/reducers/constructor";
-import { IData } from "../ingredient/ingredient";
+import { IData, TItemDataType } from "../ingredient/ingredient";
 
 const BurgerConstructor = () => {
 
@@ -47,7 +47,7 @@ const BurgerConstructor = () => {
   const totalSum = useMemo(
     () =>
       ingredients.reduce(
-        (sum: number, ingredient: itemType) => sum + ingredient.price,
+        (sum: number, ingredient: TItemDataType) => sum + ingredient.price,
         bun?.price ? bun?.price * 2 : 0
       ),
     [ingredients, bun]
@@ -55,14 +55,14 @@ const BurgerConstructor = () => {
 
   const handleSubmitOrderClick = () => {
     !userData && navigate(loginPage);
-    if (userData && ingredients.length !== 0 && bun?._id.length>0) {
+    if (userData && ingredients.length !== 0 && bun && bun?._id.length>0) {
       dispatch(addOrder(orderIngredients));
-      dispatch({ type: OPEN_ORDER_MODAL });
+      dispatch(openOrderModal());
     }
   };
   
   const orderIngredients = useMemo(
-    () => ingredients.map((element: itemType) => element._id).concat(bun?._id),
+    () => ingredients.map((element: TItemDataType) => element._id).concat(bun?bun._id:''),
     [ingredients, bun]
   );
 
@@ -90,7 +90,7 @@ const BurgerConstructor = () => {
           }
       <div className={styles.with_scroll}>
         {ingredients.length>0 ?
-          ingredients.map((item: itemType, index: number)=> item.type !== BUN && 
+          ingredients.map((item: TItemDataType, index: number)=> item.type !== BUN && 
             <div key={'div'+item.uniqueId} className={styles.items+' mb-3'}>
               <ConstructorItem
                   key={'ConstructorItem'+item.uniqueId}
