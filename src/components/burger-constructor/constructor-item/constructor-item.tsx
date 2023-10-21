@@ -19,7 +19,7 @@ export const ConstructorItem: FC<dataType> = ({ item, index, moveListItem }) => 
   const ingredients = useAppSelector(getSelectedIngredients);
 
   const handleDeleteIngredient = (index: number) => {
-    dispatch(deleteIngredientFromOrder(ingredients, index));
+    dispatch(deleteIngredientFromOrder(ingredients, index) as any);
   };
 
   const [, dragRef] = useDrag({

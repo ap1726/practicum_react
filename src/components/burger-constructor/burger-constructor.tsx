@@ -10,9 +10,8 @@ import { addOrder } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 
 import {
-  SORT_INGREDIENTS,
-  OPEN_ORDER_MODAL,
-  openOrderModal
+  openOrderModal,
+  sortIngredients
         } from "../../services/actions/actions";
 import { 
           getOrderModal,
@@ -38,10 +37,7 @@ const BurgerConstructor = () => {
   const navigate = useNavigate();
 
   const moveListItem = (dragIndex: number, hoverIndex: number) => {
-      dispatch({
-        type: SORT_INGREDIENTS,
-        payload: { dragIndex, hoverIndex }
-      });
+      dispatch(sortIngredients(dragIndex, hoverIndex));
     };
 
   const totalSum = useMemo(
@@ -56,7 +52,7 @@ const BurgerConstructor = () => {
   const handleSubmitOrderClick = () => {
     !userData && navigate(loginPage);
     if (userData && ingredients.length !== 0 && bun && bun?._id.length>0) {
-      dispatch(addOrder(orderIngredients));
+      dispatch(addOrder(orderIngredients) as any);
       dispatch(openOrderModal());
     }
   };

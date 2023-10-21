@@ -19,7 +19,8 @@ export const addOrder: AppThunk = (order: IData) => (dispatch) =>{
               }
             })
           .catch( error =>
-              {dispatch(createOrderFailed());}
+              {dispatch(createOrderFailed());
+                console.log(error)}
               );
 };
 

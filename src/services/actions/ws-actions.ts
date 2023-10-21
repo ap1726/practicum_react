@@ -93,3 +93,22 @@ export type TWsActions =
 
 export const wsFeedConnectionStart = (): IWsFeedConectionStart => ({type: WS_FEED_CONNECTION_START})
 export const wsFeedConnectionClosed = (): IWsFeedConectionClosed => ({type: WS_FEED_CONNECTION_CLOSED, wsConnected: false, error: ""})
+export const wsOrdersConnectionStart = (): IWsOrdersConectionStart => ({type: WS_ORDERS_CONNECTION_START})
+export const wsOrdersConnectionClosed = (): IWsOrdersConectionClosed => ({type: WS_ORDERS_CONNECTION_CLOSED})
+export const wsFeedConectionSuccess = (wsConnected: boolean, error: string):IWsFeedConectionSuccess => ({type: WS_FEED_CONNECTION_SUCCESS, wsConnected: wsConnected, error: error})
+export const wsFeedConectionError = (error: string):IWsFeedConectionError => ({type: WS_FEED_CONNECTION_ERROR, payload: error})
+export const wsFeedGetMessage = (orders: Array<TOrderType>, total: number, totalToday: number):IWsFeedGetMessage => ({type: WS_FEED_GET_MESSAGE,
+                                                            payload: {
+                                                            orders: orders,
+                                                            total: total,
+                                                            totalToday: totalToday
+                                                          }})
+export const wsFeedSendMessage = ():IWsFeedSendMessage => ({type: WS_FEED_SEND_MESSAGE})
+export const wsOrdersConectionSuccess = ():IWsOrdersConectionSuccess => ({type: WS_ORDERS_CONNECTION_SUCCESS})
+export const wsOrdersConectionError = (error: string):IWsOrdersConectionError => ({type: WS_ORDERS_CONNECTION_ERROR, payload: error})
+export const wsOrdersGetMessage = (orders: Array<TOrderType>, total: number, totalToday: number):IWsOrdersGetMessage => ({type: WS_ORDERS_GET_MESSAGE,
+                                                              payload: {
+                                                                orders:orders, 
+                                                                total: total,
+                                                                totalToday: totalToday}})
+export const wsOrdersSendMessage = ():IWsOrdersSendMessage => ({type: WS_ORDERS_SEND_MESSAGE})

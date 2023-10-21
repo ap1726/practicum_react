@@ -7,8 +7,7 @@ import {
 } from "../../utils/burger-api";
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookie";
 import { loginUser, logout, getUserData } from "../../utils/burger-api";
-import { AppDispatch, AppThunk } from "../..";
-import { TUserType } from "../reducers/user";
+import { AppThunk } from "../..";
 
 export const REGISTRATION: "REGISTRATION" = "REGISTRATION";
 export const REGISTRATION_SUCCESS: "REGISTRATION_SUCCESS" = "REGISTRATION_SUCCESS";
@@ -34,10 +33,6 @@ export const LOGOUT_FAILED: "LOGOUT_FAILED" = "LOGOUT_FAILED";
 export const REFRESH_TOKEN: "REFRESH_TOKEN" = "REFRESH_TOKEN";
 export const REFRESH_TOKEN_SUCCESS: "REFRESH_TOKEN_SUCCESS" = "REFRESH_TOKEN_SUCCESS";
 export const REFRESH_TOKEN_FAILED: "REFRESH_TOKEN_FAILED" = "REFRESH_TOKEN_FAILED";
-
-export interface IRegistration {
-  readonly type: typeof REGISTRATION;
-}
 
 export interface IRegistration {
   readonly type: typeof REGISTRATION;
@@ -120,7 +115,6 @@ export interface IRefreshTokenFailed {
 
 export type TUserActions = 
           | IRegistration
-          | IRegistration
           | IRegistrationSuccess
           | IRegistrationFailed
           | ILogin
@@ -145,8 +139,31 @@ export type TUserActions =
           | IRefreshTokenSuccess
           | IRefreshTokenFailed;
 
+
+export const registrationAction = ():IRegistration => ({type: REGISTRATION});
 export const registrationSuccessAction = (): IRegistrationSuccess => ({type: REGISTRATION_SUCCESS})
-export const loginSuccess = (): ILoginSuccess => ({ type: LOGIN_SUCCESS })
+export const registrationFailedAction = ():IRegistrationFailed => ({type: REGISTRATION_FAILED});
+export const loginAction = ():ILogin => ({type: LOGIN});
+export const loginSuccessAction = (): ILoginSuccess => ({ type: LOGIN_SUCCESS })
+export const loginFailedAction = ():ILoginFailed => ({type: LOGIN_FAILED});
+export const fogotPasswordAction = ():IFogotPassword => ({type: FORGOT_PASSWORD});
+export const fogotPasswordSuccessAction = ():IFogotPasswordSuccess => ({type: FORGOT_PASSWORD_SUCCESS});
+export const fogotPasswordFailedAction = ():IFogotPasswordFailed => ({type: FORGOT_PASSWORD_FAILED});
+export const resetPasswordAction = ():IResetPassword => ({type: RESET_PASSWORD});
+export const resetPasswordSuccessAction = ():IResetPasswordSuccess => ({type: RESET_PASSWORD_SUCCESS});
+export const resetPasswordFailedAction = ():IResetPasswordFailed => ({type: RESET_PASSWORD_FAILED});
+export const getUserDataAction = ():IGetUserData => ({type: GET_USER_DATA});
+export const getUserDataSuccessAction = (username: string, email: string):IGetUserDataSuccess => ({type: GET_USER_DATA_SUCCESS, payload: {name: username, email: email}});
+export const getUserDataFailedAction = ():IGetUserDataFailed => ({type: GET_USER_DATA_FAILED});
+export const sendUserDataAction = ():ISendUserData => ({type: SEND_USER_DATA});
+export const sendUserDataSuccessAction = (username: string, email: string):ISendUserDataSuccess => ({type: SEND_USER_DATA_SUCCESS, payload: {name: username, email: email}});
+export const sendUserDataFailedAction = ():ISendUserDataFailed => ({type: SEND_USER_DATA_FAILED});
+export const logoutAction = ():ILogout => ({type: LOGOUT});
+export const logoutSuccessAction = ():ILogoutSuccess => ({type: LOGOUT_SUCCESS});
+export const logoutFailedAction = ():ILogoutFailed => ({type: LOGOUT_FAILED});
+export const refreshTokenAction = ():IRefreshToken => ({type: REFRESH_TOKEN});
+export const refreshTokenSuccessAction = ():IRefreshTokenSuccess => ({type: REFRESH_TOKEN_SUCCESS});
+export const refreshTokenFailedAction = ():IRefreshTokenFailed => ({type: REFRESH_TOKEN_FAILED});
 
 export const registration: AppThunk = (email: string, password: string, name: string) => (dispatch) => {
     dispatch({
@@ -161,7 +178,7 @@ export const registration: AppThunk = (email: string, password: string, name: st
         dispatch({ type: LOGIN_SUCCESS, payload: res.user });
       })
       .catch((err) => {
-        dispatch({ type: REGISTRATION_FAILED });
+        dispatch(registrationFailedAction());
         console.log(err);
       });
 };
@@ -174,7 +191,7 @@ export const signIn: AppThunk = (email: string, password: string) => {
 
     loginUser(email, password)
       .then((res) => {
-        dispatch(loginSuccess());
+        dispatch(loginSuccessAction());
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
         dispatch({
@@ -183,7 +200,7 @@ export const signIn: AppThunk = (email: string, password: string) => {
         });
       })
       .catch((err) => {
-        dispatch({ type: LOGIN_FAILED });
+        dispatch(loginFailedAction());
         console.log(err.status);
       });
   };
@@ -197,10 +214,10 @@ export const logOut: AppThunk = (refreshToken: string) => {
       .then(() => {
         deleteCookie("refreshToken");
         deleteCookie("accessToken");
-        dispatch({ type: LOGOUT_SUCCESS });
+        dispatch(logoutSuccessAction());
       })
       .catch((err) => {
-        dispatch({ type: LOGOUT_FAILED });
+        dispatch(logoutFailedAction());
         console.log(err);
       });
   };
@@ -208,14 +225,14 @@ export const logOut: AppThunk = (refreshToken: string) => {
 
 export const getUser: AppThunk = (token?: string) => {
   return function (dispatch) {
-    dispatch({ type: LOGIN });
+    dispatch(loginAction());
 
     getUserData(token)
       .then((res) => {
         dispatch({ type: LOGIN_SUCCESS, payload: res.user });
       })
       .catch((err) => {
-        dispatch({ type: LOGIN_FAILED });
+        dispatch(loginFailedAction());
         console.log(err);
 
         dispatch(updateToken(getCookie("refreshToken")));
@@ -225,16 +242,16 @@ export const getUser: AppThunk = (token?: string) => {
 
 export const forgotPasswords: AppThunk = (email: string) => {
   return function (dispatch) {
-    dispatch({ type: FORGOT_PASSWORD });
+    dispatch(fogotPasswordAction());
 
     forgotPassword(email)
       .then((res) => {
         if (res.success) {
-          dispatch({ type: FORGOT_PASSWORD_SUCCESS });
+          dispatch(fogotPasswordSuccessAction());
         }
       })
       .catch((err) => {
-        dispatch({ type: FORGOT_PASSWORD_FAILED });
+        dispatch(fogotPasswordFailedAction());
         console.log(err);
       });
   };
@@ -242,15 +259,15 @@ export const forgotPasswords: AppThunk = (email: string) => {
 
 export const resetPasswords: AppThunk = (password: string, token: string) => {
   return function (dispatch) {
-    dispatch({ type: RESET_PASSWORD });
+    dispatch(resetPasswordAction());
 
     resetPassword(password, token)
       .then((res) => {
-        dispatch({ type: RESET_PASSWORD_SUCCESS });
+        dispatch(resetPasswordSuccessAction());
         console.log(res);
       })
       .catch((err) => {
-        dispatch({ type: RESET_PASSWORD_FAILED });
+        dispatch(resetPasswordFailedAction());
         console.log(err);
       });
   };
@@ -258,11 +275,11 @@ export const resetPasswords: AppThunk = (password: string, token: string) => {
 
 export const updateToken: AppThunk = (token?: string ) => {
   return function (dispatch) {
-    dispatch({ type: REFRESH_TOKEN });
+    dispatch(refreshTokenAction());
 
     refreshToken(token)
       .then((res) => {
-        dispatch({ type: REFRESH_TOKEN_SUCCESS });
+        dispatch(refreshTokenSuccessAction());
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
       })
@@ -271,14 +288,14 @@ export const updateToken: AppThunk = (token?: string ) => {
       })
       .catch((err) => {
         console.log(err);
-        dispatch({ type: REFRESH_TOKEN_FAILED });
+        dispatch(refreshTokenFailedAction());
       });
   };
 }
 
 export const sendUserData: AppThunk = (email: string, name: string, password: string, token: string) => 
   (dispatch) => {
-    dispatch({ type: SEND_USER_DATA });
+    dispatch(sendUserDataAction());
 
     updateUserData(email, name, password, token)
       .then((res) => {
@@ -288,7 +305,7 @@ export const sendUserData: AppThunk = (email: string, name: string, password: st
         });
       })
       .catch((err) => {
-        dispatch({ type: SEND_USER_DATA_FAILED });
+        dispatch(sendUserDataFailedAction());
         console.log(err);
       });
 };

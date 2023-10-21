@@ -5,11 +5,10 @@ import { useEffect, useMemo } from 'react';
 import OrderPositions from '../../components/order-position-list/order-position';
 import { getData, formatDate } from '../../utils/function_tools';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { WS_ORDERS_CONNECTION_START,
-        WS_FEED_CONNECTION_START,
-        WS_ORDERS_CONNECTION_CLOSED,
-        WS_FEED_CONNECTION_CLOSED, 
-        wsFeedConnectionClosed} from '../../services/actions/ws-actions';
+import {
+        wsFeedConnectionClosed,
+        wsOrdersConnectionStart,
+        wsFeedConnectionStart} from '../../services/actions/ws-actions';
 import { feedPage, ordersPage, profilePage } from '../../utils/variables';
 import { TOrderType } from '../../components/orders/components/order-card/order-card';
 import { TItemDataType } from '../../components/ingredient/ingredient';
@@ -31,34 +30,33 @@ const SingleOrder = () => {
 
 
   const orderIngredientsData = useMemo(() => {
-    return order ? order.ingredients.map((id: string) => {
+    return order.ingredients.map((id: string) => {
       return data.find((item: TItemDataType) => {
         return id === item._id;
       });
-    }) : 0;
+    });
   }, [order,data]);
 
   const orderTotalPrice = useMemo(() => {
-    return order && orderIngredientsData 
-    ? orderIngredientsData.reduce((sum, item) => {
+    return order && orderIngredientsData.reduce((sum, item) => {
       if (item && item.type === "bun") {
         return (sum += item.price * 2);
       }
       return (sum += item ? item.price : 0);
-    }, 0) : 0;
+    }, 0);
   }, [orderIngredientsData, order]);
 
   useEffect(() => {
     if (path?.pathname === isProfileOrders) {
-      dispatch({ type: WS_ORDERS_CONNECTION_START });
+      dispatch(wsOrdersConnectionStart());
     }
     if (path?.pathname === isFeedOrders) {
-      dispatch({ type: WS_FEED_CONNECTION_START });
+      dispatch(wsFeedConnectionStart());
     }
 
     return () => {
       if (path?.pathname === isProfileOrders) {
-        dispatch({ type: WS_ORDERS_CONNECTION_CLOSED });
+        dispatch(wsFeedConnectionClosed());
       }
       if (path?.pathname === isFeedOrders) {
         dispatch(wsFeedConnectionClosed())
@@ -85,7 +83,7 @@ const SingleOrder = () => {
       <p className="text text_type_main-medium mt-15">Состав:</p>
       <div className={`${styles.ingredientsContainer} mt-6 mb-10 pr-6`}>
 
-      <OrderPositions ingredients={orderIngredientsData}/>
+      <OrderPositions ingredients={orderIngredientsData as any}/>
 
       </div>
       <div className={styles.footer}>

@@ -15,8 +15,8 @@ function App() {
   const accessToken = getCookie("accessToken");
 
   useEffect(() => {
-    dispatch(getIngredientsStore());
-      dispatch(getUser(accessToken));
+    dispatch(getIngredientsStore() as any);
+      dispatch(getUser(accessToken) as any);
   }, [dispatch, accessToken]);
 
   return (

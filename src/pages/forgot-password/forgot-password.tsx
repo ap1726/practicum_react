@@ -19,7 +19,7 @@ const ForgotPassword: FC = () => {
 
   const onSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    email && dispatch(forgotPasswords(email));
+    email && dispatch(forgotPasswords(email) as any);
     email && navigate( resetPasswordPage );
     setEmail('');
   }

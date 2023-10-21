@@ -25,7 +25,7 @@ const EditData = () => {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateTokenAndProfile(email, name, password))
+    dispatch(updateTokenAndProfile(email, name, password) as any)
     setIsDataChanged(false)
   }
 

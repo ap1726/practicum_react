@@ -30,7 +30,7 @@ const RegisterPage = () => {
       return;
     }
 
-    dispatch(registration(email, password, name))
+    dispatch(registration(email, password, name) as any)
   }
 
   if (userData) {

@@ -25,7 +25,7 @@ const LoginPage = () => {
     if (!email || !password) {
       return
     }
-    dispatch(signIn(email, password))
+    dispatch(signIn(email, password) as any)
   }
 
   if (userData) {
