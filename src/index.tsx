@@ -4,8 +4,8 @@ import App from "./components/app/app";
 import reportWebVitals from './reportWebVitals';
 import { rootReducer } from "./services/reducers";
 import { Provider } from "react-redux";
-import thunk, { ThunkAction } from "redux-thunk";
-import { compose, createStore, applyMiddleware, Action, ActionCreator } from 'redux';
+import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
+import { compose, createStore, applyMiddleware, ActionCreator, AnyAction } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { wsOrdersUrl, wsUrlAll } from './utils/variables';
 import { WS_FEED_CONNECTION_START,
@@ -59,7 +59,7 @@ const store = createStore(rootReducer, enhancer);
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch & ThunkDispatch<RootState, null, AnyAction>
 export type TApplicationActions = 
         | TWsActions
         | TUserActions
@@ -67,7 +67,7 @@ export type TApplicationActions =
 
 // Типизация thunk'ов в нашем приложении
 export type AppThunk<TReturn = void> = ActionCreator<
-  ThunkAction<TReturn, Action, RootState, TApplicationActions>
+  ThunkAction<TReturn, RootState, null, TApplicationActions>
 >; 
 
 const root = ReactDOM.createRoot(

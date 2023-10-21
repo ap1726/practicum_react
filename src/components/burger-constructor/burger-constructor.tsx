@@ -52,7 +52,7 @@ const BurgerConstructor = () => {
   const handleSubmitOrderClick = () => {
     !userData && navigate(loginPage);
     if (userData && ingredients.length !== 0 && bun && bun?._id.length>0) {
-      dispatch(addOrder(orderIngredients) as any);
+      dispatch(addOrder(orderIngredients));
       dispatch(openOrderModal());
     }
   };

@@ -5,7 +5,6 @@ import { useAppSelector } from "../../../../utils/hooks";
 import { getData } from "../../../../utils/function_tools";
 import { useMemo, FC } from "react";
 import { formatDate } from "../../../../utils/function_tools";
-import { TItemDataType } from "../../../ingredient/ingredient";
 
 export type TOrderType = {
     _id: string,
@@ -39,7 +38,7 @@ const OrderCard: FC<IOrder> = ({ order, viewStatus }) => {
 
   const orderIngredientsData = useMemo(() => {
     return order.ingredients.map((id) => {
-      return ingredients.find((item: any) => {
+      return ingredients.find((item) => {
         return id === item._id;
       });
     });

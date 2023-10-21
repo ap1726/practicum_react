@@ -6,9 +6,10 @@ export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-const request = (endpoint: string, options?: object) => {
+const request = async (endpoint: string, options?: object) => {
   // принимает два аргумента: endpoint и объект опций, как и `fetch`
-  return fetch(NORMA_API+endpoint, options).then(checkResponse)
+  const res = await fetch(NORMA_API + endpoint, options);
+  return checkResponse(res);
 }
 
 export const getIngredients = () => {
