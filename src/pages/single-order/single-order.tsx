@@ -8,7 +8,8 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import {
         wsFeedConnectionClosed,
         wsOrdersConnectionStart,
-        wsFeedConnectionStart} from '../../services/actions/ws-actions';
+        wsFeedConnectionStart,
+        wsOrdersConnectionClosed} from '../../services/actions/ws-actions';
 import { feedPage, ordersPage, profilePage } from '../../utils/variables';
 import { TOrderType } from '../../components/orders/components/order-card/order-card';
 import { TItemDataType } from '../../components/ingredient/ingredient';
@@ -56,7 +57,7 @@ const SingleOrder = () => {
 
     return () => {
       if (path?.pathname === isProfileOrders) {
-        dispatch(wsFeedConnectionClosed());
+        dispatch(wsOrdersConnectionClosed());
       }
       if (path?.pathname === isFeedOrders) {
         dispatch(wsFeedConnectionClosed())
