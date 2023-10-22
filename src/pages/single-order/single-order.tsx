@@ -31,20 +31,21 @@ const SingleOrder = () => {
 
 
   const orderIngredientsData = useMemo(() => {
-    return order.ingredients.map((id: string) => {
+    return order ? order.ingredients.map((id: string) => {
       return data.find((item: TItemDataType) => {
         return id === item._id;
       });
-    });
+    }) : 0;
   }, [order,data]);
 
   const orderTotalPrice = useMemo(() => {
-    return order && orderIngredientsData.reduce((sum, item) => {
+    return order && orderIngredientsData 
+    ? orderIngredientsData.reduce((sum, item) => {
       if (item && item.type === "bun") {
         return (sum += item.price * 2);
       }
       return (sum += item ? item.price : 0);
-    }, 0);
+    }, 0) : 0;
   }, [orderIngredientsData, order]);
 
   useEffect(() => {
