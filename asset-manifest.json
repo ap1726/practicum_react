@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "./practicum_react/static/css/main.2dffc3ee.css",
-    "main.js": "./practicum_react/static/js/main.f3ff3be0.js",
-    "static/js/787.2b4cbca8.chunk.js": "./practicum_react/static/js/787.2b4cbca8.chunk.js",
-    "static/media/JetBrainsMono-Bold.woff": "./practicum_react/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
-    "static/media/JetBrainsMono-Regular.woff": "./practicum_react/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
-    "static/media/done.svg": "./practicum_react/static/media/done.145b40422456e3527f2a0b950ad752f6.svg",
-    "static/media/JetBrainsMono-Bold.woff2": "./practicum_react/static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
-    "static/media/JetBrainsMono-Regular.woff2": "./practicum_react/static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
-    "static/media/iceland.woff": "./practicum_react/static/media/iceland.77ad7fc2baffd9305538.woff",
-    "static/media/iceland.woff2": "./practicum_react/static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
-    "index.html": "./practicum_react/index.html",
-    "main.2dffc3ee.css.map": "./practicum_react/static/css/main.2dffc3ee.css.map",
-    "main.f3ff3be0.js.map": "./practicum_react/static/js/main.f3ff3be0.js.map",
-    "787.2b4cbca8.chunk.js.map": "./practicum_react/static/js/787.2b4cbca8.chunk.js.map"
+    "main.css": "/practicum_react/static/css/main.996e3bcc.css",
+    "main.js": "/practicum_react/static/js/main.c840293b.js",
+    "static/js/787.2b4cbca8.chunk.js": "/practicum_react/static/js/787.2b4cbca8.chunk.js",
+    "static/media/JetBrainsMono-Bold.woff": "/practicum_react/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
+    "static/media/JetBrainsMono-Regular.woff": "/practicum_react/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
+    "static/media/done.svg": "/practicum_react/static/media/done.145b40422456e3527f2a0b950ad752f6.svg",
+    "static/media/JetBrainsMono-Bold.woff2": "/practicum_react/static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
+    "static/media/JetBrainsMono-Regular.woff2": "/practicum_react/static/media/JetBrainsMono-Regular.b60380891bcf2eb241ca.woff2",
+    "static/media/iceland.woff": "/practicum_react/static/media/iceland.77ad7fc2baffd9305538.woff",
+    "static/media/iceland.woff2": "/practicum_react/static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
+    "index.html": "/practicum_react/index.html",
+    "main.996e3bcc.css.map": "/practicum_react/static/css/main.996e3bcc.css.map",
+    "main.c840293b.js.map": "/practicum_react/static/js/main.c840293b.js.map",
+    "787.2b4cbca8.chunk.js.map": "/practicum_react/static/js/787.2b4cbca8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2dffc3ee.css",
-    "static/js/main.f3ff3be0.js"
+    "static/css/main.996e3bcc.css",
+    "static/js/main.c840293b.js"
   ]
 }
