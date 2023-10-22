@@ -5,4 +5,3 @@
 Демо - [stellar-burger.levdev.ru](https://stellar-burger.levdev.ru "Демо")
 
 В разработке...
-
