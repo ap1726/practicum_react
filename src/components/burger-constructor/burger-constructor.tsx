@@ -10,7 +10,8 @@ import { addOrder } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 
 import {
-         actions
+  openOrderModal,
+  sortIngredients
         } from "../../services/actions/actions";
 import { 
           getOrderModal,
@@ -22,7 +23,8 @@ import { ConstructorItem }  from './constructor-item/constructor-item';
 
 import { BUN, loginPage } from "../../utils/variables";
 
-import { itemType } from "./constructor-item/constructor-item";
+import { addIngredient, addIngredientBun } from "../../services/reducers/constructor";
+import { IData, TItemDataType } from "../ingredient/ingredient";
 
 const BurgerConstructor = () => {
 
@@ -35,16 +37,13 @@ const BurgerConstructor = () => {
   const navigate = useNavigate();
 
   const moveListItem = (dragIndex: number, hoverIndex: number) => {
-      dispatch({
-        type: actions.SORT_INGREDIENTS,
-        payload: { dragIndex, hoverIndex }
-      });
+      dispatch(sortIngredients(dragIndex, hoverIndex));
     };
 
   const totalSum = useMemo(
     () =>
       ingredients.reduce(
-        (sum: number, ingredient: itemType) => sum + ingredient.price,
+        (sum: number, ingredient: TItemDataType) => sum + ingredient.price,
         bun?.price ? bun?.price * 2 : 0
       ),
     [ingredients, bun]
@@ -52,27 +51,23 @@ const BurgerConstructor = () => {
 
   const handleSubmitOrderClick = () => {
     !userData && navigate(loginPage);
-    if (userData && ingredients.length !== 0 && bun?._id.length>0) {
-      dispatch(addOrder(orderIngredients) as any);
-      dispatch({ type: actions.OPEN_ORDER_MODAL });
+    if (userData && ingredients.length !== 0 && bun && bun?._id.length>0) {
+      dispatch(addOrder(orderIngredients));
+      dispatch(openOrderModal());
     }
   };
   
   const orderIngredients = useMemo(
-    () => ingredients.map((element: itemType) => element._id).concat(bun?._id),
+    () => ingredients.map((element: TItemDataType) => element._id).concat(bun?bun._id:''),
     [ingredients, bun]
   );
 
   const [ , dropTarget] = useDrop({
     accept: "ingredient",
-    drop(item: any) {
-      dispatch({
-        type:
-          item.data.type === BUN
-            ? actions.ADD_INGREDIENT_BUN_ORDER
-            : actions.ADD_INGREDIENT_ORDER,
-        payload: item,
-      });
+    drop(item: IData) {
+      item.data.type === BUN?
+      dispatch(addIngredientBun(item))
+      :dispatch(addIngredient(item));
     },
   });
 
@@ -91,10 +86,10 @@ const BurgerConstructor = () => {
           }
       <div className={styles.with_scroll}>
         {ingredients.length>0 ?
-          ingredients.map((item: itemType, index: number)=> item.type !== BUN && 
-            <div key={'div'+item._id+index} className={styles.items+' mb-3'}>
+          ingredients.map((item: TItemDataType, index: number)=> item.type !== BUN && 
+            <div key={'div'+item.uniqueId} className={styles.items+' mb-3'}>
               <ConstructorItem
-                  key={'ConstructorItem'+item._id + index}
+                  key={'ConstructorItem'+item.uniqueId}
                   item={item}
                   index={index}
                   moveListItem={moveListItem}

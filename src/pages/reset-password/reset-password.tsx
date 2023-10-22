@@ -27,7 +27,7 @@ const ResetPassword = () => {
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    password && code && dispatch(resetPasswords(password, code) as any);
+    password && code && dispatch(resetPasswords(password, code));
     password && code && navigate(loginPage)
   }
 

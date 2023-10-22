@@ -1,22 +1,32 @@
+import { TItemDataType } from "../../components/ingredient/ingredient";
 import {
-  actions
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_FAILED,
+  TActions
 } from "../actions/actions";
 
-export const initialState = {
+type TIngredients = {
+  ingredients: Array<TItemDataType>,
+  ingredientsRequest: boolean,
+  ingredientsFailed: boolean,
+};
+
+const initialState: TIngredients = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action: any) => {
+export const ingredientsReducer = (state = initialState, action: TActions): TIngredients => {
   switch (action.type) {
-    case actions.GET_INGREDIENTS_REQUEST: {
+    case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
         ingredientsRequest: true,
       };
     }
-    case actions.GET_INGREDIENTS_SUCCESS: {
+    case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
         ingredientsRequest: false,
@@ -24,7 +34,7 @@ export const ingredientsReducer = (state = initialState, action: any) => {
         ingredients: action.items,
       };
     }
-    case actions.GET_INGREDIENTS_FAILED: {
+    case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
         ingredientsRequest: false,

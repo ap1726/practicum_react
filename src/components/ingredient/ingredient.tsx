@@ -6,7 +6,8 @@ import { useMemo, FC } from 'react';
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { getOpenDetails, getIngredients } from "../../utils/function_tools";
 import {
-  actions
+  SET_INGREDIENT_INFO,
+  OPEN_INGREDIENT_MODAL
 } from "../../services/actions/actions";
 
 import { useDrag } from "react-dnd";
@@ -15,10 +16,10 @@ import { BUN, ingredientsPage } from '../../utils/variables'
 
 import { Link, useLocation } from "react-router-dom";
 
-export type itemDataType = {
+export type TItemDataType = {
       _id: string,
+      __v: number,
       name: string,
-      type: string,
       proteins: number,
       fat: number,
       carbohydrates: number,
@@ -27,11 +28,30 @@ export type itemDataType = {
       image: string,
       image_mobile: string,
       image_large: string,
-      __v: number
+      uniqueId?: string,
+      type?: string,
+      index?: number
   }
 
+export const ItemDataInitial: TItemDataType = {
+          _id: "",
+          __v: 0,
+          name: "",
+          proteins: 0,
+          fat: 0,
+          carbohydrates: 0,
+          calories: 0,
+          price: 0,
+          image: "",
+          image_mobile: "",
+          image_large: "",
+          uniqueId: "",
+          type: "",
+          index: 0
+}
+
 export interface IData {
-    data: itemDataType
+    data: TItemDataType
 }
 
 export const Ingedient: FC<IData> = ({data}) => {
@@ -43,17 +63,17 @@ export const Ingedient: FC<IData> = ({data}) => {
 
   const handleClick = () => {
       dispatch({
-        type: actions.SET_INGREDIENT_INFO,
+        type: SET_INGREDIENT_INFO,
         item: data,
       });
-      dispatch({ type: actions.OPEN_INGREDIENT_MODAL });
+      dispatch({ type: OPEN_INGREDIENT_MODAL });
     };
   const count = useMemo(() => {
     let result = null;
     if (data.type === BUN && ingredients.bun?._id === data._id) {
       result = 1;
     } else {
-      result = ingredients.data.filter((item: itemDataType) => item._id === data._id).length;
+      result = ingredients.data.filter((item: TItemDataType) => item._id === data._id).length;
     }
 
     return result;

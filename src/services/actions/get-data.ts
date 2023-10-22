@@ -1,27 +1,23 @@
+import { AppThunk } from "../..";
 import { getIngredients } from "../../utils/burger-api";
 import {
-  actions
+  getIngredientsSuccess,
+  getIngredientsFailed,
+  getIngredientsRequest,
 } from "./actions";
 
-export function getIngredientsStore(): any {
-  return function (dispatch: any) {
-    dispatch({
-      type: actions.GET_INGREDIENTS_REQUEST,
-    });
+export const getIngredientsStore: AppThunk = () => (dispatch) => {
+    dispatch(getIngredientsRequest());
 
     getIngredients()
           .then((result) => {      
               if (result && result.success) {
-                dispatch({
-                  type: actions.GET_INGREDIENTS_SUCCESS,
-                  items: result.data,
-                });
+                dispatch(getIngredientsSuccess(result.data));
               } else {
-                dispatch({ type: actions.GET_INGREDIENTS_FAILED });
+                dispatch(getIngredientsFailed());
               }
             })
           .catch( error =>
-              {dispatch({ type: actions.GET_INGREDIENTS_FAILED });
+              {dispatch(getIngredientsFailed());
             })
-  };
 }

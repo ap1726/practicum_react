@@ -1,14 +1,15 @@
 import { IData } from "../components/ingredient/ingredient";
 
-const NORMA_API = "https://norma.nomoreparties.space/api";
+import { NORMA_API } from "./variables";
 
 export const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-const request = (endpoint: string, options?: object) => {
+const request = async (endpoint: string, options?: object) => {
   // принимает два аргумента: endpoint и объект опций, как и `fetch`
-  return fetch(NORMA_API+endpoint, options).then(checkResponse)
+  const res = await fetch(NORMA_API + endpoint, options);
+  return checkResponse(res);
 }
 
 export const getIngredients = () => {
@@ -16,10 +17,11 @@ export const getIngredients = () => {
 }
 
 // ingredients - массив _id ингредиентов 
-export const setNewOrder = (ingredients: IData) => {
+export const setNewOrder = (ingredients: IData, token?: string) => {
   return request("/orders", {
       headers: {
         "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
       },
         method: "POST",
         body: JSON.stringify({ingredients: ingredients}),
@@ -38,7 +40,7 @@ export const forgotPassword = (email: string) => {
   })
 };
 
-export const resetPassword = (password: string, token: string | undefined) => {
+export const resetPassword = (password: string, token?: string) => {
   return request("/password-reset/reset", {
     method: "POST",
     headers: {
@@ -81,7 +83,7 @@ export const loginUser = (email: string, password: string) => {
 };
 
 //Обновление токена
-export const refreshToken = (refreshToken: string | undefined) => {
+export const refreshToken = (refreshToken?: string) => {
   return request("/auth/token", {
     method: "POST",
     headers: {
@@ -94,7 +96,7 @@ export const refreshToken = (refreshToken: string | undefined) => {
 };
 
 //Выход из системы
-export const logout = (refreshToken: string | undefined) => {
+export const logout = (refreshToken?: string) => {
   return request("/auth/logout", {
     method: "POST",
     headers: {
@@ -107,7 +109,7 @@ export const logout = (refreshToken: string | undefined) => {
 };
 
 //Получение данных о пользователе
-export const getUserData = (token: string | undefined) => {
+export const getUserData = (token?: string) => {
   return request("/auth/user", {
     method: "GET",
     headers: {
@@ -118,7 +120,7 @@ export const getUserData = (token: string | undefined) => {
 };
 
 //Изменение данных о пользователе
-export const updateUserData = (token: string | undefined, email: string, name: string, password: string) => {
+export const updateUserData = (email: string, name: string, password: string, token?: string) => {
   return request("/auth/user", {
     method: "PATCH",
     headers: {

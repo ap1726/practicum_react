@@ -18,33 +18,33 @@ const EditData = () => {
 
   useEffect(()=> {
     if (userData) {
-    setName(userData.name);
-    setEmail(userData.email);
+      userData.name && setName(userData.name);
+      userData.email && setEmail(userData.email);
     }
   },[userData])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(updateTokenAndProfile(email, name, password) as any)
+    dispatch(updateTokenAndProfile(email, name, password))
     setIsDataChanged(false)
   }
 
   const onNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setName(value)
-    value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true)
+    userData && value === userData.name ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     setEmail(value)
-    value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true)
+    userData && value === userData.email ? setIsDataChanged(false) : setIsDataChanged(true)
   }
 
   const onCancelEdit = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
-    setName(userData.name);
-    setEmail(userData.email);
+    userData && userData.name && setName(userData.name);
+    userData && userData.email && setEmail(userData.email);
     setPassword('');
     setIsDataChanged(false)
   }

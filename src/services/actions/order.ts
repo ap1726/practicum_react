@@ -1,36 +1,33 @@
 import {
-  actions
-} from "./actions";
+    createOrderRequest,
+    createOrderFailed,
+    createOrderSuccess,
+    removeIngredientOrder,
+  } from "./actions";
 import { setNewOrder } from "../../utils/burger-api";
+import { AppThunk } from "../..";
+import { getCookie } from "../../utils/cookie";
+import { IData, TItemDataType } from "../../components/ingredient/ingredient";
 
-export function addOrder(order: any) {
-  return function (dispatch: any) {
-    dispatch({
-      type: actions.CREATE_ORDER_REQUEST,
-    });
-
-    setNewOrder(order)
+export const addOrder: AppThunk = (order: IData) => (dispatch) =>{
+    const token = getCookie("accessToken");
+    dispatch(createOrderRequest());
+    setNewOrder(order, token)
           .then((result) => {
               if (result && result.success) {
-                dispatch({
-                  type: actions.CREATE_ORDER_SUCCESS,
-                  item: result.order.number,
-                });
+                dispatch(createOrderSuccess(result.order.number));
               }
             })
           .catch( error =>
-              {dispatch({ type: actions.CREATE_ORDER_FAILED });}
+              {dispatch(createOrderFailed());
+                console.log(error)}
               );
-  };
-}
+};
 
-export function deleteIngredientFromOrder(selectedIngredients: any, index: any) {
-  return function (dispatch: any) {
+export const deleteIngredientFromOrder: AppThunk = (selectedIngredients: Array<TItemDataType>, index: number) => {
+  return function (dispatch) {
     const copyArr = selectedIngredients.slice();
     copyArr.splice(index, 1);
-    dispatch({
-      type: actions.REMOVE_INGREDIENT_ORDER,
-      payload: copyArr,
-    });
+    dispatch(removeIngredientOrder(copyArr));
   };
 }

@@ -6,18 +6,10 @@ import { useRef, FC, Ref } from "react";
 import { deleteIngredientFromOrder } from "../../../services/actions/order";
 
 import { getSelectedIngredients } from "../../../utils/function_tools";
-
-export interface itemType {
-  _id: string,
-  name: string,
-  price: number,
-  image_mobile: string,
-  index?: number,
-  type?: string
-}
+import { TItemDataType } from '../../ingredient/ingredient';
 
 type dataType = {
-  item: itemType,
+  item: TItemDataType,
   index: number,
   moveListItem: Function
 }
@@ -27,7 +19,7 @@ export const ConstructorItem: FC<dataType> = ({ item, index, moveListItem }) => 
   const ingredients = useAppSelector(getSelectedIngredients);
 
   const handleDeleteIngredient = (index: number) => {
-    dispatch(deleteIngredientFromOrder(ingredients, index) as any);
+    dispatch(deleteIngredientFromOrder(ingredients, index));
   };
 
   const [, dragRef] = useDrag({
@@ -37,7 +29,7 @@ export const ConstructorItem: FC<dataType> = ({ item, index, moveListItem }) => 
 
   const [, dropRef] = useDrop({
     accept: "item",
-    hover: (item: itemType, monitor: any) => {
+    hover: (item: TItemDataType, monitor: any) => {
       const dragIndex: number | undefined = item.index;
       const hoverIndex = index;
       const hoverBoundingRect: Ref<HTMLDivElement> | any =ref.current? ref.current.getBoundingClientRect() : null;
