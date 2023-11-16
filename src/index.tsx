@@ -6,7 +6,7 @@ import { rootReducer } from "./services/reducers";
 import { Provider } from "react-redux";
 import thunk, { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { compose, createStore, applyMiddleware, ActionCreator, AnyAction } from 'redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import { wsOrdersUrl, wsUrlAll } from './utils/variables';
 import { WS_FEED_CONNECTION_START,
         WS_FEED_SEND_MESSAGE,
